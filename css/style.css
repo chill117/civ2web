@@ -1,0 +1,21 @@
+body {
+	position: relative;
+	overflow: auto;
+}
+a {
+	text-decoration: none;
+	cursor: pointer;
+}
+a:hover {
+	text-decoration: none;
+}
+img {
+	border: none;
+}
+
+
+
+
+#map {
+	border: 1px solid blue;
+}

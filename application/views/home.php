@@ -1,0 +1,2 @@
+
+	<canvas id="map"></canvas>
