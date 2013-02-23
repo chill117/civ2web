@@ -153,17 +153,17 @@ app.components.assets = function()
 				}
 			};
 
-	function get_asset_source(name)
+	function get_source(name)
 	{
 		return assets[name].imageObj;
 	}
 
-	function get_tile_position(name, type)
+	function get_position(name, type)
 	{
 		return assets[name].key[type] !== undefined ? assets[name].key[type] : null;
 	}
 
-	function get_tile_dimensions(name)
+	function get_dimensions(name)
 	{
 		return assets[name] !== undefined ? assets[name].dimensions : null;
 	}
@@ -209,10 +209,10 @@ app.components.assets = function()
 		load_assets();
 	}
 
-	Interface.get_asset_source 		= get_asset_source;
-	Interface.get_tile_position 	= get_tile_position;
-	Interface.get_tile_dimensions 	= get_tile_dimensions;
-	Interface.callbacks 			= callbacks;
+	Interface.get_source 		= get_source;
+	Interface.get_position 		= get_position;
+	Interface.get_dimensions 	= get_dimensions;
+	Interface.callbacks 		= callbacks;
 
 	return Interface;
 }

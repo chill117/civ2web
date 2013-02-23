@@ -222,121 +222,13 @@ app.components.map_generator = function()
 	function build()
 	{
 		for (var coordinates in tiles)
-		{
-			var tile = tiles[coordinates];
-
-			var position = calculate_tile_position(coordinates);
-
-			/*
-				Place base tile.
-			*/
-			switch (tile.type)
-			{
-				case 'mountains':
-				case 'hills':
-				case 'forest':
-
-					draw_to_tile('terrain', 'grassland', position);
-
-				break;
-			}
-
-			draw_to_tile('terrain', tile.type, position);
-
-			if (tile.resource !== undefined)
-				draw_to_tile('terrain', tile.type + '-resource' + tile.resource, position);
-		}
+			draw_tile(coordinates, tiles[coordinates]);
 
 		draw_shorelines();
 
 		if (debugging)
 		{
-			// Draw (x,y) coordinates over each tile.
-			for (var coordinates in tiles)
-			{
-				var position = calculate_tile_position(coordinates);
-
-				elm.map[0]
-					.getContext('2d')
-						.fillText(
-							'(' + coordinates + ')',
-							position[0] + 18,
-							position[1] + 20
-						);
-			}
-		}
-	}
-
-	/*
-		Draw the appropriate shoreline around every land tile.
-	*/
-	function draw_shorelines()
-	{
-		for (var coordinates in tiles)
-		{
-			var tile = tiles[coordinates];
-
-			// Only ocean tiles.
-			if (tile.type !== 'ocean')
-				continue;
-
-			coordinates = coordinates.split(',');
-
-			var position = calculate_tile_position(coordinates);
-
-			var neighbors = get_neighboring_tiles(coordinates);
-
-			/*
-				Determine what shoreline segment (if any) to place in each quadrant.
-
-				|3 0|
-				|2 1|
-			*/
-			for (var i = 0; i < 4; i++)
-			{
-				var m = i * 2;
-
-				var a = (m > 0 ? m - 1 : neighbors.length - 1);
-				var b = (a < (neighbors.length - 1) ? a + 1 : 0);
-				var c = (b + 1);
-
-				var configuration = get_neighbor_configuration([
-										neighbors[a],
-										neighbors[b],
-										neighbors[c]
-									]);
-
-				// Do we need to draw a shoreline?
-				if (configuration !== 'www')
-				{
-					var x = position[0],
-						y = position[1];
-
-					switch (i)
-					{
-						case 0:
-							x += 16;
-						break;
-
-						case 1:
-							x += 32;
-							y += 8;
-						break;
-
-						case 2:
-							x += 16;
-							y += 16;
-						break;
-
-						case 3:
-							y += 8;
-						break;
-					}
-
-					draw_to_tile('shoreline', configuration + '-' + i, [x, y]);
-				}
-			}
-
+			draw_coordinates();
 		}
 	}
 
@@ -362,7 +254,7 @@ app.components.map_generator = function()
 
 	function tile_type_can_have_resource(type, number)
 	{
-		return app.assets.get_tile_position('terrain', type + '-resource' + number) !== null;
+		return app.assets.get_position('terrain', type + '-resource' + number) !== null;
 	}
 
 	/*
@@ -669,22 +561,136 @@ app.components.map_generator = function()
 				land.pool.push(type);
 	}
 
-	function draw_to_tile(category, type, dest_position)
+	/*
+		Draws text of (x,y) coordinates over each tile.
+	*/
+	function draw_coordinates()
 	{
-		var source 		= app.assets.get_asset_source(category);
-		var context 	= elm.map[0].getContext('2d');
+		// Draw (x,y) coordinates over each tile.
+		for (var coordinates in tiles)
+		{
+			var position = calculate_tile_position(coordinates);
 
-		var src_position 	= app.assets.get_tile_position(category, type);
-		var dimensions 		= app.assets.get_tile_dimensions(category);
+			elm.map[0]
+				.getContext('2d')
+					.fillText(
+						'(' + coordinates + ')',
+						position[0] + 18,
+						position[1] + 20
+					);
+		}
+	}
 
-		var 	src_x = src_position[0],
-				src_y = src_position[1];
+	/*
+		Draw the appropriate shoreline around every land tile.
+	*/
+	function draw_shorelines()
+	{
+		for (var coordinates in tiles)
+		{
+			var tile = tiles[coordinates];
 
-		var 	dest_x = dest_position[0],
-				dest_y = dest_position[1];
+			// Only ocean tiles.
+			if (tile.type !== 'ocean')
+				continue;
 
-		var 	width 	= dimensions[0],
-				height 	= dimensions[1];
+			coordinates = coordinates.split(',');
+
+			var neighbors = get_neighboring_tiles(coordinates);
+
+			/*
+				Determine what shoreline segment (if any) to place in each quadrant.
+
+				|3 0|
+				|2 1|
+			*/
+			for (var quadrant = 0; quadrant < 4; quadrant++)
+			{
+				var m = quadrant * 2;
+
+				var a = (m > 0 ? m - 1 : neighbors.length - 1);
+				var b = (a < (neighbors.length - 1) ? a + 1 : 0);
+				var c = (b + 1);
+
+				var configuration = get_neighbor_configuration([
+										neighbors[a],
+										neighbors[b],
+										neighbors[c]
+									]);
+
+				// Do we need to draw a shoreline?
+				if (configuration !== 'www')
+					draw_to_tile('shoreline', configuration + '-' + quadrant, coordinates, quadrant);
+			}
+
+		}
+	}
+
+	/*
+		Draws a tile, with all of its layers, to the map.
+	*/
+	function draw_tile(coordinates, tile)
+	{
+		/*
+			Place base terrain.
+		*/
+		switch (tile.type)
+		{
+			case 'mountains':
+			case 'hills':
+			case 'forest':
+
+				draw_to_tile('terrain', 'grassland', coordinates);
+
+			break;
+		}
+
+		draw_to_tile('terrain', tile.type, coordinates);
+
+		if (tile.resource !== undefined)
+			draw_to_tile('terrain', tile.type + '-resource' + tile.resource, coordinates);
+	}
+
+	function draw_to_tile(category, type, coordinates, quadrant)
+	{
+		var source 		= app.assets.get_source(category),
+			context 	= elm.map[0].getContext('2d'),
+
+			src_position 	= app.assets.get_position(category, type),
+			dest_position 	= calculate_tile_position(coordinates),
+
+			src_x = src_position[0],
+			src_y = src_position[1],
+
+			dest_x = dest_position[0],
+			dest_y = dest_position[1],
+			
+			dimensions = app.assets.get_dimensions(category),
+
+			width 	= dimensions[0],
+			height 	= dimensions[1];
+
+		if (quadrant !== undefined)
+			switch (quadrant)
+			{
+				case 0:
+					dest_x += 16;
+				break;
+
+				case 1:
+					dest_x += 32;
+					dest_y += 8;
+				break;
+
+				case 2:
+					dest_x += 16;
+					dest_y += 16;
+				break;
+
+				case 3:
+					dest_y += 8;
+				break;
+			}
 
 		context.drawImage(source, src_x, src_y, width, height, dest_x, dest_y, width, height);
 	}
@@ -764,7 +770,7 @@ app.components.map_generator = function()
 
 	function set_tile(coordinates, type)
 	{
-		tiles[coordinates.join(',')] = {'coordinates': coordinates, 'type': type};
+		tiles[coordinates.join(',')] = {'type': type};
 	}
 
 	function set_tile_resource(coordinates, resource)
