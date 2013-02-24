@@ -16,11 +16,6 @@ app.components.map_generator = function()
 				*/
 				'pool' : [],
 
-				/*
-					This is populated with the coordinates of land tiles (as the keys).
-				*/
-				'tiles' : {},
-
 				'base' : {
 					'desert' 		: 6,
 					'plains' 		: 14,
@@ -177,16 +172,18 @@ app.components.map_generator = function()
 				'climate' 		: (STRING) 'arid' or 'normal' or 'wet'
 				'temperature' 	: (STRING) 'cool' or 'temperate' or 'warm'
 				'age' 			: (STRING) '3b' or '4b' or '5b'
-				'num_civs' 		: (INT) Number of Players
+				'num_civs' 		: (INT) Number of Players,
+				'world' 		: (STRING) 'flat' or 'round'
 			*/
 			options = {
 				'width' 		: 40,
-				'height' 		: 40,
+				'height' 		: 30,
 				'land_mass' 	: 'large',
 				'land_form' 	: 'continents',
 				'climate' 		: 'temperate',
 				'temperature' 	: 'warm',
 				'age' 			: '3b',
+				'flat' 			: false,
 				'num_civs' 		: 4,
 			};
 
@@ -196,7 +193,7 @@ app.components.map_generator = function()
 
 		elm.map.attr({
 			'width' 	: 32 * (options.width + 1),
-			'height' 	: 16 * (options.width + 1)
+			'height' 	: 16 * (options.height + 1)
 		});
 	}
 
@@ -221,10 +218,7 @@ app.components.map_generator = function()
 
 	function build()
 	{
-		for (var coordinates in tiles)
-			draw_tile(coordinates, tiles[coordinates]);
-
-		draw_shorelines();
+		draw_tiles();
 
 		if (debugging)
 		{
@@ -252,36 +246,11 @@ app.components.map_generator = function()
 			}*/
 	}
 
-	function tile_type_can_have_resource(type, number)
-	{
-		return app.assets.get_position('terrain', type + '-resource' + number) !== null;
-	}
-
 	/*
 		Place land-masses.
 	*/
 	function _seed_land()
 	{
-		/*
-		// !!! Randomly place land on all tiles.
-		for (var coordinates in tiles)
-		{
-			var tile = tiles[coordinates];
-
-			tile.type = get_random_land_type();
-		}
-
-		return;
-		*/
-
-		/*
-		// !!! Manually place some land tiles.
-		tiles['6,6'].type = get_random_land_type();
-		tiles['10,10'].type = get_random_land_type();
-
-		return;
-		*/
-
 		var land_masses = [];
 
 		var percent_total_land_area = 20/* % of total map area */;
@@ -322,15 +291,9 @@ app.components.map_generator = function()
 					var from_y = n * increment;
 					var to_y = (n + 1) * increment;
 
-					while (true)
-					{
-						var origin = get_random_coordinates(from_x, to_x, from_y, to_y);
+					var range = create_range_of_coordinates(from_x, to_x, from_y, to_y);
 
-						if (is_ocean_tile(origin))
-							break;
-					}
-
-					var land_mass = define_land_mass(origin, target_size);
+					var land_mass = define_land_mass(range, target_size);
 
 					for (var i in land_mass)
 						set_tile(land_mass[i], get_random_land_type());
@@ -343,8 +306,19 @@ app.components.map_generator = function()
 	/*
 		Returns an array of coordinates that define a land mass starting with the origin.
 	*/
-	function define_land_mass(origin, target_size)
+	function define_land_mass(range, target_size)
 	{
+		while (true)
+		{
+			var origin = get_random_coordinates_from_range(range);
+
+			if (
+				is_valid_tile(origin) &&
+				is_ocean_tile(origin)
+			)
+				break;
+		}
+
 		var land_mass = [];
 
 		var ignore 		= {},
@@ -352,6 +326,9 @@ app.components.map_generator = function()
 
 		land_mass.push(origin);
 
+		/*
+			!!! Figure out way to reliably prevent this from looping forever.
+		*/
 		while (object_size(ignore) < target_size)
 		{
 			var add = extend_land_mass(last_added, ignore);
@@ -390,9 +367,9 @@ app.components.map_generator = function()
 				var coordinates = open_ocean_tiles[i];
 
 				// Skip some.
-				if (rand(1, 5) === 1)
+				if (rand(1, 10) === 1)
 				{
-					add_to_ignore.push(coordinates);
+					//add_to_ignore.push(coordinates);
 
 					ignore[coordinates.join(',')] = true;
 
@@ -477,30 +454,6 @@ app.components.map_generator = function()
 	}
 
 	/*
-		Returns a string with the configuration of the given neighbors:
-
-		Examples: 'www', 'llw', 'lwl', etc..
-	*/
-	function get_neighbor_configuration(neighbors)
-	{
-		var configuration = '';
-
-		for (var i in neighbors)
-		{
-			if (
-				neighbors[i] !== null &&
-				is_valid_tile(neighbors[i]) &&
-				is_land_tile(neighbors[i])
-			)
-				configuration += 'l';
-			else
-				configuration += 'w';
-		}
-
-		return configuration;
-	}
-
-	/*
 		\ 6 \ 7 \ 0 \
 		 \ 5 \ X \ 1 \
 		  \ 4 \ 3 \ 2 \
@@ -536,6 +489,50 @@ app.components.map_generator = function()
 		}
 
 		return neighbors;
+	}
+
+	/*
+		!!!
+		
+		Returns a string with the configuration of the given neighbors:
+
+		Examples: 
+	*/
+	function get_neighbor_configuration_for_type(neighbors, type)
+	{
+		var configuration = '';
+
+		return configuration;
+	}
+
+	/*
+		Returns a string with the configuration of the given neighbors:
+
+		Examples: 'www', 'llw', 'lwl', etc..
+	*/
+	function get_neighbor_configuration_for_water_or_land(neighbors)
+	{
+		var configuration = '';
+
+		for (var i in neighbors)
+		{
+			if (
+				neighbors[i] !== null &&
+				is_valid_tile(neighbors[i]) &&
+				is_land_tile(neighbors[i])
+			)
+				configuration += 'l';
+			else
+				configuration += 'w';
+		}
+
+		return configuration;
+	}
+
+	// !!! Get rid of this.
+	function get_neighbor_configuration(neighbors)
+	{
+		return get_neighbor_configuration_for_water_or_land(neighbors);
 	}
 
 	/*
@@ -581,74 +578,101 @@ app.components.map_generator = function()
 		}
 	}
 
-	/*
-		Draw the appropriate shoreline around every land tile.
-	*/
-	function draw_shorelines()
+	function draw_tiles()
 	{
-		for (var coordinates in tiles)
+		/*
+			Left-to-Right along top of X-Axis.
+		*/
+		for (var start_x = 0; start_x < options.width; start_x += 2)
 		{
-			var tile = tiles[coordinates];
+			var x = start_x;
 
-			// Only ocean tiles.
-			if (tile.type !== 'ocean')
-				continue;
+			for (var y = 0; y <= start_x; y++, x--)
+				draw_tile([x, y]);
+		}
 
-			coordinates = coordinates.split(',');
+		var start_x = (options.width % 2 ? options.width : options.width - 1);
 
-			var neighbors = get_neighboring_tiles(coordinates);
+		/*
+			Top-to-Bottom along right-side of Y-Axis.
+		*/
+		for (var start_y = 1; start_y < options.height; start_y += 2)
+		{
+			var y = start_y;
 
-			/*
-				Determine what shoreline segment (if any) to place in each quadrant.
-
-				|3 0|
-				|2 1|
-			*/
-			for (var quadrant = 0; quadrant < 4; quadrant++)
-			{
-				var m = quadrant * 2;
-
-				var a = (m > 0 ? m - 1 : neighbors.length - 1);
-				var b = (a < (neighbors.length - 1) ? a + 1 : 0);
-				var c = (b + 1);
-
-				var configuration = get_neighbor_configuration([
-										neighbors[a],
-										neighbors[b],
-										neighbors[c]
-									]);
-
-				// Do we need to draw a shoreline?
-				if (configuration !== 'www')
-					draw_to_tile('shoreline', configuration + '-' + quadrant, coordinates, quadrant);
-			}
-
+			for (var x = start_x; x >= 0; x--, y++)
+				draw_tile([x, y]);
 		}
 	}
 
-	/*
-		Draws a tile, with all of its layers, to the map.
-	*/
-	function draw_tile(coordinates, tile)
+	function draw_tile(coordinates)
 	{
+		if (!is_valid_tile(coordinates))
+			return;
+
+		var tile = get_tile(coordinates);
+
 		/*
-			Place base terrain.
+			Draw base for certain tile types.
 		*/
 		switch (tile.type)
 		{
+			/*
+				These types have grassland as their base.
+			*/
 			case 'mountains':
 			case 'hills':
 			case 'forest':
-
 				draw_to_tile('terrain', 'grassland', coordinates);
-
 			break;
 		}
 
 		draw_to_tile('terrain', tile.type, coordinates);
 
+		draw_shoreline(coordinates);
+
+		/*
+			Draw its resource if it has one.
+		*/
 		if (tile.resource !== undefined)
 			draw_to_tile('terrain', tile.type + '-resource' + tile.resource, coordinates);
+	}
+
+	/*
+		Draw the appropriate shoreline in the given tile.
+	*/
+	function draw_shoreline(coordinates)
+	{
+		// Only draw shorelines for ocean tiles.
+		if (!is_ocean_tile(coordinates))
+			return;
+
+		var neighbors = get_neighboring_tiles(coordinates);
+
+		/*
+			Determine what shoreline segment (if any) to place in each quadrant.
+
+			|3 0|
+			|2 1|
+		*/
+		for (var quadrant = 0; quadrant < 4; quadrant++)
+		{
+			var m = quadrant * 2;
+
+			var a = (m > 0 ? m - 1 : neighbors.length - 1);
+			var b = (a < (neighbors.length - 1) ? a + 1 : 0);
+			var c = (b + 1);
+
+			var configuration = get_neighbor_configuration([
+									neighbors[a],
+									neighbors[b],
+									neighbors[c]
+								]);
+
+			// Do we need to draw a shoreline?
+			if (configuration !== 'www')
+				draw_to_tile('shoreline', configuration + '-' + quadrant, coordinates, quadrant);
+		}
 	}
 
 	function draw_to_tile(category, type, coordinates, quadrant)
@@ -699,6 +723,11 @@ app.components.map_generator = function()
 	{
 		var range = create_range_of_coordinates(from_x, to_x, from_y, to_y);
 
+		return get_random_coordinates_from_range(range);
+	}
+
+	function get_random_coordinates_from_range(range)
+	{
 		return range[rand(0, range.length - 1)];
 	}
 
@@ -761,11 +790,21 @@ app.components.map_generator = function()
 		return position;
 	}
 
+	function tile_type_can_have_resource(type, number)
+	{
+		return app.assets.get_position('terrain', type + '-resource' + number) !== null;
+	}
+
 	function get_random_land_type()
 	{
 		var index = rand(0, land.pool.length - 1);
 
 		return land.pool[index];
+	}
+
+	function get_tile(coordinates)
+	{
+		return !is_valid_tile(coordinates) ? null : tiles[coordinates.join(',')];
 	}
 
 	function set_tile(coordinates, type)
