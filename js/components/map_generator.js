@@ -9,6 +9,29 @@ app.components.map_generator = function()
 
 			debugging 		= true,
 
+			/*
+				'width' 		: (INT) Number of Tiles on X Axis
+				'height' 		: (INT) Number of Tiles on Y Axis
+				'land_mass' 	: (STRING) 'small' or 'normal' or 'large'
+				'land_form' 	: (STRING) 'archipelago' or 'varied' or 'continents'
+				'climate' 		: (STRING) 'arid' or 'normal' or 'wet'
+				'temperature' 	: (STRING) 'cool' or 'temperate' or 'warm'
+				'age' 			: (STRING) '3b' or '4b' or '5b'
+				'num_civs' 		: (INT) Number of Players,
+				'world' 		: (STRING) 'flat' or 'round'
+			*/
+			options = {
+				'width' 		: 40,
+				'height' 		: 50,
+				'land_mass' 	: 'large',
+				'land_form' 	: 'continents',
+				'climate' 		: 'temperate',
+				'temperature' 	: 'warm',
+				'age' 			: '3b',
+				'flat' 			: false,
+				'num_civs' 		: 4,
+			},
+
 			land = {
 
 				/*
@@ -162,34 +185,13 @@ app.components.map_generator = function()
 
 				}
 
-			},
-
-			/*
-				'width' 		: (INT) Number of Tiles on X Axis
-				'height' 		: (INT) Number of Tiles on Y Axis
-				'land_mass' 	: (STRING) 'small' or 'normal' or 'large'
-				'land_form' 	: (STRING) 'archipelago' or 'varied' or 'continents'
-				'climate' 		: (STRING) 'arid' or 'normal' or 'wet'
-				'temperature' 	: (STRING) 'cool' or 'temperate' or 'warm'
-				'age' 			: (STRING) '3b' or '4b' or '5b'
-				'num_civs' 		: (INT) Number of Players,
-				'world' 		: (STRING) 'flat' or 'round'
-			*/
-			options = {
-				'width' 		: 40,
-				'height' 		: 30,
-				'land_mass' 	: 'large',
-				'land_form' 	: 'continents',
-				'climate' 		: 'temperate',
-				'temperature' 	: 'warm',
-				'age' 			: '3b',
-				'flat' 			: false,
-				'num_civs' 		: 4,
 			};
 
 	function init()
 	{
 		define_elements();
+
+		options.width = options.width * 2;
 
 		elm.map.attr({
 			'width' 	: 32 * (options.width + 1),
@@ -203,20 +205,21 @@ app.components.map_generator = function()
 	}
 
 	/*
-		Randomly generate a playable map.
+		Randomly seeds a playable map.
 	*/
-	function generate()
+	function seed()
 	{
 		prepare_land_pool();
 
-		_seed_base();
-		_seed_land();
-		_seed_resources();
-
-		build();
+		seed_base();
+		seed_land_masses();
+		seed_resources();
 	}
 
-	function build()
+	/*
+		Draws a map.
+	*/
+	function draw()
 	{
 		draw_tiles();
 
@@ -226,9 +229,7 @@ app.components.map_generator = function()
 		}
 	}
 
-	/*
-	*/
-	function _seed_resources()
+	function seed_resources()
 	{
 		/*for (var y = 1; y < options.height; y += 2)
 			for (var x = 3; x < options.width; x += 16)
@@ -246,10 +247,7 @@ app.components.map_generator = function()
 			}*/
 	}
 
-	/*
-		Place land-masses.
-	*/
-	function _seed_land()
+	function seed_land_masses()
 	{
 		var land_masses = [];
 
@@ -366,16 +364,6 @@ app.components.map_generator = function()
 			{
 				var coordinates = open_ocean_tiles[i];
 
-				// Skip some.
-				if (rand(1, 10) === 1)
-				{
-					//add_to_ignore.push(coordinates);
-
-					ignore[coordinates.join(',')] = true;
-
-					continue;
-				}
-
 				if (ignore[coordinates.join(',')] !== true)
 				{
 					add_to_land_mass.push(coordinates);
@@ -393,7 +381,7 @@ app.components.map_generator = function()
 	/*
 		Defines all tiles with the default tile type.
 	*/
-	function _seed_base()
+	function seed_base()
 	{
 		var range = create_range_of_coordinates(0, options.width, 0, options.height);
 
@@ -631,11 +619,29 @@ app.components.map_generator = function()
 
 		draw_shoreline(coordinates);
 
+		dither_tile(coordinates);
+
 		/*
 			Draw its resource if it has one.
 		*/
 		if (tile.resource !== undefined)
 			draw_to_tile('terrain', tile.type + '-resource' + tile.resource, coordinates);
+	}
+
+	/*
+		Dithering adds "noise" to the edges of a tile.
+	*/
+	function dither_tile(coordinates)
+	{
+		// Don't dither ocean tiles.
+		if (is_ocean_tile(coordinates))
+			return;
+
+		var neighbors = get_neighboring_tiles(coordinates);
+
+		/*
+			Exchange some pixels with Neighbor 1 and Neighbor 7
+		*/
 	}
 
 	/*
@@ -834,7 +840,8 @@ app.components.map_generator = function()
 
 	callbacks['assets:loaded'] = function()
 	{
-		generate();
+		seed();
+		draw();
 	}
 
 	Interface.init 			= init;
