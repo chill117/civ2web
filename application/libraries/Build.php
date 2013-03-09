@@ -8,6 +8,7 @@ class Build
 								'components/request.js',
 								'components/assets.js',
 								'components/map.js',
+								'helpers/map.js',
 								'helpers/map_generator.js',
 							);
 

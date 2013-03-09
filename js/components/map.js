@@ -9,8 +9,20 @@ app.components.map = function()
 	var 	Interface 	= {},
 			callbacks 	= {},
 			elm 		= {},
-			tiles,
+
+			/*
+				Holds an instance of the map helper object.
+			*/
+			map,
+
+			/*
+				The width of the map (# of tiles)
+			*/
 			width,
+
+			/*
+				The height of the map (# of tiles)
+			*/
 			height;
 
 	function init()
@@ -41,9 +53,9 @@ app.components.map = function()
 	function draw_coordinates()
 	{
 		// Draw (x,y) coordinates over each tile.
-		for (var coordinates in tiles)
+		for (var coordinates in map.get_all_tiles())
 		{
-			var position = calculate_tile_position(coordinates);
+			var position = map.calculate_tile_position(coordinates);
 
 			elm.map[0]
 				.getContext('2d')
@@ -84,10 +96,10 @@ app.components.map = function()
 
 	function draw_tile(coordinates)
 	{
-		if (!coordinates_are_valid(coordinates))
-			return;
+		var tile = map.get_tile(coordinates);
 
-		var tile = get_tile(coordinates);
+		if (tile === null)
+			return;
 
 		/*
 			Draw base for certain tile types.
@@ -123,10 +135,10 @@ app.components.map = function()
 	function dither_tile(coordinates)
 	{
 		// Don't dither ocean tiles.
-		if (is_ocean_tile(coordinates))
+		if (map.is_ocean_tile(coordinates))
 			return;
 
-		var neighbors = get_neighboring_coordinates(coordinates);
+		var neighbors = map.get_neighboring_coordinates(coordinates);
 
 		/*
 			Exchange some pixels with Neighbor 1 and Neighbor 7
@@ -139,10 +151,10 @@ app.components.map = function()
 	function draw_shoreline(coordinates)
 	{
 		// Only draw shorelines for ocean tiles.
-		if (!is_ocean_tile(coordinates))
+		if (!map.is_ocean_tile(coordinates))
 			return;
 
-		var neighbors = get_neighboring_coordinates(coordinates);
+		var neighbors = map.get_neighboring_coordinates(coordinates);
 
 		/*
 			Determine what shoreline segment (if any) to place in each quadrant.
@@ -158,11 +170,20 @@ app.components.map = function()
 			var b = (a < (neighbors.length - 1) ? a + 1 : 0);
 			var c = (b + 1);
 
-			var configuration = get_neighbor_configuration_for_water_or_land([
-									neighbors[a],
-									neighbors[b],
-									neighbors[c]
-								]);
+			var configuration = '';
+
+			var _neighbors = [neighbors[a], neighbors[b], neighbors[c]];
+
+			for (var i in _neighbors)
+			{
+				if (
+					_neighbors[i] !== null &&
+					map.is_land_tile(_neighbors[i])
+				)
+					configuration += 'l';
+				else
+					configuration += 'w';
+			}
 
 			// Do we need to draw a shoreline?
 			if (configuration !== 'www')
@@ -176,7 +197,7 @@ app.components.map = function()
 			context 	= elm.map[0].getContext('2d'),
 
 			src_position 	= app.assets.get_position(category, type),
-			dest_position 	= calculate_tile_position(coordinates),
+			dest_position 	= map.calculate_tile_position(coordinates),
 
 			src_x = src_position[0],
 			src_y = src_position[1],
@@ -214,156 +235,6 @@ app.components.map = function()
 		context.drawImage(source, src_x, src_y, width, height, dest_x, dest_y, width, height);
 	}
 
-	/*
-		Returns array of coordinates of neighboring tiles
-		that are ocean and do not border land.
-	*/
-	function get_neighboring_open_ocean_tiles(origin, adjacent_only)
-	{
-		var open_ocean_neighbors = [];
-
-		var ocean_neighbors = get_neighboring_ocean_tiles(origin, adjacent_only);
-
-		for (var m in ocean_neighbors)
-		{
-			var neighbors = get_neighboring_coordinates(ocean_neighbors[m], true);
-
-			var borders_land = false;
-
-			for (var i in neighbors)
-				if (
-					neighbors[i] !== null &&
-					is_land_tile(neighbors[i])
-				)
-					borders_land = true;
-
-			if (!borders_land)
-				open_ocean_neighbors.push(ocean_neighbors[m]);
-		}
-
-		return open_ocean_neighbors;
-	}
-
-	/*
-		Returns array of coordinates of neighboring tiles that are ocean.
-	*/
-	function get_neighboring_ocean_tiles(origin, adjacent_only)
-	{
-		var neighbors = get_neighboring_coordinates(origin, adjacent_only);
-
-		var ocean_neighbors = [];
-
-		// Find all the neighbors that are ocean tiles.
-		for (var i in neighbors)
-			if (
-				neighbors[i] !== null &&
-				is_ocean_tile(neighbors[i])
-			)
-				ocean_neighbors.push(neighbors[i]);
-
-		return ocean_neighbors;
-	}
-
-	/*
-		\ 6 \ 7 \ 0 \
-		 \ 5 \ X \ 1 \
-		  \ 4 \ 3 \ 2 \
-	*/
-	function get_neighboring_coordinates(coordinates, adjacent_only)
-	{
-		var neighbors = [];
-
-		var x = parseInt(coordinates[0]),
-			y = parseInt(coordinates[1]);
-
-		if (adjacent_only !== true)
-		{
-			neighbors.push([ 	x 		, 	y - 2 	]);// 0
-			neighbors.push([ 	x + 1 	, 	y - 1 	]);// 1
-			neighbors.push([ 	x + 2 	, 	y 		]);// 2
-			neighbors.push([ 	x + 1 	, 	y + 1 	]);// 3
-			neighbors.push([ 	x 		, 	y + 2 	]);// 4
-			neighbors.push([ 	x - 1 	, 	y + 1 	]);// 5
-			neighbors.push([ 	x - 2 	, 	y 		]);// 6
-			neighbors.push([ 	x - 1 	, 	y - 1 	]);// 7
-		}
-		else
-		{
-			neighbors.push(null);// 0
-			neighbors.push([ 	x + 1 	, 	y - 1 	]);// 1
-			neighbors.push(null);// 2
-			neighbors.push([ 	x + 1 	, 	y + 1 	]);// 3
-			neighbors.push(null);// 4
-			neighbors.push([ 	x - 1 	, 	y + 1 	]);// 5
-			neighbors.push(null);// 6
-			neighbors.push([ 	x - 1 	, 	y - 1 	]);// 7
-		}
-
-		return neighbors;
-	}
-
-	/*
-		Returns a string with the configuration of the given neighbors:
-
-		Examples: 'www', 'llw', 'lwl', etc..
-	*/
-	function get_neighbor_configuration_for_water_or_land(neighbors)
-	{
-		var configuration = '';
-
-		for (var i in neighbors)
-		{
-			if (
-				neighbors[i] !== null &&
-				is_land_tile(neighbors[i])
-			)
-				configuration += 'l';
-			else
-				configuration += 'w';
-		}
-
-		return configuration;
-	}
-
-	function calculate_tile_position(coordinates)
-	{
-		var position = [0, 0];
-
-		if (typeof coordinates === 'string')
-			coordinates = coordinates.split(',');
-
-		position[0] += parseInt(coordinates[0]) * 32;
-		position[1] += parseInt(coordinates[1]) * 16;
-
-		return position;
-	}
-
-	function is_ocean_tile(coordinates)
-	{
-		var tile = get_tile(coordinates);
-
-		return 	tile !== null &&
-				tile.type === 'ocean';
-	}
-
-	function is_land_tile(coordinates)
-	{
-		var tile = get_tile(coordinates);
-
-		return 	tile !== null &&
-				tile.type !== 'ocean';
-	}
-
-	function get_tile(coordinates)
-	{
-		return !coordinates_are_valid(coordinates) ? null : tiles[coordinates.join(',')];
-	}
-
-	function coordinates_are_valid(coordinates)
-	{
-		return tiles[coordinates.join(',')] !== undefined;
-	}
-
 	callbacks['assets:loaded'] = function()
 	{
 		var options = {
@@ -388,16 +259,17 @@ app.components.map = function()
 
 		var map_generator = app.helpers.map_generator(options, function() {
 
-			tiles = map_generator.seed();
+			var tiles = map_generator.seed();
+
+			map = app.helpers.map(tiles);
 
 			draw();
 
 		});
 	}
 
-	Interface.init 							= init;
-	Interface.callbacks 					= callbacks;
-	Interface.get_neighboring_coordinates 	= get_neighboring_coordinates;
+	Interface.init 			= init;
+	Interface.callbacks 	= callbacks;
 
 	return Interface;
 }

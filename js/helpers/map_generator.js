@@ -1,19 +1,22 @@
 app.helpers.map_generator = function(options, init_callback)
 {
 	"use strict";
+
+	/*
+		!!! DESCRIPTION
+	*/
 	
 	var 	Interface 	= {},
-			tiles 		= {},
+
+			/*
+				Holds an instance of the map helper object.
+			*/
+			map,
 
 			/*
 				Holds full range of coordinates during seeding process.
 			*/
 			full_range 			= [],
-
-			/*
-				Holds full range of coordinates where the coordinates are the keys.
-			*/
-			full_range_object 	= {},
 
 			/*
 				This is the seed pool from which land types are randomly selected.
@@ -45,11 +48,27 @@ app.helpers.map_generator = function(options, init_callback)
 
 			prepare_range_of_coordinates();
 
+			prepare_map_object();
+
 			prepare_seed_pool();
 
 			init_callback();
 
 		});
+	}
+
+	function prepare_map_object()
+	{
+		var tiles = {};
+
+		for (var i in full_range)
+		{
+			var coordinates = full_range[i];
+
+			tiles[coordinates.join(',')] = {};
+		}
+
+		map = app.helpers.map(tiles);
 	}
 
 	/*
@@ -75,13 +94,6 @@ app.helpers.map_generator = function(options, init_callback)
 	function prepare_range_of_coordinates()
 	{
 		full_range = create_range_of_coordinates(0, options.width, 0, options.height);
-
-		for (var i in full_range)
-		{
-			var coordinates = full_range[i];
-
-			full_range_object[coordinates.join(',')] = true;
-		}
 	}
 
 	/*
@@ -116,7 +128,7 @@ app.helpers.map_generator = function(options, init_callback)
 		seed_land_masses();
 		seed_resources();
 
-		return tiles;
+		return map.get_all_tiles();
 	}
 
 	function seed_resources()
@@ -184,7 +196,7 @@ app.helpers.map_generator = function(options, init_callback)
 					var land_mass = define_land_mass(range, target_size);
 
 					for (var i in land_mass)
-						set_tile(land_mass[i], get_random_land_type());
+						map.set_tile_type(land_mass[i], get_random_land_type());
 				}
 
 			break;
@@ -200,7 +212,7 @@ app.helpers.map_generator = function(options, init_callback)
 		{
 			var origin = get_random_coordinates_from_range(range);
 
-			if (is_ocean_tile(origin))
+			if (map.is_ocean_tile(origin))
 				break;
 		}
 
@@ -245,7 +257,7 @@ app.helpers.map_generator = function(options, init_callback)
 		{
 			var start = last_added[m];
 
-			var open_ocean_tiles = get_neighboring_open_ocean_tiles(start, true);
+			var open_ocean_tiles = map.get_neighboring_open_ocean_tiles(start, true);
 
 			for (var i in randomize_array(open_ocean_tiles))
 			{
@@ -271,7 +283,7 @@ app.helpers.map_generator = function(options, init_callback)
 	function seed_base()
 	{
 		for (var i in full_range)
-			set_tile(full_range[i], 'ocean');
+			map.set_tile_type(full_range[i], 'ocean');
 	}
 
 	function get_random_coordinates(from_x, to_x, from_y, to_y)
@@ -337,101 +349,11 @@ app.helpers.map_generator = function(options, init_callback)
 		return app.assets.get_position('terrain', type + '-resource' + number) !== null;
 	}
 
-	/*
-		!!! Duplicate code; also in components/map.js
-
-		Returns array of coordinates of neighboring tiles
-		that are ocean and do not border land.
-	*/
-	function get_neighboring_open_ocean_tiles(origin, adjacent_only)
-	{
-		var open_ocean_neighbors = [];
-
-		var ocean_neighbors = get_neighboring_ocean_tiles(origin, adjacent_only);
-
-		for (var m in ocean_neighbors)
-		{
-			var neighbors = app.map.get_neighboring_coordinates(ocean_neighbors[m], true);
-
-			var borders_land = false;
-
-			for (var i in neighbors)
-				if (
-					neighbors[i] !== null &&
-					is_land_tile(neighbors[i])
-				)
-					borders_land = true;
-
-			if (!borders_land)
-				open_ocean_neighbors.push(ocean_neighbors[m]);
-		}
-
-		return open_ocean_neighbors;
-	}
-
-	/*
-		!!! Duplicate code; also in components/map.js
-
-		Returns array of coordinates of neighboring tiles that are ocean.
-	*/
-	function get_neighboring_ocean_tiles(origin, adjacent_only)
-	{
-		var neighbors = app.map.get_neighboring_coordinates(origin, adjacent_only);
-
-		var ocean_neighbors = [];
-
-		// Find all the neighbors that are ocean tiles.
-		for (var i in neighbors)
-			if (
-				neighbors[i] !== null &&
-				is_ocean_tile(neighbors[i])
-			)
-				ocean_neighbors.push(neighbors[i]);
-
-		return ocean_neighbors;
-	}
-
 	function get_random_land_type()
 	{
 		var index = rand(0, seed_pool.length - 1);
 
 		return seed_pool[index];
-	}
-
-	function set_tile(coordinates, type)
-	{
-		tiles[coordinates.join(',')] = {'type': type};
-	}
-
-	function set_tile_resource(coordinates, resource)
-	{
-		tiles[coordinates.join(',')].resource = resource;
-	}
-
-	function is_ocean_tile(coordinates)
-	{
-		var tile = get_tile(coordinates);
-
-		return 	tile !== null &&
-				tile.type === 'ocean';
-	}
-
-	function is_land_tile(coordinates)
-	{
-		var tile = get_tile(coordinates);
-
-		return 	tile !== null &&
-				tile.type !== 'ocean';
-	}
-
-	function get_tile(coordinates)
-	{
-		return !coordinates_are_valid(coordinates) ? null : tiles[coordinates.join(',')];
-	}
-
-	function coordinates_are_valid(coordinates)
-	{
-		return full_range_object[coordinates.join(',')] === true;
 	}
 
 	init();
