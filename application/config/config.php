@@ -14,7 +14,20 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+switch (ENVIRONMENT)
+{
+	case 'development':
+		$config['base_url']	= 'http://civ2.dev/';
+	break;
+
+	case 'testing':
+		$config['base_url']	= 'http://dev.civ2web.com';
+	break;
+
+	case 'production':
+		$config['base_url']	= 'http://civ2web.com';
+	break;
+}
 
 /*
 |--------------------------------------------------------------------------

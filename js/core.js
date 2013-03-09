@@ -1,3 +1,9 @@
+/*
+	This file contains the application core component.
+
+	It initializes all available components when the document is ready.
+*/
+
 $(document).ready(function() {
 
 	app.core = new app.core();
@@ -35,7 +41,10 @@ if ( ! window.console ) console = { log: function(){} };
 
 var app = {};
 
+app.debugging = true;
+
 app.components = {};
+app.helpers = {};
 
 app.core = function()
 {
@@ -48,6 +57,9 @@ app.core = function()
 		trigger('app:ready');
 	}
 
+	/*
+		Executes the callbacks for all initalized components.
+	*/
 	function trigger(name, args)
 	{
 		if (args === undefined || args === null)

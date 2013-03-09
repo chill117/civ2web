@@ -7,7 +7,8 @@ class Build
 								'core.js',
 								'components/request.js',
 								'components/assets.js',
-								'components/map_generator.js',
+								'components/map.js',
+								'helpers/map_generator.js',
 							);
 
 	protected $css_files = 	array(

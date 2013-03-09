@@ -1,0 +1,146 @@
+{
+	"base" : {
+		"desert" 		: 6,
+		"plains" 		: 14,
+		"grassland" 	: 16,
+		"tundra" 		: 6,
+		"glacier" 		: 4,
+		"hills" 		: 12,
+		"mountains" 	: 8,
+		"forest" 		: 12,
+		"swamp" 		: 6,
+		"jungle" 		: 6
+	},
+
+	"multipliers" : {
+
+		"climate" : {
+
+			"arid" : {
+				"desert" 		: 2,
+				"plains" 		: 1.5,
+				"grassland" 	: 0.75,
+				"tundra" 		: 1.25,
+				"glacier" 		: 1,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 0.75,
+				"swamp" 		: 0.05,
+				"jungle" 		: 0.05
+			},
+
+			"normal" : {
+				"desert" 		: 1,
+				"plains" 		: 1,
+				"grassland" 	: 1,
+				"tundra" 		: 1,
+				"glacier" 		: 1,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 1,
+				"swamp" 		: 1,
+				"jungle" 		: 1
+			},
+
+			"wet" : {
+				"desert" 		: 0.05,
+				"plains" 		: 0.75,
+				"grassland" 	: 1.5,
+				"tundra" 		: 0.5,
+				"glacier" 		: 1,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 1.5,
+				"swamp" 		: 2,
+				"jungle" 		: 2
+			}
+
+		},
+
+		"temperature" : {
+
+			"cool" : {
+				"desert" 		: 0.5,
+				"plains" 		: 0.75,
+				"grassland" 	: 0.75,
+				"tundra" 		: 1.75,
+				"glacier" 		: 2,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 0.75,
+				"swamp" 		: 0.25,
+				"jungle" 		: 0.25
+			},
+
+			"temperate" : {
+				"desert" 		: 1,
+				"plains" 		: 1,
+				"grassland" 	: 1,
+				"tundra" 		: 1,
+				"glacier" 		: 1,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 1,
+				"swamp" 		: 1,
+				"jungle" 		: 1
+			},
+
+			"warm" : {
+				"desert" 		: 1.5,
+				"plains" 		: 1.25,
+				"grassland" 	: 1.25,
+				"tundra" 		: 0.25,
+				"glacier" 		: 0.05,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 1.25,
+				"swamp" 		: 1.75,
+				"jungle" 		: 1.75
+			}
+
+		},
+
+		"age" : {
+
+			"3b" : {
+				"desert" 		: 1,
+				"plains" 		: 1,
+				"grassland" 	: 1,
+				"tundra" 		: 1,
+				"glacier" 		: 1,
+				"hills" 		: 0.25,
+				"mountains" 	: 1.75,
+				"forest" 		: 1,
+				"swamp" 		: 1,
+				"jungle" 		: 1
+			},
+
+			"4b" : {
+				"desert" 		: 1,
+				"plains" 		: 1,
+				"grassland" 	: 1,
+				"tundra" 		: 1,
+				"glacier" 		: 1,
+				"hills" 		: 1,
+				"mountains" 	: 1,
+				"forest" 		: 1,
+				"swamp" 		: 1,
+				"jungle" 		: 1
+			},
+
+			"5b" : {
+				"desert" 		: 1,
+				"plains" 		: 1,
+				"grassland" 	: 1,
+				"tundra" 		: 1,
+				"glacier" 		: 1,
+				"hills" 		: 1.75,
+				"mountains" 	: 0.25,
+				"forest" 		: 1,
+				"swamp" 		: 1,
+				"jungle" 		: 1
+			}
+
+		}
+	}
+}
