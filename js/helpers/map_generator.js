@@ -6,18 +6,46 @@ app.helpers.map_generator = function(options, init_callback)
 			tiles 		= {},
 
 			/*
+				Holds full range of coordinates during seeding process.
+			*/
+			full_range 			= [],
+
+			/*
+				Holds full range of coordinates where the coordinates are the keys.
+			*/
+			full_range_object 	= {},
+
+			/*
 				This is the seed pool from which land types are randomly selected.
 			*/
 			seed_pool = [],
 
 			seed_rules;
 
+	/*
+		options = {
+			'width' 		: (INT) Number of Tiles on X Axis
+			'height' 		: (INT) Number of Tiles on Y Axis
+			'land_mass' 	: (STRING) 'small' or 'normal' or 'large'
+			'land_form' 	: (STRING) 'archipelago' or 'varied' or 'continents'
+			'climate' 		: (STRING) 'arid' or 'normal' or 'wet'
+			'temperature' 	: (STRING) 'cool' or 'temperate' or 'warm'
+			'age' 			: (STRING) '3b' or '4b' or '5b'
+			'num_civs' 		: (INT) Number of Players,
+			'world' 		: (STRING) 'flat' or 'round'
+		}
+	*/
 
+	/*
+		This is executed when this helper class is instantiated.
+	*/
 	function init()
 	{
 		get_seed_rules(function() {
 
-			prepare_land_pool();
+			prepare_range_of_coordinates();
+
+			prepare_seed_pool();
 
 			init_callback();
 
@@ -42,9 +70,24 @@ app.helpers.map_generator = function(options, init_callback)
 	}
 
 	/*
-		Builds array of base land types based on current options.
+		Prepares the range of coordinates used during the seeding process.
 	*/
-	function prepare_land_pool()
+	function prepare_range_of_coordinates()
+	{
+		full_range = create_range_of_coordinates(0, options.width, 0, options.height);
+
+		for (var i in full_range)
+		{
+			var coordinates = full_range[i];
+
+			full_range_object[coordinates.join(',')] = true;
+		}
+	}
+
+	/*
+		Builds the seed pool array based on the seed rules.
+	*/
+	function prepare_seed_pool()
 	{
 		var weights = {};
 
@@ -66,18 +109,6 @@ app.helpers.map_generator = function(options, init_callback)
 
 	/*
 		Randomly seeds a playable map.
-
-		options = {
-			'width' 		: (INT) Number of Tiles on X Axis
-			'height' 		: (INT) Number of Tiles on Y Axis
-			'land_mass' 	: (STRING) 'small' or 'normal' or 'large'
-			'land_form' 	: (STRING) 'archipelago' or 'varied' or 'continents'
-			'climate' 		: (STRING) 'arid' or 'normal' or 'wet'
-			'temperature' 	: (STRING) 'cool' or 'temperate' or 'warm'
-			'age' 			: (STRING) '3b' or '4b' or '5b'
-			'num_civs' 		: (INT) Number of Players,
-			'world' 		: (STRING) 'flat' or 'round'
-		}
 	*/
 	function seed()
 	{
@@ -169,10 +200,7 @@ app.helpers.map_generator = function(options, init_callback)
 		{
 			var origin = get_random_coordinates_from_range(range);
 
-			if (
-				is_valid_tile(origin) &&
-				is_ocean_tile(origin)
-			)
+			if (is_ocean_tile(origin))
 				break;
 		}
 
@@ -242,10 +270,8 @@ app.helpers.map_generator = function(options, init_callback)
 	*/
 	function seed_base()
 	{
-		var range = create_range_of_coordinates(0, options.width, 0, options.height);
-
-		for (var i in range)
-			set_tile(range[i], 'ocean');
+		for (var i in full_range)
+			set_tile(full_range[i], 'ocean');
 	}
 
 	function get_random_coordinates(from_x, to_x, from_y, to_y)
@@ -332,7 +358,6 @@ app.helpers.map_generator = function(options, init_callback)
 			for (var i in neighbors)
 				if (
 					neighbors[i] !== null &&
-					is_valid_tile(neighbors[i]) &&
 					is_land_tile(neighbors[i])
 				)
 					borders_land = true;
@@ -359,7 +384,6 @@ app.helpers.map_generator = function(options, init_callback)
 		for (var i in neighbors)
 			if (
 				neighbors[i] !== null &&
-				is_valid_tile(neighbors[i]) &&
 				is_ocean_tile(neighbors[i])
 			)
 				ocean_neighbors.push(neighbors[i]);
@@ -372,11 +396,6 @@ app.helpers.map_generator = function(options, init_callback)
 		var index = rand(0, seed_pool.length - 1);
 
 		return seed_pool[index];
-	}
-
-	function get_tile(coordinates)
-	{
-		return !is_valid_tile(coordinates) ? null : tiles[coordinates.join(',')];
 	}
 
 	function set_tile(coordinates, type)
@@ -405,9 +424,14 @@ app.helpers.map_generator = function(options, init_callback)
 				tile.type !== 'ocean';
 	}
 
-	function is_valid_tile(coordinates)
+	function get_tile(coordinates)
 	{
-		return tiles[coordinates.join(',')] !== undefined;
+		return !coordinates_are_valid(coordinates) ? null : tiles[coordinates.join(',')];
+	}
+
+	function coordinates_are_valid(coordinates)
+	{
+		return full_range_object[coordinates.join(',')] === true;
 	}
 
 	init();

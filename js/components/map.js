@@ -84,7 +84,7 @@ app.components.map = function()
 
 	function draw_tile(coordinates)
 	{
-		if (!is_valid_tile(coordinates))
+		if (!coordinates_are_valid(coordinates))
 			return;
 
 		var tile = get_tile(coordinates);
@@ -233,7 +233,6 @@ app.components.map = function()
 			for (var i in neighbors)
 				if (
 					neighbors[i] !== null &&
-					is_valid_tile(neighbors[i]) &&
 					is_land_tile(neighbors[i])
 				)
 					borders_land = true;
@@ -258,7 +257,6 @@ app.components.map = function()
 		for (var i in neighbors)
 			if (
 				neighbors[i] !== null &&
-				is_valid_tile(neighbors[i]) &&
 				is_ocean_tile(neighbors[i])
 			)
 				ocean_neighbors.push(neighbors[i]);
@@ -317,7 +315,6 @@ app.components.map = function()
 		{
 			if (
 				neighbors[i] !== null &&
-				is_valid_tile(neighbors[i]) &&
 				is_land_tile(neighbors[i])
 			)
 				configuration += 'l';
@@ -359,10 +356,10 @@ app.components.map = function()
 
 	function get_tile(coordinates)
 	{
-		return !is_valid_tile(coordinates) ? null : tiles[coordinates.join(',')];
+		return !coordinates_are_valid(coordinates) ? null : tiles[coordinates.join(',')];
 	}
 
-	function is_valid_tile(coordinates)
+	function coordinates_are_valid(coordinates)
 	{
 		return tiles[coordinates.join(',')] !== undefined;
 	}
