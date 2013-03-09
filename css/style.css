@@ -1,6 +1,7 @@
 body {
 	position: relative;
 	overflow: auto;
+	background: #000;
 }
 a {
 	text-decoration: none;
@@ -17,5 +18,4 @@ img {
 
 
 #map {
-	border: 1px solid blue;
 }
