@@ -50,6 +50,9 @@ app.core = function()
 
 	function trigger(name, args)
 	{
+		if (args === undefined || args === null)
+			args = [];
+
 		for (var component in app.components)
 			if (
 				app[component].callbacks !== undefined &&
@@ -57,8 +60,6 @@ app.core = function()
 				typeof app[component].callbacks[name] === 'function'
 			)
 				app[component].callbacks[name].apply(this, args);
-
-		//console.log('trigger: ' + name);
 	}
 
 	function initialize_components()
@@ -75,8 +76,8 @@ app.core = function()
 	}
 
 	// "Public" methods
-	Interface.init = init;
-	Interface.trigger = trigger;
+	Interface.init 		= init;
+	Interface.trigger 	= trigger;
 
 	return Interface;
 }
