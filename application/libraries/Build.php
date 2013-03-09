@@ -3,23 +3,27 @@
 class Build
 {
 
-	private $js_files 	= 	array(
+	protected $js_files = 	array(
 								'core.js',
+								'components/request.js',
 								'components/assets.js',
 								'components/map_generator.js',
 							);
 
-	private $css_files 	= 	array(
+	protected $css_files = 	array(
 								'reset.css',
 								'style.css',
 							);
 
-	private $css_path 	= '/css';
-	private $js_path 	= '/js';
+	protected $css_path = '/css';
+
+	protected $js_path = '/js';
 
 	function __construct()
 	{
 		$this->ci =& get_instance();
+
+		$this->ci->load->helper('cache_buster');
 
 		switch (ENVIRONMENT)
 		{
@@ -63,7 +67,7 @@ class Build
 			}
 		}
 
-		$this->ci->view_wrapper->set_wrapper_vars('header', array('load_css' => $load_css));
+		$this->ci->view_wrapper->append_to_wrapper_variable('header', 'load_css', $load_css);
 	}
 
 	private function load_js_files()
@@ -86,7 +90,7 @@ class Build
 			}
 		}
 
-		$this->ci->view_wrapper->set_wrapper_vars('footer', array('load_js' => $load_js));
+		$this->ci->view_wrapper->append_to_wrapper_variable('footer', 'load_js', $load_js);
 	}
 
 	private function combine_css($files)

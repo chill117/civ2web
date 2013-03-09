@@ -2,62 +2,49 @@
 
 class View_wrapper
 {
-	private $stack = array();
-	private $sticky = array();
 
-	private $wrappers = array(
+	protected $page_title_delimiter = ' - ';
+
+	protected $_wrappers = array(
 		'above' => array('header'),
 		'below' => array('footer')
 	);
 
-	private $vars = array(
+	protected $_vars = array(
 		'wrappers' => array(),
 		'global' => array()
 	);
 
-	private $page_title_delimiter 				= ' - ';
-	private $noindex_when_query_string_exists 	= true;
+	protected $_stack = array();
+	protected $_sticky = array();
 
-	public function __construct()
+	function __construct()
 	{
 		$this->ci =& get_instance();
 
 		$this->ci->load->helper('array_replace_recursive');
 
-		$global_vars = array(
-			'debugging' => ENVIRONMENT === 'development',
-			'host' => $_SERVER['HTTP_HOST'],
-			'site_url' => $this->ci->config->config['base_url'],
-			'site_name' => $this->ci->config->item('site_name'),
-			'site_description' => $this->ci->config->item('site_description'),
-			'google_analytics' => $this->ci->config->item('site_google_analytics'),
-		);
+		$meta = array();
 
-		$global_vars['body_classes'] = array();
+		$meta['title'] 			= $this->ci->config->item('site_name');
+		$meta['description'] 	= $this->ci->config->item('site_description');
+		$meta['robots'] 		= 'index,follow';
 
-		if (count(($uri_segments = $this->ci->uri->rsegment_array())) > 0)
-			foreach ($uri_segments as $segment)
-				if ($segment != 'index')
-					$global_vars['body_classes'][] = $segment;
-
-		$this->set_global_vars($global_vars);
-		$this->set_default_meta_information();
+		$this->set_meta_information($meta);
 	}
 
 	public function push($return = false)
 	{
 		$html = '';
 
-		$this->override_meta_information();
-
 		$html .= $this->push_wrappers('above', true);
 
-		if (count($this->sticky) > 0)
-			foreach ($this->sticky as $args)
+		if (count($this->_sticky) > 0)
+			foreach ($this->_sticky as $args)
 				$this->prepend_to_stack($args['view'], $args['data']);
 
-		if (count($this->stack) > 0)
-			foreach ($this->stack as $args)
+		if (count($this->_stack) > 0)
+			foreach ($this->_stack as $args)
 				$html .= $this->ci->load->view($args['view'], $args['data'], true);
 		
 		$html .= $this->push_wrappers('below', true);
@@ -70,26 +57,24 @@ class View_wrapper
 
 	public function set_page_title($title)
 	{
-		$meta = $this->get_meta_information();
-		$meta['title'] = $title;
-		$this->set_meta_information($meta);
+		$this->set_meta_variable('title', $title);
 	}
 
 	public function append_to_page_title($title)
 	{
-		$meta = $this->get_meta_information();
+		$current = $this->get_meta_variable('title');
 
-		if (!empty($meta['title']))
-			$meta['title'] .= $this->page_title_delimiter . $title;
+		if (!empty($current))
+			$current .= $this->page_title_delimiter . $title;
 		else
-			$meta['title'] = $title;
+			$current = $title;
 
-		$this->set_meta_information($meta);
+		$this->set_meta_variable('title', $current);
 	}
 
 	public function sticky($view, $data = array())
 	{
-		$this->sticky[] = array('view' => $view, 'data' => $data);
+		$this->_sticky[] = array('view' => $view, 'data' => $data);
 	}
 
 	public function stack($view, $data = array())
@@ -99,68 +84,120 @@ class View_wrapper
 
 	public function append_to_stack($view, $data = array())
 	{
-		$this->stack[] = array('view' => $view, 'data' => $data);
+		$this->_stack[] = array('view' => $view, 'data' => $data);
 	}
 
 	public function prepend_to_stack($view, $data = array())
 	{
-		array_unshift($this->stack, array('view' => $view, 'data' => $data));
+		array_unshift($this->_stack, array('view' => $view, 'data' => $data));
 	}
 
-	public function set_wrappers_above($views)
+	public function append_wrapper($where, $wrapper)
 	{
-		$this->wrappers['above'] = $views;
+		$this->_wrappers[$where][] = $wrapper;
+
+		$this->_vars['wrappers'][$wrapper] = array();
 	}
 
-	public function set_wrappers_below($views)
+	public function prepend_wrapper($where, $wrapper)
 	{
-		$this->wrappers['below'] = $views;
+		array_unshift($this->_wrappers[$where], $wrapper);
+
+		$this->_vars['wrappers'][$wrapper] = array();
 	}
 
-	public function get_wrapper_vars($wrapper)
+	public function set_wrappers($where, $wrappers)
 	{
-		return isset($this->vars['wrappers'][$wrapper]) ? $this->vars['wrappers'][$wrapper] : array();
+		$this->_wrappers[$where] = $wrappers;
 	}
 
-	public function set_wrapper_vars($wrapper, $vars)
+	public function prepend_to_wrapper_variable($wrapper, $variable_name, $value)
 	{
-		if (!isset($this->vars['wrappers'][$wrapper]))
-			$this->vars['wrappers'][$wrapper] = array();
+		$current = $this->get_wrapper_variable($wrapper, $variable_name);
 
-		$this->vars['wrappers'][$wrapper] = array_replace_recursive($this->vars['wrappers'][$wrapper], $vars);
+		if (!is_array($current))
+			show_error('Cannot prepend to a wrapper variable that is not an array.');
+
+		if (!is_array($value))
+			$value = array($value);
+
+		foreach ($value as $val)
+			array_unshift($current, $val);
+
+		$this->set_wrapper_variable($wrapper, $variable_name, $current);
 	}
 
-	public function set_global_vars($vars)
+	public function append_to_wrapper_variable($wrapper, $variable_name, $value)
 	{
-		if (!isset($this->vars['global']))
-			$this->vars['global'] = array();
+		$current = $this->get_wrapper_variable($wrapper, $variable_name);
 
-		$this->vars['global'] = array_replace_recursive($this->vars['global'], $vars);
+		if (!is_array($current))
+			show_error('Cannot append to a wrapper variable that is not an array.');
+
+		if (!is_array($value))
+			$value = array($value);
+
+		foreach ($value as $val)
+			$current[] = $val;
+
+		$this->set_wrapper_variable($wrapper, $variable_name, $current);
+	}
+
+	public function set_wrapper_variable($wrapper, $variable_name, $value)
+	{
+		$this->_vars['wrappers'][$wrapper][$variable_name] = $value;
+	}
+
+	public function get_wrapper_variable($wrapper, $variable_name)
+	{
+		return 	isset($this->_vars['wrappers'][$wrapper][$variable_name]) ?
+					$this->_vars['wrappers'][$wrapper][$variable_name] :
+						array();
+	}
+
+	public function set_global_variable($name, $value)
+	{
+		$this->_vars['global'][$name] = $value;
+	}
+
+	public function get_global_variable($name)
+	{
+		return 	isset($this->_vars['global'][$name]) ?
+					$this->_vars['global'][$name] :
+						null;
+	}
+
+	public function set_meta_variable($name, $value)
+	{
+		$meta = $this->get_meta_information();
+
+		$meta[$name] = $value;
+
+		$this->set_meta_information($meta);
+	}
+
+	public function get_meta_variable($name)
+	{
+		$meta = $this->get_meta_information();
+
+		return $meta[$name];
 	}
 
 	public function get_meta_information()
 	{
-		$header_vars = $this->get_wrapper_vars('header');
-
-		return isset($header_vars['meta']) ? $header_vars['meta'] : array();
+		return $this->get_wrapper_variable('header', 'meta');
 	}
 
 	public function set_meta_information($meta)
 	{
-		$this->set_wrapper_vars('header', array('meta' => $meta));
+		$this->get_wrapper_variable('header', 'meta', $meta);
 	}
 
-	public function set_meta_tag($tag, $value)
-	{
-		$meta = $this->get_meta_information();
-		$meta[$tag] = $value;
-		$this->set_meta_information($meta);
-	}
-
-	private function push_wrappers($where, $return)
+	protected function push_wrappers($where, $return)
 	{
 		$html = '';
-		$wrappers = $this->wrappers[$where];
+
+		$wrappers = $this->_wrappers[$where];
 
 		if (!is_array($wrappers))
 			$wrappers = explode(',', $wrappers);
@@ -172,8 +209,11 @@ class View_wrapper
 		if (count($wrappers) > 0)
 			foreach ($wrappers as $wrapper)
 			{
-				$vars = isset($this->vars['wrappers'][$wrapper]) ? $this->vars['wrappers'][$wrapper] : array();
-				$vars = array_replace_recursive($this->vars['global'], $vars);
+				$vars = isset($this->_vars['wrappers'][$wrapper]) ?
+							$this->_vars['wrappers'][$wrapper] :
+								array();
+
+				$vars = array_replace_recursive($this->_vars['global'], $vars);
 
 				$html .= $this->ci->load->view($wrapper, $vars, $return);
 			}
@@ -181,27 +221,38 @@ class View_wrapper
 		return $html;
 	}
 
-	private function set_default_meta_information()
+	/*
+		!!!
+		Deprecated Methods
+	*/
+	public function get_wrapper_vars()
 	{
-		$meta = array();
-		$meta['title'] = $this->ci->config->item('site_name');
-		$meta['description'] = $this->ci->config->item('site_description');
-		$meta['robots'] = 'index,follow';
-
-		$this->set_wrapper_vars('header', array('meta' => $meta));
+		show_error('get_wrapper_vars() has been deprecated. Use get_wrapper_variable() instead.');
 	}
 
-	private function override_meta_information()
+	public function set_wrapper_vars()
 	{
-		if (
-			$this->noindex_when_query_string_exists &&
-			!empty($_SERVER['QUERY_STRING'])
-		)
-		{
-			$meta = array('robots' => 'noindex,follow');
+		show_error('set_wrapper_vars() has been deprecated. Use set_wrapper_variable() instead.');
+	}
 
-			$this->set_wrapper_vars('header', array('meta' => $meta));
-		}
+	public function set_wrappers_above()
+	{
+		show_error('set_wrappers_above() has been deprecated. Use set_wrappers() instead.');
+	}
+
+	public function set_wrappers_below()
+	{
+		show_error('set_wrappers_below() has been deprecated. Use set_wrappers() instead.');
+	}
+
+	public function set_global_vars()
+	{
+		show_error('set_global_vars() has been deprecated. Use set_global_variable() instead.');
+	}
+	
+	public function set_meta_tag()
+	{
+		show_error('set_meta_tag() has been deprecated. Use set_meta_variable() instead.');
 	}
 
 }

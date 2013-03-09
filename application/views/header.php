@@ -28,5 +28,5 @@
 	
 </head>
 
-<body<?php if (count($body_classes) > 0): ?> class="<?= implode(' ', $body_classes) ?>"<?php endif; ?>>
+<body>
 
