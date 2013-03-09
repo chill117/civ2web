@@ -1,0 +1,6 @@
+application/cache/*
+!application/cache/.htaccess
+!application/cache/index.html
+application/logs/*.php
+css/builds/*.css
+js/builds/*.js
