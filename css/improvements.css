@@ -1,0 +1,205 @@
+.improvement-icon {
+	display: inline-block;
+	width: 36px;
+	height: 20px;
+	background-image: url('../images/improvements.png');
+	background-repeat: no-repeat;
+}
+.improvement-icon.palace {
+	background-position: 0 0;
+}
+.improvement-icon.barracks {
+	background-position: 36px 0;
+}
+.improvement-icon.granary {
+	background-position: 72px 0;
+}
+.improvement-icon.temple {
+	background-position: 108px 0;
+}
+.improvement-icon.market {
+	background-position: 144px 0;
+}
+.improvement-icon.library {
+	background-position: 180px 0;
+}
+.improvement-icon.courthouse {
+	background-position: 216px 0;
+}
+.improvement-icon.city_walls {
+	background-position: 252px 0;
+}
+.improvement-icon.aquaduct {
+	background-position: 0 20px;
+}
+.improvement-icon.bank {
+	background-position: 36px 20px;
+}
+.improvement-icon.cathedral {
+	background-position: 72px 20px;
+}
+.improvement-icon.university {
+	background-position: 108px 20px;
+}
+.improvement-icon.mass_transit {
+	background-position: 144px 20px;
+}
+.improvement-icon.colosseum {
+	background-position: 180px 20px;
+}
+.improvement-icon.factory {
+	background-position: 216px 20px;
+}
+.improvement-icon.manufacturing_plant {
+	background-position: 252px 20px;
+}
+.improvement-icon.sdi_defence {
+	background-position: 0 40px;
+}
+.improvement-icon.recycling_center {
+	background-position: 36px 40px;
+}
+.improvement-icon.power_plant {
+	background-position: 72px 40px;
+}
+.improvement-icon.hydro_plant {
+	background-position: 108px 40px;
+}
+.improvement-icon.nuclear_plant {
+	background-position: 144px 40px;
+}
+.improvement-icon.stock_market {
+	background-position: 180px 40px;
+}
+.improvement-icon.sewer_system {
+	background-position: 216px 40px;
+}
+.improvement-icon.supermarket {
+	background-position: 252px 40px;
+}
+.improvement-icon.superhighways {
+	background-position: 0 60px;
+}
+.improvement-icon.research_lab {
+	background-position: 36px 60px;
+}
+.improvement-icon.sam_missile_battery {
+	background-position: 72px 60px;
+}
+.improvement-icon.coastal_fortress {
+	background-position: 108px 60px;
+}
+.improvement-icon.solar_plant {
+	background-position: 144px 60px;
+}
+.improvement-icon.harbor {
+	background-position: 180px 60px;
+}
+.improvement-icon.offshore_platform {
+	background-position: 216px 60px;
+}
+.improvement-icon.airport {
+	background-position: 252px 60px;
+}
+.improvement-icon.police_station {
+	background-position: 0 80px;
+}
+.improvement-icon.port_facility {
+	background-position: 36px 80px;
+}
+.improvement-icon.ss_structural {
+	background-position: 72px 80px;
+}
+.improvement-icon.ss_component {
+	background-position: 108px 80px;
+}
+.improvement-icon.ss_module {
+	background-position: 144px 80px;
+}
+.improvement-icon.capitalization {
+	background-position: 180px 80px;
+}
+.improvement-icon.great_wall {
+	background-position: 216px 80px;
+}
+.improvement-icon.shakespeares_theatre {
+	background-position: 252px 80px;
+}
+.improvement-icon.pyramids {
+	background-position: 0 100px;
+}
+.improvement-icon.hanging_gardens {
+	background-position: 36px 100px;
+}
+.improvement-icon.colossus {
+	background-position: 72px 100px;
+}
+.improvement-icon.lighthouse {
+	background-position: 108px 100px;
+}
+.improvement-icon.great_library {
+	background-position: 144px 100px;
+}
+.improvement-icon.oracle {
+	background-position: 180px 100px;
+}
+.improvement-icon.eiffel_tower {
+	background-position: 216px 100px;
+}
+.improvement-icon.cure_for_cancer {
+	background-position: 252px 100px;
+}
+.improvement-icon.sun_tzu_war_academy {
+	background-position: 0 120px;
+}
+.improvement-icon.king_richard_crusade {
+	background-position: 36px 120px;
+}
+.improvement-icon.marco_polo_embassy {
+	background-position: 72px 120px;
+}
+.improvement-icon.michelangelo_chapel {
+	background-position: 108px 120px;
+}
+.improvement-icon.copernicus_observatory {
+	background-position: 144px 120px;
+}
+.improvement-icon.magellon_expedition {
+	background-position: 180px 120px;
+}
+.improvement-icon.leonardo_workshop {
+	background-position: 0 140px;
+}
+.improvement-icon.js_bach_cathedral {
+	background-position: 36px 140px;
+}
+.improvement-icon.isaac_newton_college {
+	background-position: 72px 140px;
+}
+.improvement-icon.adam_smith_trading_co {
+	background-position: 108px 140px;
+}
+.improvement-icon.darwin_voyage {
+	background-position: 144px 140px;
+}
+.improvement-icon.statue_of_liberty {
+	background-position: 180px 140px;
+}
+.improvement-icon.women_suffrage {
+	background-position: 0 160px;
+}
+.improvement-icon.hoover_dam {
+	background-position: 36px 160px;
+}
+.improvement-icon.manhatten_project {
+	background-position: 72px 160px;
+}
+.improvement-icon.united_nations {
+	background-position: 108px 160px;
+}
+.improvement-icon.apollo_program {
+	background-position: 144px 160px;
+}
+.improvement-icon.seti_program {
+	background-position: 180px 160px;
+}

@@ -1,0 +1,151 @@
+.city-icon {
+	display: inline-block;
+	width: 64px;
+	height: 48px;
+	background-image: url('../images/cities.png');
+	background-repeat: no-repeat;
+}
+.city-icon.bronze-open-small {
+	background-position: 1px 1px;
+}
+.city-icon.bronze-open-medium {
+	background-position: 66px 1px;
+}
+.city-icon.bronze-open-large {
+	background-position: 131px 1px;
+}
+.city-icon.bronze-open-xlarge {
+	background-position: 196px 1px;
+}
+.city-icon.bronze-walled-small {
+	background-position: 261px 1px;
+}
+.city-icon.bronze-walled-medium {
+	background-position: 326px 1px;
+}
+.city-icon.bronze-walled-large {
+	background-position: 391px 1px;
+}
+.city-icon.bronze-walled-xlarge {
+	background-position: 456px 1px;
+}
+.city-icon.classical-open-small {
+	background-position: 1px 50px;
+}
+.city-icon.classical-open-medium {
+	background-position: 66px 50px;
+}
+.city-icon.classical-open-large {
+	background-position: 131px 50px;
+}
+.city-icon.classical-open-xlarge {
+	background-position: 196px 50px;
+}
+.city-icon.classical-walled-small {
+	background-position: 261px 50px;
+}
+.city-icon.classical-walled-medium {
+	background-position: 326px 50px;
+}
+.city-icon.classical-walled-large {
+	background-position: 391px 50px;
+}
+.city-icon.classical-walled-xlarge {
+	background-position: 456px 50px;
+}
+.city-icon.far_east-open-small {
+	background-position: 1px 99px;
+}
+.city-icon.far_east-open-medium {
+	background-position: 66px 99px;
+}
+.city-icon.far_east-open-large {
+	background-position: 131px 99px;
+}
+.city-icon.far_east-open-xlarge {
+	background-position: 196px 99px;
+}
+.city-icon.far_east-walled-small {
+	background-position: 261px 99px;
+}
+.city-icon.far_east-walled-medium {
+	background-position: 326px 99px;
+}
+.city-icon.far_east-walled-large {
+	background-position: 391px 99px;
+}
+.city-icon.far_east-walled-xlarge {
+	background-position: 456px 99px;
+}
+.city-icon.medieval-open-small {
+	background-position: 1px 148px;
+}
+.city-icon.medieval-open-medium {
+	background-position: 66px 148px;
+}
+.city-icon.medieval-open-large {
+	background-position: 131px 148px;
+}
+.city-icon.medieval-open-xlarge {
+	background-position: 196px 148px;
+}
+.city-icon.medieval-walled-small {
+	background-position: 261px 148px;
+}
+.city-icon.medieval-walled-medium {
+	background-position: 326px 148px;
+}
+.city-icon.medieval-walled-large {
+	background-position: 391px 148px;
+}
+.city-icon.medieval-walled-xlarge {
+	background-position: 456px 148px;
+}
+.city-icon.industrial-open-small {
+	background-position: 1px 197px;
+}
+.city-icon.industrial-open-medium {
+	background-position: 66px 197px;
+}
+.city-icon.industrial-open-large {
+	background-position: 131px 197px;
+}
+.city-icon.industrial-open-xlarge {
+	background-position: 196px 197px;
+}
+.city-icon.industrial-walled-small {
+	background-position: 261px 197px;
+}
+.city-icon.industrial-walled-medium {
+	background-position: 326px 197px;
+}
+.city-icon.industrial-walled-large {
+	background-position: 391px 197px;
+}
+.city-icon.industrial-walled-xlarge {
+	background-position: 456px 197px;
+}
+.city-icon.modern-open-small {
+	background-position: 1px 246px;
+}
+.city-icon.modern-open-medium {
+	background-position: 66px 246px;
+}
+.city-icon.modern-open-large {
+	background-position: 131px 246px;
+}
+.city-icon.modern-open-xlarge {
+	background-position: 196px 246px;
+}
+.city-icon.modern-walled-small {
+	background-position: 261px 246px;
+}
+.city-icon.modern-walled-medium {
+	background-position: 326px 246px;
+}
+.city-icon.modern-walled-large {
+	background-position: 391px 246px;
+}
+.city-icon.modern-walled-xlarge {
+	background-position: 456px 246px;
+}

@@ -1,7 +1,7 @@
 body {
 	position: relative;
 	overflow: auto;
-	background: #000;
+	background: #8f7b63 url('../images/main_screen/background.png') center center no-repeat;
 }
 a {
 	text-decoration: none;
@@ -14,8 +14,51 @@ img {
 	border: none;
 }
 
-
-
-
-#map {
+.wrap {
+	display: inline-block;
+	width: 100%;
 }
+
+
+/*  Windows  */
+.window {
+	background: transparent url('../images/window-frame-bg.png') 0 0 repeat;
+}
+.window .menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.window .title {
+	text-align: center;
+}
+.window .inner {
+	background: transparent url('../images/window-inner-bg.png') 0 0 repeat;
+	margin: 5px;
+}
+/*  Windows  */
+
+
+/*  Map  */
+.window.map {
+	display: inline-block;
+}
+#map {
+	display: block;
+	background: #000;
+}
+/*  Map  */
+
+
+/*  Mini-Map  */
+.window.mini-map {
+	display: inline-block;
+}
+/*  Mini-Map  */
+
+
+/*  Status  */
+.window.status {
+	display: inline-block;
+}
+/*  Status  */

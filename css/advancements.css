@@ -1,0 +1,67 @@
+.advancement-icon {
+	display: inline-block;
+	width: 36px;
+	height: 20px;
+	background-image: url('../images/advancements.png');
+	background-repeat: no-repeat;
+}
+.advancement-icon.military-ancient {
+	background-position: 0 0;
+}
+.advancement-icon.military-renaissance {
+	background-position: 0 20px;
+}
+.advancement-icon.military-industrial {
+	background-position: 0 40px;
+}
+.advancement-icon.military-modern {
+	background-position: 0 60px;
+}
+.advancement-icon.economic-ancient {
+	background-position: 36px 0;
+}
+.advancement-icon.economic-renaissance {
+	background-position: 36px 20px;
+}
+.advancement-icon.economic-industrial {
+	background-position: 36px 40px;
+}
+.advancement-icon.economic-modern {
+	background-position: 36px 60px;
+}
+.advancement-icon.social-ancient {
+	background-position: 72px 0;
+}
+.advancement-icon.social-renaissance {
+	background-position: 72px 20px;
+}
+.advancement-icon.social-industrial {
+	background-position: 72px 40px;
+}
+.advancement-icon.social-modern {
+	background-position: 72px 60px;
+}
+.advancement-icon.academic-ancient {
+	background-position: 108px 0;
+}
+.advancement-icon.academic-renaissance {
+	background-position: 108px 20px;
+}
+.advancement-icon.academic-industrial {
+	background-position: 108px 40px;
+}
+.advancement-icon.academic-modern {
+	background-position: 108px 60px;
+}
+.advancement-icon.applied-ancient {
+	background-position: 144px 0;
+}
+.advancement-icon.applied-renaissance {
+	background-position: 144px 20px;
+}
+.advancement-icon.applied-industrial {
+	background-position: 144px 40px;
+}
+.advancement-icon.applied-modern {
+	background-position: 144px 60px;
+}

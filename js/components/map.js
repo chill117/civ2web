@@ -134,6 +134,9 @@ app.components.map = function()
 	*/
 	function dither_tile(coordinates)
 	{
+		// !!! Don't do dithering just yet.
+		return;
+
 		// Don't dither ocean tiles.
 		if (map.is_ocean_tile(coordinates))
 			return;
@@ -252,10 +255,17 @@ app.components.map = function()
 		width = options.width;
 		height = options.height;
 
-		elm.map.attr({
-			'width' 	: 32 * (width + 1),
-			'height' 	: 16 * (height + 1)
-		});
+		var map_window = app.helpers.window('map');
+		var status_window = app.helpers.window('status');
+		var mini_map_window = app.helpers.window('mini-map');
+
+		map_window.set_width('80%');
+		status_window.set_width('20%');
+		mini_map_window.set_width('20%');
+
+		map_window.set_height('100%');
+		status_window.set_height('80%');
+		mini_map_window.set_height('20%');
 
 		var map_generator = app.helpers.map_generator(options, function() {
 

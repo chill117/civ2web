@@ -10,11 +10,15 @@ class Build
 								'components/map.js',
 								'helpers/map.js',
 								'helpers/map_generator.js',
+								'helpers/window.js',
 							);
 
 	protected $css_files = 	array(
 								'reset.css',
 								'style.css',
+								'advancements.css',
+								'cities.css',
+								'improvements.css',
 							);
 
 	protected $css_path = '/css';
