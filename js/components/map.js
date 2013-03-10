@@ -238,7 +238,7 @@ app.components.map = function()
 	callbacks['assets:loaded'] = function()
 	{
 		var options = {
-				'width' 		: 80,
+				'width' 		: 40,
 				'height' 		: 50,
 				'land_mass' 	: 'large',
 				'land_form' 	: 'continents',
