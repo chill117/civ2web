@@ -1,7 +1,7 @@
 
 	<div class="wrap">
 
-		<div class="window map">
+		<div class="window map" data-name="map">
 
 			<h3 class="title">Viking Map</h3>
 
@@ -10,7 +10,7 @@
 				<a class="button zoom-out" title="Zoom Out"></a>
 			</menu>
 
-			<div class="inner">
+			<div class="content">
 
 				<canvas id="map"></canvas>
 
@@ -19,22 +19,20 @@
 		</div>
 
 
-		<div class="window mini-map">
+		<div class="window mini-map" data-name="mini-map">
 
 			<h3 class="title">World</h3>
 
-			<div class="inner"></div>
+			<div class="content"></div>
 
 		</div>
 
 
-		<div class="window status">
+		<div class="window status" data-name="status">
 
 			<h3 class="title">Status</h3>
 
-			<div class="inner"></div>
-
-			<div class="inner"></div>
+			<div class="content"></div>
 
 		</div>
 

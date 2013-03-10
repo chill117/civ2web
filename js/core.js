@@ -9,6 +9,8 @@ $(document).ready(function() {
 	app.core = new app.core();
 	app.core.init();
 
+	app.core.trigger('document:ready');
+
 	var timers = {};
 
 	$(window).on('resize', function(e) {

@@ -25,16 +25,6 @@ app.components.map = function()
 			*/
 			height;
 
-	function init()
-	{
-		define_elements();
-	}
-
-	function define_elements()
-	{
-		elm.map = $('#map');
-	}
-
 	/*
 		Draws the map.
 	*/
@@ -57,7 +47,7 @@ app.components.map = function()
 		{
 			var position = map.calculate_tile_position(coordinates);
 
-			elm.map[0]
+			$('#map')[0]
 				.getContext('2d')
 					.fillText(
 						'(' + coordinates + ')',
@@ -197,7 +187,7 @@ app.components.map = function()
 	function draw_to_tile(category, type, coordinates, quadrant)
 	{
 		var source 		= app.assets.get_source(category),
-			context 	= elm.map[0].getContext('2d'),
+			context 	= $('#map')[0].getContext('2d'),
 
 			src_position 	= app.assets.get_position(category, type),
 			dest_position 	= map.calculate_tile_position(coordinates),
@@ -267,6 +257,12 @@ app.components.map = function()
 		status_window.set_height('80%');
 		mini_map_window.set_height('20%');
 
+		$('#map').
+			attr({
+				'width' 	: $('#map').parent().width(),
+				'height' 	: $('#map').parent().height()
+			});
+
 		var map_generator = app.helpers.map_generator(options, function() {
 
 			var tiles = map_generator.seed();
@@ -278,8 +274,7 @@ app.components.map = function()
 		});
 	}
 
-	Interface.init 			= init;
-	Interface.callbacks 	= callbacks;
+	Interface.callbacks = callbacks;
 
 	return Interface;
 }
