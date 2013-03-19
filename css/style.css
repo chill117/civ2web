@@ -156,63 +156,62 @@ img {
 	}
 	/*  Buttons  */
 
-
-	/*  Game  */
-
-		/*  Map  */
-		body.game .window.map {
-			display: block;
-			float: left;
-		}
-		body.game .window.map #map {
-			display: block;
-			background: #000;
-		}
-		/*  Map  */
-
-
-		/*  Mini-Map  */
-		body.game .window.mini-map {
-			display: block;
-			float: left;
-		}
-		/*  Mini-Map  */
-
-
-		/*  Status  */
-		body.game .window.status {
-			display: block;
-			float: left;
-		}
-		/*  Status  */
-
-	/*  Game  */
-
-
-	/*  Main Screen  */
-
-		/*  Image  */
-		body.main_screen .window.image {
-			position: absolute;
-			left: 91px;
-			top: 37px;
-		}
-		body.main_screen .window.image .content .image {
-			display: block;
-		}
-		/*  Image  */
-
-
-		/*  Form  */
-		body.main_screen .window.form {
-			position: absolute;
-			right: 89px;
-			bottom: 36px;
-			width: 400px;
-		}
-		/*  Form  */
-
-	/*  Main Screen  */
-
-
 /*  Windows  */
+
+
+/*  Game  */
+
+	/*  Map  */
+	.view.game .window.map {
+		display: block;
+		float: left;
+	}
+	.view.game .window.map #map {
+		display: block;
+		background: #000;
+	}
+	/*  Map  */
+
+
+	/*  Mini-Map  */
+	.view.game .window.mini-map {
+		display: block;
+		float: left;
+	}
+	/*  Mini-Map  */
+
+
+	/*  Status  */
+	.view.game .window.status {
+		display: block;
+		float: left;
+	}
+	/*  Status  */
+
+/*  Game  */
+
+
+/*  Main Screen  */
+
+	/*  Image  */
+	.view.main_screen .window.image {
+		position: absolute;
+		left: 91px;
+		top: 37px;
+	}
+	.view.main_screen .window.image .content .image {
+		display: block;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.main_screen .window.form {
+		position: absolute;
+		right: 89px;
+		bottom: 36px;
+		width: 400px;
+	}
+	/*  Form  */
+
+/*  Main Screen  */

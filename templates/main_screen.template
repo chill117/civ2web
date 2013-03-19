@@ -1,49 +1,53 @@
 
-	<div class="window image">
-		<div class="border-1">
-			<div class="border-2">
-				<div class="border-3">
-					<div class="border-4">
-						<div class="inner">
-							<div class="content">
-								<img class="image" src="/images/main_screen/earth.png" alt="Partial Picture of Earth" />
+	<div class="view main_screen">
+
+		<div class="window image">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+								<div class="content">
+									<img class="image" src="/images/main_screen/earth.png" alt="Partial Picture of Earth" />
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="window form">
-		<div class="border-1">
-			<div class="border-2">
-				<div class="border-3">
-					<div class="border-4">
-						<div class="inner">
-							<div class="content">
-								<div class="row">
-									<input type="radio" name="game-type" value="new_game" />
-									<label>Start a New Game</label>
-								</div>
+		<div class="window form">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+								<div class="content">
+									<div class="row">
+										<input type="radio" name="game-type" value="new_game" />
+										<label>Start a New Game</label>
+									</div>
 
-								<div class="row">
-									<input type="radio" name="game-type" value="customize_world" />
-									<label>Customize World</label>
-								</div>
+									<div class="row">
+										<input type="radio" name="game-type" value="customize_world" />
+										<label>Customize World</label>
+									</div>
 
-								<div class="row">
-									<input type="radio" name="game-type" value="load_game" />
-									<label>Load a Game</label>
+									<div class="row">
+										<input type="radio" name="game-type" value="load_game" />
+										<label>Load a Game</label>
+									</div>
 								</div>
-							</div>
-							<div class="buttons">
-								<input class="button submit" type="submit" value="OK" />
-								<input class="button cancel" type="submit" value="Cancel" />
+								<div class="buttons">
+									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>

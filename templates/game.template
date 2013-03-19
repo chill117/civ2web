@@ -1,71 +1,75 @@
 
-	<div class="wrap">
+	<div class="view game">
 
-		<div class="window map">
+		<div class="wrap">
 
-			<div class="border-1">
-				<div class="border-2">
-					<div class="border-3">
-						<div class="border-4">
-							<div class="inner">
+			<div class="window map">
 
-								<menu class="menu">
-									<a class="button zoom-in" title="Zoom In"></a>
-									<a class="button zoom-out" title="Zoom Out"></a>
-								</menu>
+				<div class="border-1">
+					<div class="border-2">
+						<div class="border-3">
+							<div class="border-4">
+								<div class="inner">
 
-								<h3 class="title">Viking Map</h3>
+									<menu class="menu">
+										<a class="button zoom-in" title="Zoom In"></a>
+										<a class="button zoom-out" title="Zoom Out"></a>
+									</menu>
 
-								<div class="content">
-									<canvas id="map"></canvas>
+									<h3 class="title">Viking Map</h3>
+
+									<div class="content">
+										<canvas id="map"></canvas>
+									</div>
+
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 
-		</div>
+			<div class="window mini-map">
 
-		<div class="window mini-map">
+				<div class="border-1">
+					<div class="border-2">
+						<div class="border-3">
+							<div class="border-4">
+								<div class="inner">
 
-			<div class="border-1">
-				<div class="border-2">
-					<div class="border-3">
-						<div class="border-4">
-							<div class="inner">
+									<h3 class="title">World</h3>
 
-								<h3 class="title">World</h3>
+									<div class="content">
+										<canvas id="mini-map"></canvas>
+									</div>
 
-								<div class="content">
-									<canvas id="mini-map"></canvas>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 
-		</div>
+			<div class="window status">
 
-		<div class="window status">
+				<div class="border-1">
+					<div class="border-2">
+						<div class="border-3">
+							<div class="border-4">
+								<div class="inner">
 
-			<div class="border-1">
-				<div class="border-2">
-					<div class="border-3">
-						<div class="border-4">
-							<div class="inner">
+									<h3 class="title">Status</h3>
 
-								<h3 class="title">Status</h3>
+									<div class="content"></div>
 
-								<div class="content"></div>
-
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 
 		</div>

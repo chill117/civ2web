@@ -56,7 +56,6 @@ $(function ($) {
 
 		}
 
-
 	});
 
 	new app.AppView();

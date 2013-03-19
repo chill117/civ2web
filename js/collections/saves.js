@@ -13,11 +13,7 @@ var app = app || {};
 
 		},
 
-		localStorage: new Backbone.LocalStorage('civ2web-saves'),
-
-		initialize: function() {
-
-		}
+		localStorage: new Backbone.LocalStorage('Saves')
 
 	});
 
