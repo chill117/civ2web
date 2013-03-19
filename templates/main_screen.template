@@ -41,7 +41,6 @@
 								</div>
 								<div class="buttons">
 									<input class="button submit" type="submit" value="OK" />
-									<input class="button cancel" type="submit" value="Cancel" />
 								</div>
 							</div>
 						</div>
