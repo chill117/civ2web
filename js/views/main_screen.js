@@ -42,12 +42,14 @@ $(function ($) {
 		define_elements: function() {
 
 			this.$form = this.$('.window.form');
-			this.$game_type_field = this.$form.find('input[name="game_type"]');
+			this.$game_type_fields = this.$form.find('input[name="game_type"]');
 			this.$submit_button = this.$form.find('.button.submit');
 
 		},
 
 		observe: function() {
+
+			this.$submit_button.on('click', this.formSubmitted);
 
 			$(window).on('resize.app', _.bind(this.resize, this));
 
@@ -62,6 +64,47 @@ $(function ($) {
 		resize: function() {
 
 		},
+
+		formSubmitted: function() {
+
+			var gameType = this.getSelectedGameType();
+
+			switch (gameType)
+			{
+				case 'new_game':
+
+					console.log('new game!');
+
+				break;
+
+				case 'customize_world':
+
+					console.log('customize world!');
+
+				break;
+
+				case 'load_game':
+
+					console.log('load game!');
+
+				break;
+				
+				default:
+
+					// Invalid Game Type selected.
+
+				break;
+			}
+
+		},
+
+		getSelectedGameType: function() {
+
+			var checked = this.$game_type_fields.filter(':checked');
+
+			return checked.length > 0 ? checked.val() : null;
+
+		}
 
 
 	});
