@@ -16,17 +16,17 @@
 	<link rel="stylesheet" href="<?= $href ?>" /><?php endforeach; endif; ?>
 
 <?php if (ENVIRONMENT !== 'development'): ?>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script><?php else: ?>
-	<script>window.jQuery || document.write('<script src="/js/libs/jquery.js<?= cache_buster('/js/libs/jquery.js'); ?>">\x3C/script>')</script><?php endif; ?>
+	<script src="https://ajax.googleapis.com/ajax/third_party/jquery/1.9.1/jquery.min.js"></script><?php else: ?>
+	<script>window.jQuery || document.write('<script src="/js/third_party/jquery.js<?= cache_buster('/js/third_party/jquery.js'); ?>">\x3C/script>')</script><?php endif; ?>
 
 	
 	<!--[if (gte IE 6)&(lte IE 8)]>
-		<script src="/js/libs/selectivizr.js<?= cache_buster('/js/libs/selectivizr.js'); ?>"></script>
+		<script src="/js/third_party/selectivizr.js<?= cache_buster('/js/third_party/selectivizr.js'); ?>"></script>
 	<![endif]-->
 	
-	<script src="/js/libs/modernizr.js<?= cache_buster('/js/libs/modernizr.js'); ?>"></script>
+	<script src="/js/third_party/modernizr.js<?= cache_buster('/js/third_party/modernizr.js'); ?>"></script>
 	
 </head>
 
-<body>
+<body<?php if (($uri_string = $this->uri->uri_string()) != '/'): ?> class="<?= str_replace('/', ' ', $uri_string) ?>"<?php endif; ?>>
 

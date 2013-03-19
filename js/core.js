@@ -36,6 +36,12 @@ $(document).ready(function() {
 		app.core.trigger('window:keyup', [e]);
 	});
 
+	$('body').
+		css({
+			'width' 	: $(window).width(),
+			'height' 	: $(window).height()
+		});
+
 });
 
 // Make sure console.log() exists.

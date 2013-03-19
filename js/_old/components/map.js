@@ -263,6 +263,7 @@ app.components.map = function()
 				'height' 	: $('#map').parent().height()
 			});
 
+		/*
 		var map_generator = app.helpers.map_generator(options, function() {
 
 			var tiles = map_generator.seed();
@@ -272,6 +273,7 @@ app.components.map = function()
 			draw();
 
 		});
+		*/
 	}
 
 	Interface.callbacks = callbacks;

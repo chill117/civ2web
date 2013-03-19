@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home extends CI_Controller
+class Main_screen extends CI_Controller
 {
 
 	function __construct()
@@ -10,7 +10,7 @@ class Home extends CI_Controller
 
 	public function index()
 	{
-		$this->view_wrapper->stack('app');
+		$this->view_wrapper->stack('main_screen');
 		$this->view_wrapper->push();
 	}
 	

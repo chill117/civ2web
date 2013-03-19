@@ -24,6 +24,7 @@ app.helpers.window = function(type)
 		elm.title = elm.inner.find('.title');
 		elm.menu = elm.inner.find('.menu');
 		elm.content = elm.inner.find('.content');
+		elm.buttons = elm.inner.find('.buttons');
 	}
 
 	function set_width(width)
@@ -117,17 +118,11 @@ app.helpers.window = function(type)
 		return inner_height;
 	}
 
-	function find(selector)
-	{
-		return elm.content.find(selector);
-	}
-
 	init();
 
 	// "Public" methods.
-	Interface.set_width 		= set_width;
-	Interface.set_height 		= set_height;
-	Interface.find 				= find;
+	Interface.set_width 	= set_width;
+	Interface.set_height 	= set_height;
 
 	return Interface;
 }

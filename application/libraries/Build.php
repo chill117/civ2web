@@ -3,136 +3,31 @@
 class Build
 {
 
-	protected $js_files = 	array(
-								'core.js',
-								'components/request.js',
-								'components/assets.js',
-								'components/map.js',
-								'components/windows.js',
-								'components/template.js',
-								'helpers/map.js',
-								'helpers/map_generator.js',
-								'helpers/window.js',
-							);
-
-	protected $css_files = 	array(
-								'reset.css',
-								'style.css',
-								'advancements.css',
-								'cities.css',
-								'improvements.css',
-							);
-
-	protected $css_path = '/css';
-
-	protected $js_path = '/js';
-
 	function __construct()
 	{
 		$this->ci =& get_instance();
-
-		$this->ci->load->helper('cache_buster');
-
-		switch (ENVIRONMENT)
-		{
-			case 'development':
-				$this->combine_css 	= false;
-				$this->combine_js 	= false;
-			break;
-
-			case 'testing':
-				$this->combine_css 	= true;
-				$this->combine_js 	= true;
-			break;
-			
-			case 'production':
-				$this->combine_css 	= true;
-				$this->combine_js 	= true;
-			break;
-		}
-
-		$this->load_css_files();
-		$this->load_js_files();
 	}
 
-	private function load_css_files()
-	{
-		$files = $this->css_files;
-
-		if ($this->combine_css)
-		{
-			$build_file_path = $this->combine_css($files);
-
-			$load_css[] = $build_file_path . cache_buster($build_file_path);
-		}
-		else
-		{
-			foreach ($files as $file)
-			{
-				$file_path = $this->css_path . '/' . $file;
-
-				$load_css[] = $file_path . cache_buster($file_path);
-			}
-		}
-
-		$this->ci->view_wrapper->append_to_wrapper_variable('header', 'load_css', $load_css);
-	}
-
-	private function load_js_files()
-	{
-		$files = $this->js_files;
-
-		if ($this->combine_js)
-		{
-			$build_file_path = $this->combine_js($files);
-
-			$load_js[] = $build_file_path . cache_buster($build_file_path);
-		}
-		else
-		{
-			foreach ($files as $file)
-			{
-				$file_path = $this->js_path . '/' . $file;
-
-				$load_js[] = $file_path . cache_buster($file_path);
-			}
-		}
-
-		$this->ci->view_wrapper->append_to_wrapper_variable('footer', 'load_js', $load_js);
-	}
-
-	private function combine_css($files)
-	{
-		return $this->compile_build_file($this->css_path, $files, 'css');
-	}
-
-	private function combine_js($files)
-	{
-		return $this->compile_build_file($this->js_path, $files, 'js');
-	}
-
-	private function compile_build_file($base_path, $files, $type)
+	public function run($base_path, $file_paths, $type)
 	{
 		$builds_path 	= $base_path . '/builds';
-
-		$base_dir 		= BASE_DIR . $base_path;
 		$builds_dir 	= BASE_DIR . $builds_path;
 
-		$build_name = sha1(implode(',', $files));
+		$build_name = sha1(implode(',', $file_paths));
 
 		$build_file = $builds_dir . '/' . $build_name . '.' . $type;
 
 		$latest_mtime = 0;
 
-		foreach ($files as $i => $file)
+		foreach ($file_paths as $i => $path)
 		{
-			if (!file_exists($base_dir . '/' . $file))
+			if (!file_exists(BASE_DIR . '/' . $path))
 			{
 				unset($files[$i]);
 				continue;
 			}
 
-			if (($mtime = filemtime($base_dir . '/' . $file)) !== false && $mtime > $latest_mtime)
+			if (($mtime = filemtime(BASE_DIR . '/' . $path)) !== false && $mtime > $latest_mtime)
 				$latest_mtime = $mtime;
 		}
 
@@ -142,25 +37,41 @@ class Build
 			file_put_contents($build_file, '');
 
 			// Append the contents of each of the individual files.
-			foreach ($files as $file)
+			foreach ($file_paths as $path)
 			{
-				$contents = file_get_contents($base_dir . '/' . $file);
+				$contents = file_get_contents(BASE_DIR . '/' . $path);
 
 				file_put_contents($build_file, $contents . "\n\n", FILE_APPEND);
 			}
 
-			if ($type === 'css')
-				$this->fix_relative_url_paths_in_css_file($build_file);
+			switch ($type)
+			{
+				case 'css':
+					$this->fix_relative_url_paths_in_css_file($build_file);
+				break;
+			}
 		}
 
 		return $builds_path . '/' . $build_name . '.' . $type;
 	}
 
-	private function fix_relative_url_paths_in_css_file($file)
+	/*
+		Finds and fixes relative URL paths.
+
+		Example:  url('../../images/some_image.png');
+	*/
+	protected function fix_relative_url_paths_in_css_file($file)
 	{
 		$css = file_get_contents($file);
 
-		if (preg_match_all('~url\((\'|")?((\.\.\/)[^\.]([^\)\'"]*))(\'|")?\)~', $css, $matches, PREG_OFFSET_CAPTURE) > 0)
+		if (
+				preg_match_all(
+					'~url\((\'|")?((\.\.\/)[^\.]([^\)\'"]*))(\'|")?\)~',
+					$css,
+					$matches,
+					PREG_OFFSET_CAPTURE
+				) > 0
+		)
 		{
 			$delta = 0;
 

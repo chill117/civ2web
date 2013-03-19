@@ -15,7 +15,7 @@ class MY_Session extends CI_Session
 		{
 			$encryption_key = htmlspecialchars($this->generate_encryption_key(), ENT_QUOTES);
 
-			show_error('To use the session or encryption classes, you must set the encryption key in application/config/config.php:<br />' . $encryption_key);
+			show_error('To use the session or encryption classes, you must set the encryption key in application/config/config.php. Here is a randomly generated encryption key that you can use:<br />' . $encryption_key);
 		}
 
 		parent::__construct();

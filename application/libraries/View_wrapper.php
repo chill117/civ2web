@@ -18,11 +18,27 @@ class View_wrapper
 	protected $_stack = array();
 	protected $_sticky = array();
 
+	protected $_css = array();
+	protected $_js = array();
+
+	/*
+		Contains the View Wrapper library's configuration settings.
+	*/
+	protected $_config;
+
 	function __construct()
 	{
 		$this->ci =& get_instance();
 
+		$this->ci->config->load('view_wrapper', true);
+
+		$this->_config = $this->ci->config->item('view_wrapper');
+
+		if ($this->_config['build_css'] || $this->_config['build_js'])
+			$this->ci->load->library('Build');
+
 		$this->ci->load->helper('array_replace_recursive');
+		$this->ci->load->helper('cache_buster');
 
 		$meta = array();
 
@@ -36,6 +52,9 @@ class View_wrapper
 	public function push($return = false)
 	{
 		$html = '';
+
+		$this->prepare_css();
+		$this->prepare_js();
 
 		$html .= $this->push_wrappers('above', true);
 
@@ -191,6 +210,78 @@ class View_wrapper
 	public function set_meta_information($meta)
 	{
 		$this->get_wrapper_variable('header', 'meta', $meta);
+	}
+
+	public function load_css($paths)
+	{
+		if (!is_array($paths))
+			$paths = array($paths);
+
+		foreach ($paths as $path)
+			$this->_css[] = $this->_config['css_path'] . '/' . $path;
+	}
+
+	public function load_js($paths)
+	{
+		if (!is_array($paths))
+			$paths = array($paths);
+
+		foreach ($paths as $path)
+			$this->_js[] = $this->_config['js_path'] . '/' . $path;
+	}
+
+	/*
+		If enabled, all CSS files will be combined into a single file.
+
+		Adds all CSS files to the Header Wrapper's load_css variable.
+	*/
+	protected function prepare_css()
+	{
+		$this->set_wrapper_variable('header', 'load_css', array());
+
+		/*
+			Should all the CSS files be combined?
+		*/
+		if ($this->_config['build_css'])
+		{
+			$build_path = $this->ci->build->run($this->_config['css_path'], $this->_css, 'css');
+
+			$this->_css = array($build_path);
+		}
+
+		foreach ($this->_css as $path)
+		{
+			$path .= cache_buster($path);
+
+			$this->append_to_wrapper_variable('header', 'load_css', $path);
+		}
+	}
+
+	/*
+		If enabled, all CSS files will be combined into a single file.
+
+		Adds all JavaScript files to the Footer Wrapper's load_js variable.
+	*/
+	protected function prepare_js()
+	{
+		$this->set_wrapper_variable('footer', 'load_js', array());
+
+		/*
+			Should all the JavaScript files be combined?
+		*/
+		if ($this->_config['build_js'])
+		{
+			$build_path = $this->ci->build->run($this->_config['js_path'], $this->_js, 'js');
+
+			$this->_js = array($build_path);
+		}
+
+		foreach ($this->_js as $path)
+		{
+			$path .= cache_buster($path);
+
+			$this->append_to_wrapper_variable('footer', 'load_js', $path);
+		}
 	}
 
 	protected function push_wrappers($where, $return)

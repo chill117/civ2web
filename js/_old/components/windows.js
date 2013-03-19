@@ -5,16 +5,13 @@ app.components.windows = function()
 
 	function prepare_window(_window)
 	{
-		title = _window.find('.title');
-		menu = _window.find('.menu');
-		content = _window.find('.content');
-
 		var data = {};
 
-		data.name = _window.data('name');
-		data.title = title.html();
-		data.menu = menu.html();
-		data.content = content.html();
+		data.name 		= _window.data('name');
+		data.title 		= _window.find('.title').html();
+		data.content 	= _window.find('.content').html();
+		data.menu 		= _window.find('.menu').html();
+		data.buttons 	= _window.find('.buttons').html();
 
 		var html = app.template.parse('window', data);
 
