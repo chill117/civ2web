@@ -25,18 +25,18 @@
 							<div class="inner">
 								<div class="content">
 									<div class="row">
-										<input type="radio" name="game-type" value="new_game" />
-										<label>Start a New Game</label>
+										<input id="game_type-new_game" type="radio" name="game_type" value="new_game" />
+										<label for="game_type-new_game">Start a New Game</label>
 									</div>
 
 									<div class="row">
-										<input type="radio" name="game-type" value="customize_world" />
-										<label>Customize World</label>
+										<input id="game_type-customize_world" type="radio" name="game_type" value="customize_world" />
+										<label for="game_type-customize_world">Customize World</label>
 									</div>
 
 									<div class="row">
-										<input type="radio" name="game-type" value="load_game" />
-										<label>Load a Game</label>
+										<input id="game_type-load_game" type="radio" name="game_type" value="load_game" />
+										<label for="game_type-load_game">Load a Game</label>
 									</div>
 								</div>
 								<div class="buttons">

@@ -9,10 +9,16 @@ $(function () {
 
 		success: function() {
 
-			// Session Data is ready.
-
-			// Fire up the Main Screen.
-			new app.MainScreenView();
+			if (app.Session.hasGameInProgess())
+			{
+				// Continue their game.
+				new app.GameView();
+			}
+			else
+			{
+				// Otherwise, fire up the Main Screen.
+				new app.MainScreenView();
+			}
 
 		},
 

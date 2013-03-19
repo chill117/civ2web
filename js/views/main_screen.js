@@ -41,6 +41,11 @@ $(function ($) {
 
 		define_elements: function() {
 
+			this.$form = this.$('.window.form');
+			this.$game_type_field = this.$form.find('input[name="game_type"]');
+			this.$submit_button = this.$form.find('.button.submit');
+			this.$cancel_button = this.$form.find('.button.cancel');
+
 		},
 
 		observe: function() {

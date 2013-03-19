@@ -21,36 +21,6 @@ img {
 }
 
 
-/*  Forms  */
-.form input[type="checkbox"] + label:before {
-	display: inline-block;
-	width: 24px;
-	height: 18px;
-	background: url('../images/main_screen/ui.png') 0 0 no-repeat;
-	padding-top: 1px;
-}
-.form input[type="checkbox"]:checked + label:before {
-	height: 19px;
-	background-position: 0 -18px;
-	padding-top: 0;
-}
-.form input[type="radio"] + label:before {
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	background: url('../images/main_screen/ui.png') 0 -37px no-repeat;
-}
-.form input[type="radio"]:checked + label:before {
-	background-position: 0 -55px;
-}
-.form .row {
-	padding: 5px 0;
-}
-.form .buttons .button {
-	font-family: 'Times New Roman', 'serif';
-}
-/*  Forms  */
-
 
 
 /*  Windows  */
@@ -107,8 +77,83 @@ img {
 	border-right: 2px solid #dfdfdf;
 }
 .window .content + .buttons {
-	margin-top: 4px;
+	position: relative;
+	top: 4px;
 }
+
+	/*  Forms  */
+	.window.form .content {
+		color: #333;
+		font-size: 1.5em;
+		text-shadow: 1px 1px 0 #bfbfbf;
+		letter-spacing: 0;
+		padding: 10px;
+	}
+	.window.form .row {
+		display: inline-block;
+		width: 100%;
+	}
+	.window.form .row + .row {
+		margin-top: 10px;
+	}
+	.window.form .buttons .button {
+		font-family: 'Times New Roman', 'serif';
+	}
+
+	.window.form input[type="checkbox"] + label:before {
+		display: inline-block;
+		width: 24px;
+		height: 18px;
+		background: url('../images/main_screen/ui.png') 0 0 no-repeat;
+		padding-top: 1px;
+	}
+	.window.form input[type="checkbox"]:checked + label:before {
+		height: 19px;
+		background-position: 0 -18px;
+		padding-top: 0;
+	}
+	.window.form input[type="radio"] + label:before {
+		display: inline-block;
+		width: 18px;
+		height: 18px;
+		background: url('../images/main_screen/ui.png') 0 -37px no-repeat;
+	}
+	.window.form input[type="radio"]:checked + label:before {
+		background-position: 0 -55px;
+	}
+
+		/*
+			:not(#foo) > is a rule filter to block browsers
+			that don't support that selector from
+			applying rules they shouldn't
+		*/
+		.window.form:not(#foo) input[type="radio"],
+		.window.form:not(#foo) input[type="checkbox"] {
+			display: none;
+		}
+		.window.form:not(#foo) input[type="radio"] + label {
+			clear: none;
+			cursor: pointer;
+			background: url('/images/forms/radio_unchecked.png') left center no-repeat; 
+			padding-left: 28px;/* Width + Padding */
+			margin: 0;
+		}
+		.window.form:not(#foo) input[type="checkbox"] + label {
+			clear: none;
+			cursor: pointer;
+			background: url('/images/forms/checkbox_unchecked.png') left center no-repeat; 
+			padding-left: 34px;/* Width + Padding */
+			margin: 0;
+		}
+		.window.form:not(#foo) input[type="radio"]:checked + label {
+			background-image: url('/images/forms/radio_checked.png');
+		}
+		.window.form:not(#foo) input[type="checkbox"]:checked + label {
+			background-image: url('/images/forms/checkbox_checked.png');
+		}
+
+	/*  Forms  */
+
 
 	/*  Buttons  */
 	.window .buttons {

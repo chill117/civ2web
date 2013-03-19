@@ -8,6 +8,17 @@ var app = app || {};
 	var Session = function() {
 
 		/*
+			Returns TRUE if the user has a game in progress.
+
+			Otherwise, returns FALSE.
+		*/
+		this.hasGameInProgess = function() {
+
+			return this.get('gameInProgess') !== null;
+
+		},
+
+		/*
 			Returns just the value associated with the session variable.
 		*/
 		this.get = function(name) {
