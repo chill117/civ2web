@@ -10,7 +10,6 @@ $(function () {
 		success: function() {
 
 			// Session Data is ready.
-			if ()
 
 			// Fire up the Main Screen.
 			new app.MainScreenView();
