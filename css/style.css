@@ -2,7 +2,7 @@ body {
 	position: relative;
 	overflow: hidden;
 	font-family: 'Times New Roman', 'serif';
-	background: #8f7b63 url('../images/main_screen/background.png') center center no-repeat;
+	background: #8f7b63 url('../images/background.png') center center no-repeat;
 }
 a {
 	text-decoration: none;
@@ -19,7 +19,10 @@ img {
 	display: inline-block;
 	width: 100%;
 }
-
+.view {
+	position: relative;
+	margin: 36px 108px;
+}
 
 
 
@@ -59,12 +62,15 @@ img {
 	left: 0;
 }
 .window .title {
+	position: relative;
+	top: -4px;
+	line-height: 21px;
 	color: #878787;
-	font-size: 1.6em;
+	font-size: 1.75em;
 	font-weight: normal;
 	text-shadow: 1px 1px 0 #000;
 	text-align: center;
-	padding-bottom: 4px;
+	padding: 5px 0 4px 0;
 }
 .window .title:empty {
 	display: none;
@@ -79,6 +85,9 @@ img {
 .window .content + .buttons {
 	position: relative;
 	top: 4px;
+}
+.window.image .content .image {
+	display: block;
 }
 
 	/*  Forms  */
@@ -99,59 +108,35 @@ img {
 	.window.form .buttons .button {
 		font-family: 'Times New Roman', 'serif';
 	}
-
-	.window.form input[type="checkbox"] + label:before {
-		display: inline-block;
-		width: 24px;
-		height: 18px;
-		background: url('../images/main_screen/ui.png') 0 0 no-repeat;
-		padding-top: 1px;
+	/*
+		:not(#foo) > is a rule filter to block browsers
+		that don't support that selector from
+		applying rules they shouldn't
+	*/
+	.window.form:not(#foo) input[type="radio"],
+	.window.form:not(#foo) input[type="checkbox"] {
+		display: none;
 	}
-	.window.form input[type="checkbox"]:checked + label:before {
-		height: 19px;
-		background-position: 0 -18px;
-		padding-top: 0;
+	.window.form:not(#foo) input[type="radio"] + label {
+		clear: none;
+		cursor: pointer;
+		background: url('/images/forms/radio_unchecked.png') left center no-repeat; 
+		padding-left: 28px;/* Width + Padding */
+		margin: 0;
 	}
-	.window.form input[type="radio"] + label:before {
-		display: inline-block;
-		width: 18px;
-		height: 18px;
-		background: url('../images/main_screen/ui.png') 0 -37px no-repeat;
+	.window.form:not(#foo) input[type="checkbox"] + label {
+		clear: none;
+		cursor: pointer;
+		background: url('/images/forms/checkbox_unchecked.png') left center no-repeat; 
+		padding-left: 34px;/* Width + Padding */
+		margin: 0;
 	}
-	.window.form input[type="radio"]:checked + label:before {
-		background-position: 0 -55px;
+	.window.form:not(#foo) input[type="radio"]:checked + label {
+		background-image: url('/images/forms/radio_checked.png');
 	}
-
-		/*
-			:not(#foo) > is a rule filter to block browsers
-			that don't support that selector from
-			applying rules they shouldn't
-		*/
-		.window.form:not(#foo) input[type="radio"],
-		.window.form:not(#foo) input[type="checkbox"] {
-			display: none;
-		}
-		.window.form:not(#foo) input[type="radio"] + label {
-			clear: none;
-			cursor: pointer;
-			background: url('/images/forms/radio_unchecked.png') left center no-repeat; 
-			padding-left: 28px;/* Width + Padding */
-			margin: 0;
-		}
-		.window.form:not(#foo) input[type="checkbox"] + label {
-			clear: none;
-			cursor: pointer;
-			background: url('/images/forms/checkbox_unchecked.png') left center no-repeat; 
-			padding-left: 34px;/* Width + Padding */
-			margin: 0;
-		}
-		.window.form:not(#foo) input[type="radio"]:checked + label {
-			background-image: url('/images/forms/radio_checked.png');
-		}
-		.window.form:not(#foo) input[type="checkbox"]:checked + label {
-			background-image: url('/images/forms/checkbox_checked.png');
-		}
-
+	.window.form:not(#foo) input[type="checkbox"]:checked + label {
+		background-image: url('/images/forms/checkbox_checked.png');
+	}
 	/*  Forms  */
 
 
@@ -179,29 +164,127 @@ img {
 		padding: 9px 0;
 		margin-right: 1%;
 	}
-		/*  One Button  */
-		.window .buttons .button:first-child:nth-last-child(1) {
-			width: 100%;
-		}
-
-		/*  Two Buttons  */
-		.window .buttons .button:first-child:nth-last-child(2),
-		.window .buttons .button:first-child:nth-last-child(2) ~ .button {
-			width: 49.5%;
-		}
-
-		/*  Three Buttons  */
-		.window .buttons .button:first-child:nth-last-child(3),
-		.window .buttons .button:first-child:nth-last-child(3) ~ .button {
-			width: 32.666667%;
-		}
-
+	/*  One Button  */
+	.window .buttons .button:first-child:nth-last-child(1) {
+		width: 100%;
+	}
+	/*  Two Buttons  */
+	.window .buttons .button:first-child:nth-last-child(2),
+	.window .buttons .button:first-child:nth-last-child(2) ~ .button {
+		width: 49.5%;
+	}
+	/*  Three Buttons  */
+	.window .buttons .button:first-child:nth-last-child(3),
+	.window .buttons .button:first-child:nth-last-child(3) ~ .button {
+		width: 32.666667%;
+	}
 	.window .buttons .button:last-child {
 		margin-right: 0;
 	}
 	/*  Buttons  */
 
 /*  Windows  */
+
+
+
+/*  Main Screen  */
+
+	.view.main_screen {
+		margin: 36px 90px;
+	}
+
+	/*  Image  */
+	.view.main_screen .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.main_screen .window.form {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 400px;
+	}
+	/*  Form  */
+
+/*  Main Screen  */
+
+
+
+/*  Select World Size  */
+
+	/*  Image  */
+	.view.select_world_size .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_world_size .window.form {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 500px;
+	}
+	/*  Form  */
+
+/*  Select World Size  */
+
+
+
+/*  Select Difficulty Level  */
+
+	/*  Image  */
+	.view.select_difficulty_level .window.image {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_difficulty_level .window.form {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 500px;
+	}
+	/*  Form  */
+
+/*  Select Difficulty Level  */
+
+
+
+/*  Select Number of Civs  */
+
+	/*  Image  */
+	.view.select_number_of_civs .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_number_of_civs .window.form {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 500px;
+	}
+	/*  Form  */
+
+/*  Select Number of Civs  */
+
 
 
 /*  Game  */
@@ -234,29 +317,3 @@ img {
 	/*  Status  */
 
 /*  Game  */
-
-
-/*  Main Screen  */
-
-	/*  Image  */
-	.view.main_screen .window.image {
-		position: absolute;
-		left: 91px;
-		top: 37px;
-	}
-	.view.main_screen .window.image .content .image {
-		display: block;
-	}
-	/*  Image  */
-
-
-	/*  Form  */
-	.view.main_screen .window.form {
-		position: absolute;
-		right: 89px;
-		bottom: 36px;
-		width: 400px;
-	}
-	/*  Form  */
-
-/*  Main Screen  */

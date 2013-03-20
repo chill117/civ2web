@@ -1,0 +1,70 @@
+
+	<div class="view select_difficulty_level">
+
+		<div class="window image">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<div class="content">
+									<img class="image" width="583" height="257" src="/images/misc/samurai_statue.png" alt="Face of a Samurai Statue Made of Stone" />
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="window form">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<h3 class="title">Select Difficulty Level</h3>
+
+								<div class="content">
+									<div class="row">
+										<input id="difficulty_level-chieftain" type="radio" name="difficulty_level" value="chieftain" />
+										<label for="difficulty_level-chieftain">Chieftain (easiest)</label>
+									</div>
+									<div class="row">
+										<input id="difficulty_level-warlord" type="radio" name="difficulty_level" value="warlord" />
+										<label for="difficulty_level-warlord">Warlord</label>
+									</div>
+									<div class="row">
+										<input id="difficulty_level-prince" type="radio" name="difficulty_level" value="prince" />
+										<label for="difficulty_level-prince">Prince</label>
+									</div>
+									<div class="row">
+										<input id="difficulty_level-king" type="radio" name="difficulty_level" value="king" />
+										<label for="difficulty_level-king">King</label>
+									</div>
+									<div class="row">
+										<input id="difficulty_level-emperor" type="radio" name="difficulty_level" value="emperor" />
+										<label for="difficulty_level-emperor">Emperor</label>
+									</div>
+									<div class="row">
+										<input id="difficulty_level-deity" type="radio" name="difficulty_level" value="deity" />
+										<label for="difficulty_level-deity">Deity (toughest)</label>
+									</div>
+								</div>
+
+								<div class="buttons">
+									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>

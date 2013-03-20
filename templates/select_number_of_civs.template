@@ -1,0 +1,67 @@
+
+	<div class="view select_number_of_civs">
+
+		<div class="window image">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<div class="content">
+									<img class="image" width="583" height="257" src="/images/misc/civilizations.png" alt="Representatives of Different Civilizations Talking Casually" />
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="window form">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<h3 class="title">Select Level Of Competition</h3>
+
+								<div class="content">
+									<div class="row">
+										<input id="num_civs-7" type="radio" name="num_civs" value="7" />
+										<label for="num_civs-7">7 Civilizations</label>
+									</div>
+									<div class="row">
+										<input id="num_civs-6" type="radio" name="num_civs" value="6" />
+										<label for="num_civs-6">6 Civilizations</label>
+									</div>
+									<div class="row">
+										<input id="num_civs-5" type="radio" name="num_civs" value="5" />
+										<label for="num_civs-5">5 Civilizations</label>
+									</div>
+									<div class="row">
+										<input id="num_civs-4" type="radio" name="num_civs" value="4" />
+										<label for="num_civs-4">4 Civilizations</label>
+									</div>
+									<div class="row">
+										<input id="num_civs-3" type="radio" name="num_civs" value="3" />
+										<label for="num_civs-3">3 Civilizations</label>
+									</div>
+								</div>
+
+								<div class="buttons">
+									<input class="button random" type="submit" value="Random" />
+									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>

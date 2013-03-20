@@ -31,7 +31,7 @@ $(function ($) {
 
 				error: function() {
 
-					console.log('failed to load main screen template!');
+					console.log('Failed to load template: main_screen');
 
 				}
 
@@ -41,8 +41,10 @@ $(function ($) {
 
 		define_elements: function() {
 
+			this.$view = this.$('.view');
+
 			this.$form = this.$('.window.form');
-			this.$game_type_fields = this.$form.find('input[name="game_type"]');
+			this.$fields = this.$form.find('input[name="game_type"]');
 			this.$submit_button = this.$form.find('.button.submit');
 
 		},
@@ -63,6 +65,17 @@ $(function ($) {
 
 		resize: function() {
 
+			this.setViewHeight();
+
+		},
+
+		setViewHeight: function() {
+
+			var appHeight = app.AppView.getAppHeight();
+			var viewPaddingMarginBorder = this.$view.borderPaddingMarginHeight();
+
+			this.$view.height(appHeight - viewPaddingMarginBorder);
+
 		},
 
 		formSubmitted: function() {
@@ -73,13 +86,15 @@ $(function ($) {
 			{
 				case 'new_game':
 
-					console.log('new game!');
+					// Send them to the Select World Size view.
+					new app.SelectWorldSizeView();
 
 				break;
 
 				case 'customize_world':
 
-					console.log('customize world!');
+					// Send them to the Select World Size view.
+					new app.SelectWorldSizeView();
 
 				break;
 
@@ -90,8 +105,8 @@ $(function ($) {
 				break;
 				
 				default:
-
-					// Invalid Game Type selected.
+				
+					console.log('invalid selection!');
 
 				break;
 			}
@@ -100,7 +115,7 @@ $(function ($) {
 
 		getSelectedGameType: function() {
 
-			var checked = this.$game_type_fields.filter(':checked');
+			var checked = this.$fields.filter(':checked');
 
 			return checked.length > 0 ? checked.val() : null;
 

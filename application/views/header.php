@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="<?= $href ?>" /><?php endforeach; endif; ?>
 
 <?php if (ENVIRONMENT !== 'development'): ?>
-	<script src="https://ajax.googleapis.com/ajax/third_party/jquery/1.9.1/jquery.min.js"></script><?php else: ?>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><?php else: ?>
 	<script>window.jQuery || document.write('<script src="/js/third_party/jquery.js<?= cache_buster('/js/third_party/jquery.js'); ?>">\x3C/script>')</script><?php endif; ?>
 
 	

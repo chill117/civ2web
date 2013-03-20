@@ -1,5 +1,5 @@
 
-	<div class="view main_screen">
+	<div class="view select_world_size">
 
 		<div class="window image">
 			<div class="border-1">
@@ -9,9 +9,9 @@
 							<div class="inner">
 
 								<div class="content">
-									<img class="image" width="376" height="227" src="/images/misc/earth.png" alt="Partial Picture of Earth" />
+									<img class="image" width="583" height="257" src="/images/misc/city_plan.png" alt="Partial Drawing of a City Plan" />
 								</div>
-
+								
 							</div>
 						</div>
 					</div>
@@ -26,25 +26,28 @@
 						<div class="border-4">
 							<div class="inner">
 
+								<h3 class="title">Select Size of World</h3>
+
 								<div class="content">
 									<div class="row">
-										<input id="game_type-new_game" type="radio" name="game_type" value="new_game" />
-										<label for="game_type-new_game">Start a New Game</label>
+										<input id="world_size-40x50" type="radio" name="world_size" value="40x50" />
+										<label for="world_size-40x50">Small (40x50 squares, quick game)</label>
 									</div>
 
 									<div class="row">
-										<input id="game_type-customize_world" type="radio" name="game_type" value="customize_world" />
-										<label for="game_type-customize_world">Customize World</label>
+										<input id="world_size-50x80" type="radio" name="world_size" value="50x80" />
+										<label for="world_size-50x80">Normal (50x80 squares)</label>
 									</div>
 
 									<div class="row">
-										<input id="game_type-load_game" type="radio" name="game_type" value="load_game" />
-										<label for="game_type-load_game">Load a Game</label>
+										<input id="world_size-75x120" type="radio" name="world_size" value="75x120" />
+										<label for="world_size-75x120">Large (75x120 squares, long game)</label>
 									</div>
 								</div>
 
 								<div class="buttons">
 									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
 								</div>
 
 							</div>

@@ -5,7 +5,7 @@ $(function ($) {
 
 	'use strict';
 
-	app.AppView = Backbone.View.extend({
+	var AppView = Backbone.View.extend({
 
 		el: '#app',
 
@@ -50,14 +50,14 @@ $(function ($) {
 		calculateAppHeight: function() {
 
 			var viewPortHeight = $(window).height();
-			var appPaddingMarginBorder = (this.$el.outerHeight(true) - this.$el.height());
+			var appPaddingMarginBorder = this.$el.borderPaddingMarginHeight();
 
-			return viewPortHeight - (appPaddingMarginBorder);
+			return viewPortHeight - appPaddingMarginBorder;
 
 		}
 
 	});
 
-	new app.AppView();
+	app.AppView = new AppView();
 
 });
