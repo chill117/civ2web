@@ -102,15 +102,14 @@ $(function ($) {
 
 			switch (numCivs)
 			{
-				case 'chieftain':
-				case 'warlord':
-				case 'prince':
-				case 'king':
-				case 'emperor':
-				case 'deity':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
 
-					// Send them to the Select Number of Civs view.
-					new app.SelectNumberOfCivsView();
+					// Send them to the Select Level of Barbarian Activity view.
+					new app.SelectBarbarianLevel();
 
 				break;
 				

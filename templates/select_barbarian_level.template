@@ -1,0 +1,63 @@
+
+	<div class="view select_barbarian_level">
+
+		<div class="window image">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<div class="content">
+									<img class="image" width="583" height="257" src="/images/misc/renaissance_barbarians.png" alt="Renaissance Era Barbarians" />
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="window form">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<h3 class="title">Select Level Of Barbarian Activity</h3>
+
+								<div class="content">
+									<div class="row">
+										<input id="barbarian_level-villages_only" type="radio" name="barbarian_level" value="villages_only" />
+										<label for="barbarian_level-villages_only">Villages Only</label>
+									</div>
+									<div class="row">
+										<input id="barbarian_level-roving_bands" type="radio" name="barbarian_level" value="roving_bands" />
+										<label for="barbarian_level-roving_bands">Roving Bands</label>
+									</div>
+									<div class="row">
+										<input id="barbarian_level-restless_tribes" type="radio" name="barbarian_level" value="restless_tribes" />
+										<label for="barbarian_level-restless_tribes">Restless Tribes</label>
+									</div>
+									<div class="row">
+										<input id="barbarian_level-raging_hordes" type="radio" name="barbarian_level" value="raging_hordes" />
+										<label for="barbarian_level-raging_hordes">Raging Hordes</label>
+									</div>
+								</div>
+
+								<div class="buttons">
+									<input class="button random" type="submit" value="Random" />
+									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
