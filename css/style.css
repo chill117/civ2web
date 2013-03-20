@@ -287,6 +287,54 @@ img {
 
 
 
+/*  Select Level of Barbarian Activity  */
+
+	/*  Image  */
+	.view.select_barbarian_level .window.image {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_barbarian_level .window.form {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 500px;
+	}
+	/*  Form  */
+
+/*  Select Level of Barbarian Activity  */
+
+
+
+/*  Select Gender  */
+
+	/*  Image  */
+	.view.select_gender .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_gender .window.form {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 360px;
+	}
+	/*  Form  */
+
+/*  Select Gender  */
+
+
+
 /*  Game  */
 
 	/*  Map  */

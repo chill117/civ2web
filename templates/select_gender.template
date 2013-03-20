@@ -1,0 +1,55 @@
+
+	<div class="view select_world_size">
+
+		<div class="window image">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<div class="content">
+									<img class="image" width="584" height="258" src="/images/misc/interesting_characters.png" alt="Various interesting characters from different time periods" />
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="window form">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<h3 class="title">Select Gender</h3>
+
+								<div class="content">
+									<div class="row">
+										<input id="gender-male" type="radio" name="gender" value="male" />
+										<label for="gender-male">Male</label>
+									</div>
+
+									<div class="row">
+										<input id="gender-female" type="radio" name="gender" value="female" />
+										<label for="gender-female">Female</label>
+									</div>
+								</div>
+
+								<div class="buttons">
+									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
