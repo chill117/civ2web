@@ -12,30 +12,16 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+			
+			var html = app.Template.get('select_difficulty_level');
 
-			var _this = this;
+			this.selectDifficultyLevelTemplate = _.template(html);
 
-			app.Templates.load('select_difficulty_level', {
+			this.render();
+			this.define_elements();
+			this.observe();
 
-				success: function(html) {
-
-					_this.selectDifficultyLevelTemplate = _.template(html);
-
-					_this.render();
-					_this.define_elements();
-					_this.observe();
-
-					_this.resize();
-
-				},
-
-				error: function() {
-
-					console.log('Failed to load template: select_difficulty_level');
-
-				}
-
-			});
+			this.resize();
 
 		},
 

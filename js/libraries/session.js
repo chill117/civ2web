@@ -12,27 +12,27 @@ var app = app || {};
 
 			Otherwise, returns FALSE.
 		*/
-		this.hasGameInProgess = function() {
+		function hasGameInProgess() {
 
 			return this.get('gameInProgess') !== null;
 
-		},
+		};
 
 		/*
 			Returns just the value associated with the session variable.
 		*/
-		this.get = function(name) {
+		function get(name) {
 
 			var data = app.SessionDataCollection.localStorage.find({id: name});
 
 			return data !== null ? data.value : null;
 
-		},
+		};
 
 		/*
 			Sets a session variable with the given arguments.
 		*/
-		this.set = function(name, value) {
+		function set(name, value) {
 
 			var data = {};
 
@@ -45,7 +45,31 @@ var app = app || {};
 
 			model.save();
 
+		};
+
+		/*
+			Auto-loads the session data.
+		*/
+		function autoLoad() {
+
+			app.SessionDataCollection.fetch({
+
+				success: function() {
+
+					app.Event.trigger('session:ready');
+
+				}
+
+			});
+
 		}
+
+		app.Event.on('app:load', autoLoad);
+
+		// "Public" methods.
+		this.hasGameInProgess 	= hasGameInProgess;
+		this.get 				= get;
+		this.set 				= set;
 
 		return this;
 

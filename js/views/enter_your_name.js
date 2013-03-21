@@ -5,7 +5,7 @@ $(function ($) {
 
 	'use strict';
 
-	app.EnterYourName = Backbone.View.extend({
+	app.EnterYourNameView = Backbone.View.extend({
 
 		el: '#app',
 

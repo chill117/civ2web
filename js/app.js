@@ -5,32 +5,88 @@ $(function () {
 
 	'use strict';
 
-	app.SessionDataCollection.fetch({
+	/*
+		Ready state for the different steps of the loading process.
+	*/
+	var ready = {
+					templates: false,
+					lang: false,
+					config: false,
+					session: false
+				};
 
-		success: function() {
+	/*
+		Event listeners.
+	*/
+	app.Event.on('app:ready', start);
 
-			if (app.Session.hasGameInProgess())
-			{
-				// Continue their game.
-				new app.GameView();
-			}
-			else
-			{
-				// Otherwise, fire up the Main Screen.
-				new app.MainScreenView();
-			}
+	add_ready_listeners();
 
-		},
+	function start()
+	{
+		if (app.Session.hasGameInProgess())
+			// Continue their game.
+			new app.GameView();
+		else
+			// Otherwise, fire up the Main Screen.
+			new app.MainScreenView();
+	}
 
-		error: function() {
+	function add_ready_listeners()
+	{
+		app.Event.on('templates:ready', function() {
 
-			// Failed to retrieve Session Data.
+			ready.templates = true;
 
-		}
+			check_if_ready();
 
-	});
+		});
+		
+		app.Event.on('lang:ready', function() {
+
+			ready.lang = true;
+
+			check_if_ready();
+
+		});
+		
+		app.Event.on('config:ready', function() {
+
+			ready.config = true;
+
+			check_if_ready();
+
+		});
+		
+		app.Event.on('session:ready', function() {
+
+			ready.session = true;
+
+			check_if_ready();
+
+		});
+	}
+
+	function check_if_ready()
+	{
+		for (var i in ready)
+			if (!ready[i])
+				// Not ready yet.
+				return;
+
+		// Good to go.
+		app.Event.trigger('app:ready');
+	}
+
+	/*
+		Let's things listening for this event know that it's time to load stuff.
+	*/
+	app.Event.trigger('app:load');
 
 });
+
+
+
 
 function rand(from, to)
 {

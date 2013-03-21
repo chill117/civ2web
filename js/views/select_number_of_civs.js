@@ -12,30 +12,16 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+			
+			var html = app.Template.get('select_number_of_civs');
 
-			var _this = this;
+			this.selectNumberOfCivsTemplate = _.template(html);
 
-			app.Templates.load('select_number_of_civs', {
+			this.render();
+			this.define_elements();
+			this.observe();
 
-				success: function(html) {
-
-					_this.selectNumberOfCivsTemplate = _.template(html);
-
-					_this.render();
-					_this.define_elements();
-					_this.observe();
-
-					_this.resize();
-
-				},
-
-				error: function() {
-
-					console.log('Failed to load template: select_number_of_civs');
-
-				}
-
-			});
+			this.resize();
 
 		},
 

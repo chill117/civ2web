@@ -5,50 +5,51 @@ var app = app || {};
 
 	'use strict';
 
-	var Lang = function() {
+	var Template = function() {
 
 		/*
-			List of language files that will be automatically loaded at run-time.
+			List of templates that will be automatically loaded at run-time.
 		*/
-		var auto_load = [];
+		var auto_load = [
+			'game',
+			'main_screen',
+			'select_barbarian_level',
+			'select_difficulty_level',
+			'select_gender',
+			'select_number_of_civs',
+			'select_tribe',
+			'select_world_size'
+		];
 
 		/*
-			The URL path to the language directory.
+			The URL path to the templates directory.
 		*/
-		var path = '/language';
+		var path = '/templates';
 
 		/*
-			The language locale that will be used when loading language files.
+			Holds all templates that have been loaded.
 		*/
-		var lang_locale = 'en';
+		var templates = {};
 
 		/*
-			Holds all lines of text that have been loaded.
-		*/
-		var lines = {};
-
-		/*
-			List of language files that have been loaded.
-		*/
-		var loaded = {};
-
-		/*
-			Loads a language file.
+			Loads a template file.
 		*/
 		function load(file, callbacks) {
 
 			/*
-				Stop here if the language file has already been loaded.
+				Stop here if the template has already been loaded.
 			*/
 			if (isLoaded(file))
 				if (callbacks !== undefined && callbacks.success !== undefined)
 				{
-					callbacks.success();
+					var html = get(file);
+
+					callbacks.success(html);
 
 					return;
 				}
 
-			var url = path + '/' + lang_locale + '/' + file + '.json';
+			var url = path + '/' + file + '.template';
 
 			$.ajax({
 				type: 'GET',
@@ -62,17 +63,12 @@ var app = app || {};
 					{
 						case 200:
 
-							loaded[file] = true;
+							var html = data;
 
-							for (var key in data)
-							{
-								var line = data[key];
-
-								lines[key] = line;
-							}
+							templates[file] = html;
 
 							if (callbacks !== undefined && callbacks.success !== undefined)
-								callbacks.success();
+								callbacks.success(html);
 
 						break;
 
@@ -89,22 +85,22 @@ var app = app || {};
 		}
 
 		/*
-			Returns the corresponding line of text.
+			Returns the HTML of a template that has already been loaded.
 		*/
-		function line(key) {
+		function get(file) {
 
-			return lines[key] !== undefined ? lines[key] : null;
+			return isLoaded(file) ? templates[file] : null;
 
 		}
 
 		function isLoaded(file) {
 
-			return loaded[file] === true;
+			return templates[file] !== undefined;
 
 		}
 
 		/*
-			Auto-loads language files at run-time.
+			Auto-loads templates at run-time.
 		*/
 		function autoLoad() {
 
@@ -126,7 +122,7 @@ var app = app || {};
 		}
 
 		/*
-			Triggers the 'lang:ready' event when all auto-load language files have loaded.
+			Triggers the 'templates:ready' event when all auto-load templates have loaded.
 		*/
 		function checkIfReady() {
 
@@ -146,20 +142,20 @@ var app = app || {};
 
 		function triggerReadyEvent() {
 
-			app.Event.trigger('lang:ready');
+			app.Event.trigger('templates:ready');
 
 		}
 
 		app.Event.on('app:load', autoLoad);
 
 		// "Public" methods.
-		this.load = load;
-		this.line = line;
+		this.load 	= load;
+		this.get 	= get;
 
 		return this;
 
 	}
 
-	app.Lang = new Lang();
+	app.Template = new Template();
 
 })();

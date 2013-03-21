@@ -13,29 +13,15 @@ $(function ($) {
 
 			_.bindAll(this);
 
-			var _this = this;
+			var html = app.Template.get('select_barbarian_level');
 
-			app.Templates.load('select_barbarian_level', {
+			this.selectBarbarianLevelTemplate = _.template(html);
 
-				success: function(html) {
+			this.render();
+			this.define_elements();
+			this.observe();
 
-					_this.selectBarbarianLevelTemplate = _.template(html);
-
-					_this.render();
-					_this.define_elements();
-					_this.observe();
-
-					_this.resize();
-
-				},
-
-				error: function() {
-
-					console.log('Failed to load template: select_barbarian_level');
-
-				}
-
-			});
+			this.resize();
 
 		},
 
@@ -44,7 +30,7 @@ $(function ($) {
 			this.$view = this.$('.view');
 
 			this.$form = this.$('.window.form');
-			this.$fields = this.$form.find('input[name="num_civs"]');
+			this.$fields = this.$form.find('input[name="barbarian_level"]');
 			this.$random_button = this.$form.find('.button.random');
 			this.$submit_button = this.$form.find('.button.submit');
 			this.$cancel_button = this.$form.find('.button.cancel');
@@ -106,6 +92,8 @@ $(function ($) {
 				case 'roving_bands':
 				case 'restless_tribes':
 				case 'raging_hordes':
+
+					new app.SelectGenderView();
 
 				break;
 				

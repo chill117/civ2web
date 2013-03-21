@@ -46,9 +46,12 @@ class Custom
 			'helpers/jquery.center.js',
 			'helpers/jquery.borderPaddingMargin.js',
 			'helpers/jquery.randomFilter.js',
+			'libraries/event.js',
+			'libraries/config.js',
 			'libraries/lang.js',
-			'libraries/templates.js',
+			'libraries/template.js',
 			'libraries/session.js',
+			'app.js',
 			'models/save.js',
 			'models/session.js',
 			'collections/saves.js',
@@ -63,8 +66,7 @@ class Custom
 			'views/select_gender.js',
 			'views/select_city_style.js',
 			'views/enter_your_name.js',
-			'views/game.js',
-			'app.js'
+			'views/game.js'
 		);
 
 		$this->ci->view_wrapper->load_js($paths);

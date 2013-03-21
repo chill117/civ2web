@@ -1,0 +1,107 @@
+{
+	"romans": {
+		"label"      : "Romans",
+		"color"      : "#efefef",
+		"city_style" : "classical"
+	},
+	"russians": {
+		"label"      : "Russians",
+		"color"      : "#efefef",
+		"city_style" : "medieval"
+	},
+	"celts": {
+		"label"      : "Celts",
+		"color"      : "#efefef",
+		"city_style" : "bronze"
+	},
+	"babylonians": {
+		"label"      : "Babylonians",
+		"color"      : "#57ab27",
+		"city_style" : "bronze"
+	},
+	"zulus": {
+		"label"      : "Zulus",
+		"color"      : "#57ab27",
+		"city_style" : "bronze"
+	},
+	"japanese": {
+		"label"      : "Japanese",
+		"color"      : "#57ab27",
+		"city_style" : "far_east"
+	},
+	"germans": {
+		"label"      : "Germans",
+		"color"      : "#4b5fb7",
+		"city_style" : "medieval"
+	},
+	"french": {
+		"label"      : "French",
+		"color"      : "#4b5fb7",
+		"city_style" : "medieval"
+	},
+	"vikings": {
+		"label"      : "Vikings",
+		"color"      : "#4b5fb7",
+		"city_style" : "medieval"
+	},
+	"egyptians": {
+		"label"      : "Egyptians",
+		"color"      : "#ffff00",
+		"city_style" : "bronze"
+	},
+	"aztecs": {
+		"label"      : "Aztecs",
+		"color"      : "#ffff00",
+		"city_style" : "bronze"
+	},
+	"spanish": {
+		"label"      : "Spanish",
+		"color"      : "#ffff00",
+		"city_style" : "medieval"
+	},
+	"americans": {
+		"label"      : "Americans",
+		"color"      : "#37afbf",
+		"city_style" : "classical"
+	},
+	"chinese": {
+		"label"      : "Chinese",
+		"color"      : "#37afbf",
+		"city_style" : "far_east"
+	},
+	"persians": {
+		"label"      : "Persians",
+		"color"      : "#37afbf",
+		"city_style" : "bronze"
+	},
+	"greeks": {
+		"label"      : "Greeks",
+		"color"      : "#eb830b",
+		"city_style" : "classical"
+	},
+	"english": {
+		"label"      : "English",
+		"color"      : "#eb830b",
+		"city_style" : "medieval"
+	},
+	"carthaginians": {
+		"label"      : "Carthaginians",
+		"color"      : "#eb830b",
+		"city_style" : "classical"
+	},
+	"indians": {
+		"label"      : "Indians",
+		"color"      : "#8367b3",
+		"city_style" : "far_east"
+	},
+	"mongols": {
+		"label"      : "Mongols",
+		"color"      : "#8367b3",
+		"city_style" : "bronze"
+	},
+	"sioux": {
+		"label"      : "Sioux",
+		"color"      : "#8367b3",
+		"city_style" : "bronze"
+	}
+}

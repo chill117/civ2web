@@ -5,6 +5,10 @@ $(function ($) {
 
 	'use strict';
 
+	/*
+		Prepares the app element.
+	*/
+
 	var AppView = Backbone.View.extend({
 
 		el: '#app',
@@ -13,13 +17,8 @@ $(function ($) {
 
 			_.bindAll(this);
 
-			this.define_elements();
 			this.observe();
 			this.resize();
-
-		},
-
-		define_elements: function() {
 
 		},
 

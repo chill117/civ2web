@@ -1,5 +1,5 @@
 
-	<div class="view main_screen">
+	<div class="view select_gender">
 
 		<div class="window image">
 			<div class="border-1">
@@ -9,9 +9,9 @@
 							<div class="inner">
 
 								<div class="content">
-									<img class="image" width="376" height="227" src="/images/misc/earth.png" alt="Partial picture of Earth" />
+									<img class="image" width="584" height="258" src="/images/misc/tribes.png" alt="Imperial era characters from around the world" />
 								</div>
-
+								
 							</div>
 						</div>
 					</div>
@@ -26,20 +26,16 @@
 						<div class="border-4">
 							<div class="inner">
 
-								<div class="content">
-									<div class="row">
-										<input id="game_type-new_game" type="radio" name="game_type" value="new_game" />
-										<label for="game_type-new_game">Start a New Game</label>
-									</div>
+								<h3 class="title">Select Your Tribe</h3>
 
-									<div class="row">
-										<input id="game_type-load_game" type="radio" name="game_type" value="load_game" />
-										<label for="game_type-load_game">Load a Game</label>
-									</div>
+								<div class="content">
+
 								</div>
 
 								<div class="buttons">
+									<input class="button submit" type="submit" value="Custom" />
 									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
 								</div>
 
 							</div>

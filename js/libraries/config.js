@@ -5,50 +5,46 @@ var app = app || {};
 
 	'use strict';
 
-	var Lang = function() {
+	var Config = function() {
 
 		/*
-			List of language files that will be automatically loaded at run-time.
+			List of configuration files that will be automatically loaded at run-time.
 		*/
-		var auto_load = [];
+		var auto_load = [
+			'civs',
+			'seed_rules',
+			'sprites'
+		];
 
 		/*
-			The URL path to the language directory.
+			The URL path to the configurations directory.
 		*/
-		var path = '/language';
+		var path = '/config';
 
 		/*
-			The language locale that will be used when loading language files.
+			Holds all config objects that have been loaded.
 		*/
-		var lang_locale = 'en';
+		var config_objects = {};
 
 		/*
-			Holds all lines of text that have been loaded.
-		*/
-		var lines = {};
-
-		/*
-			List of language files that have been loaded.
-		*/
-		var loaded = {};
-
-		/*
-			Loads a language file.
+			Loads a configuration file.
 		*/
 		function load(file, callbacks) {
 
 			/*
-				Stop here if the language file has already been loaded.
+				Stop here if the configuration file has already been loaded.
 			*/
 			if (isLoaded(file))
 				if (callbacks !== undefined && callbacks.success !== undefined)
 				{
-					callbacks.success();
+					var config_object = get(file);
+
+					callbacks.success(config_object);
 
 					return;
 				}
 
-			var url = path + '/' + lang_locale + '/' + file + '.json';
+			var url = path + '/' + file + '.json';
 
 			$.ajax({
 				type: 'GET',
@@ -62,17 +58,12 @@ var app = app || {};
 					{
 						case 200:
 
-							loaded[file] = true;
+							var html = data;
 
-							for (var key in data)
-							{
-								var line = data[key];
-
-								lines[key] = line;
-							}
+							config_objects[file] = html;
 
 							if (callbacks !== undefined && callbacks.success !== undefined)
-								callbacks.success();
+								callbacks.success(html);
 
 						break;
 
@@ -89,22 +80,22 @@ var app = app || {};
 		}
 
 		/*
-			Returns the corresponding line of text.
+			Returns the Config Object of a configuration file that has already been loaded.
 		*/
-		function line(key) {
+		function get(file) {
 
-			return lines[key] !== undefined ? lines[key] : null;
+			return isLoaded(file) ? config_objects[file] : null;
 
 		}
 
 		function isLoaded(file) {
 
-			return loaded[file] === true;
+			return config_objects[file] !== undefined;
 
 		}
 
 		/*
-			Auto-loads language files at run-time.
+			Auto-loads config files at run-time.
 		*/
 		function autoLoad() {
 
@@ -126,7 +117,7 @@ var app = app || {};
 		}
 
 		/*
-			Triggers the 'lang:ready' event when all auto-load language files have loaded.
+			Triggers the 'config:ready' event when all auto-load config files have loaded.
 		*/
 		function checkIfReady() {
 
@@ -146,7 +137,7 @@ var app = app || {};
 
 		function triggerReadyEvent() {
 
-			app.Event.trigger('lang:ready');
+			app.Event.trigger('config:ready');
 
 		}
 
@@ -154,12 +145,11 @@ var app = app || {};
 
 		// "Public" methods.
 		this.load = load;
-		this.line = line;
 
 		return this;
 
 	}
 
-	app.Lang = new Lang();
+	app.Config = new Config();
 
 })();

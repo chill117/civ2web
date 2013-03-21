@@ -12,30 +12,16 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+			
+			var html = app.Template.get('select_world_size');
 
-			var _this = this;
+			this.selectWorldSizeTemplate = _.template(html);
 
-			app.Templates.load('select_world_size', {
+			this.render();
+			this.define_elements();
+			this.observe();
 
-				success: function(html) {
-
-					_this.selectWorldSizeTemplate = _.template(html);
-
-					_this.render();
-					_this.define_elements();
-					_this.observe();
-
-					_this.resize();
-
-				},
-
-				error: function() {
-
-					console.log('Failed to load template: select_world_size');
-
-				}
-
-			});
+			this.resize();
 
 		},
 

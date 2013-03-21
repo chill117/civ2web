@@ -13,29 +13,15 @@ $(function ($) {
 
 			_.bindAll(this);
 
-			var _this = this;
+			var html = app.Template.get('main_screen');
 
-			app.Templates.load('main_screen', {
+			this.mainScreenTemplate = _.template(html);
 
-				success: function(html) {
+			this.render();
+			this.define_elements();
+			this.observe();
 
-					_this.mainScreenTemplate = _.template(html);
-
-					_this.render();
-					_this.define_elements();
-					_this.observe();
-
-					_this.resize();
-
-				},
-
-				error: function() {
-
-					console.log('Failed to load template: main_screen');
-
-				}
-
-			});
+			this.resize();
 
 		},
 
@@ -85,13 +71,6 @@ $(function ($) {
 			switch (gameType)
 			{
 				case 'new_game':
-
-					// Send them to the Select World Size view.
-					new app.SelectWorldSizeView();
-
-				break;
-
-				case 'customize_world':
 
 					// Send them to the Select World Size view.
 					new app.SelectWorldSizeView();
