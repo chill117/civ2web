@@ -7,11 +7,7 @@ var app = app || {};
 
 	var SessionDataCollection = Backbone.Collection.extend({
 
-		model: function() {
-
-			return new app.SessionDataModel();
-
-		},
+		model: app.SessionDataModel,
 
 		localStorage: new Backbone.LocalStorage('Session')
 

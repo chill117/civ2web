@@ -7,11 +7,7 @@ var app = app || {};
 
 	var Saves = Backbone.Collection.extend({
 
-		model: function() {
-
-			return new app.Save();
-
-		},
+		model: app.Save,
 
 		localStorage: new Backbone.LocalStorage('Saves')
 

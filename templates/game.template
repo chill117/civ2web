@@ -16,7 +16,7 @@
 										<a class="button zoom-out" title="Zoom Out"></a>
 									</menu>
 
-									<h3 class="title">Viking Map</h3>
+									<h3 class="title">TRIBE Map</h3>
 
 									<div class="content">
 										<canvas id="map"></canvas>
