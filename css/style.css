@@ -103,10 +103,17 @@ img {
 		width: 100%;
 	}
 	.window.form .row + .row {
-		margin-top: 10px;
+		margin-top: 6px;
 	}
 	.window.form .buttons .button {
 		font-family: 'Times New Roman', 'serif';
+	}
+	.window.form input[type="text"] {
+		outline: none;
+		font-size: 0.7em;
+		background: #fff;
+		border: 1px solid #444;
+		padding: 5px 8px 4px 8px;
 	}
 	/*
 		:not(#foo) > is a rule filter to block browsers
@@ -117,25 +124,23 @@ img {
 	.window.form:not(#foo) input[type="checkbox"] {
 		display: none;
 	}
-	.window.form:not(#foo) input[type="radio"] + label {
-		clear: none;
-		cursor: pointer;
-		background: url('/images/forms/radio_unchecked.png') left center no-repeat; 
-		padding-left: 28px;/* Width + Padding */
-		margin: 0;
+	.window.form:not(#foo) input[type="radio"] + label:before {
+		content: url('../images/forms/radio_unchecked.png');
+		width: 18px;
+		height: 18px;
+		margin-right: 10px;
 	}
-	.window.form:not(#foo) input[type="checkbox"] + label {
-		clear: none;
-		cursor: pointer;
-		background: url('/images/forms/checkbox_unchecked.png') left center no-repeat; 
-		padding-left: 34px;/* Width + Padding */
-		margin: 0;
+	.window.form:not(#foo) input[type="checkbox"] + label:before {
+		content: url('../images/forms/checkbox_unchecked.png');
+		width: 24px;
+		height: 19px;
+		margin-right: 10px;
 	}
-	.window.form:not(#foo) input[type="radio"]:checked + label {
-		background-image: url('/images/forms/radio_checked.png');
+	.window.form:not(#foo) input[type="radio"]:checked + label:before {
+		content: url('../images/forms/radio_checked.png');
 	}
-	.window.form:not(#foo) input[type="checkbox"]:checked + label {
-		background-image: url('/images/forms/checkbox_checked.png');
+	.window.form:not(#foo) input[type="checkbox"]:checked + label:before {
+		content: url('../images/forms/checkbox_checked.png');
 	}
 	/*  Forms  */
 
@@ -311,6 +316,45 @@ img {
 
 
 
+/*  Select Tribe  */
+
+	/*  Image  */
+	.view.select_tribe .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_tribe .window.form {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 768px;
+	}
+	.view.select_tribe .window.form .content .option {
+		display: inline-block;
+		vertical-align: top;
+		width: 30%;
+		font-size: 0.9em;
+		margin-right: 4%;
+		margin-bottom: 4px;
+	}
+	.view.select_tribe .window.form .content .option:nth-child(3n) {
+		width: 29%;
+		margin-right: 0;
+	}
+	.view.select_tribe .window.form .content .option:nth-last-child(-n+3) {
+		margin-bottom: 0;
+	}
+	/*  Form  */
+
+/*  Select Tribe  */
+
+
+
 /*  Select Gender  */
 
 	/*  Image  */
@@ -332,6 +376,84 @@ img {
 	/*  Form  */
 
 /*  Select Gender  */
+
+
+
+/*  Enter Your Name  */
+
+	/*  Image  */
+	.view.enter_your_name .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.enter_your_name .window.form {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 768px;
+	}
+	/*  Form  */
+
+/*  Enter Your Name  */
+
+
+
+/*  Select City Style  */
+
+	/*  Image  */
+	.view.select_city_style .window.image {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	/*  Image  */
+
+
+	/*  Form  */
+	.view.select_city_style .window.form {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 500px;
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"] + label {
+		position: relative;
+		top: -8px;
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"] + label:before {
+		position: relative;
+		top: 8px;
+		width: 64px;
+		height: 36px;
+		opacity: 0.6;
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"]:checked + label:before {
+		opacity: 1;
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="bronze"] + label:before,
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="bronze"]:checked + label:before {
+		content: url('../images/forms/city_style_bronze.png');
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="classical"] + label:before,
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="classical"]:checked + label:before {
+		content: url('../images/forms/city_style_classical.png');
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="far_east"] + label:before,
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="far_east"]:checked + label:before {
+		content: url('../images/forms/city_style_far_east.png');
+	}
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="medieval"] + label:before,
+	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="medieval"]:checked + label:before {
+		content: url('../images/forms/city_style_medieval.png');
+	}
+	/*  Form  */
+
+/*  Select City Style  */
 
 
 

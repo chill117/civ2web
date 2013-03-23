@@ -1,5 +1,5 @@
 
-	<div class="view select_tribe">
+	<div class="view enter_your_name">
 
 		<div class="window image">
 			<div class="border-1">
@@ -26,21 +26,18 @@
 						<div class="border-4">
 							<div class="inner">
 
-								<h3 class="title">Select Your Tribe</h3>
+								<h3 class="title">Please Enter Your Name</h3>
 
 								<div class="content">
 
-									<% _.each(civs, function(civ, key) { %>
-									<div class="option">
-										<input id="tribe-<%= key %>" type="radio" name="tribe" value="<%= key %>" />
-										<label for="tribe-<%= key %>"><%= civ.label %></label>
+									<div class="row">
+										<label for="leader">Name:</label>
+										<input id="leader" type="text" name="leader" value="" />
 									</div>
-									<% }); %>
 
 								</div>
 
 								<div class="buttons">
-									<input class="button submit" type="submit" value="Custom" />
 									<input class="button submit" type="submit" value="OK" />
 									<input class="button cancel" type="submit" value="Cancel" />
 								</div>

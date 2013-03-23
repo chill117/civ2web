@@ -20,8 +20,9 @@ $(function ($) {
 			this.render();
 			this.define_elements();
 			this.observe();
-
 			this.resize();
+
+			this.setLastSelected();
 
 		},
 
@@ -70,7 +71,19 @@ $(function ($) {
 
 		sendBackToSelectDifficultyLevelView: function() {
 
+			// Show the Select Difficult view.
 			new app.SelectDifficultyLevelView();
+
+		},
+
+		setLastSelected: function() {
+
+			var last_selected = app.NewGame.getLastSelected('num_civs');
+
+			if (last_selected !== null)
+				this.$fields
+						.filter('[value="' + last_selected + '"]')
+							.prop('checked', true);
 
 		},
 
@@ -94,7 +107,9 @@ $(function ($) {
 				case '6':
 				case '7':
 
-					// Send them to the Select Level of Barbarian Activity view.
+					app.NewGame.saveSetting('num_civs', numCivs);
+
+					// Show the Select Level of Barbarian Activity view.
 					new app.SelectBarbarianLevel();
 
 				break;

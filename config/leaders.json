@@ -1,0 +1,86 @@
+{
+	"romans": {
+		"male":   "Caesar",
+		"female": "Livia"
+	},
+	"babylonians": {
+		"male":   "Hammurabi",
+		"female": "Ishtari"
+	},
+	"germans": {
+		"male":   "Frederick",
+		"female": "Maria Theresa"
+	},
+	"egyptians": {
+		"male":   "Ramesses",
+		"female": "Cleopatra"
+	},
+	"americans": {
+		"male":   "Abe Lincoln",
+		"female": "E. Roosevelt"
+	},
+	"greeks": {
+		"male":   "Alexander",
+		"female": "Hippolyta"
+	},
+	"indians": {
+		"male":   "Mohandas Gandhi",
+		"female": "Indira Gandhi"
+	},
+	"russians": {
+		"male":   "Lenin",
+		"female": "Catherine the Great"
+	},
+	"zulus": {
+		"male":   "Shaka",
+		"female": "Shakala"
+	},
+	"french": {
+		"male":   "Louis XIV",
+		"female": "Joan of Arc"
+	},
+	"aztecs": {
+		"male":   "Montezuma",
+		"female": "Nazca"
+	},
+	"chinese": {
+		"male":   "Mao Tse Tung",
+		"female": "Wu Zhao"
+	},
+	"english": {
+		"male":   "Henry VIII",
+		"female": "Elizabeth I"
+	},
+	"mongols": {
+		"male":   "Genghis Khan",
+		"female": "Bortei"
+	},
+	"celts": {
+		"male":   "Cunobelin",
+		"female": "Boadicea"
+	},
+	"japanese": {
+		"male":   "Tokugawa",
+		"female": "Amaterasu"
+	},
+	"vikings": {
+		"male":   "Canute",
+		"female": "Gunnhild"
+	},
+	"spanish": {
+		"male":   "Philip II",
+		"female": "Isabella"
+	},
+	"persians": {
+		"male":   "Xerxes",
+		"female": "Scheherezade"
+	},
+	"carthaginians": {
+		"male":   "Hannibal",
+		"female": "Dido"
+	},
+	"sioux": {
+		"male":   "Sitting Bull",
+		"female": "Sacajawea"
+	}
+}

@@ -20,8 +20,9 @@ $(function ($) {
 			this.render();
 			this.define_elements();
 			this.observe();
-
 			this.resize();
+
+			this.setLastSelected();
 
 		},
 
@@ -81,6 +82,17 @@ $(function ($) {
 
 		},
 
+		setLastSelected: function() {
+
+			var last_selected = app.NewGame.getLastSelected('world_size');
+
+			if (last_selected !== null)
+				this.$fields
+						.filter('[value="' + last_selected + '"]')
+							.prop('checked', true);
+
+		},
+
 		formSubmitted: function() {
 
 			var worldSize = this.getSelectedWorldSize();
@@ -90,6 +102,8 @@ $(function ($) {
 				case '40x50':
 				case '50x80':
 				case '75x120':
+
+					app.NewGame.saveSetting('world_size', worldSize);
 
 					// Send them to the Select Difficult Level view.
 					new app.SelectDifficultyLevelView();

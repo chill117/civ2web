@@ -16,7 +16,7 @@ var app = app || {};
 
 			return this.get('gameInProgess') !== null;
 
-		};
+		}
 
 		/*
 			Returns just the value associated with the session variable.
@@ -27,7 +27,7 @@ var app = app || {};
 
 			return data !== null ? data.value : null;
 
-		};
+		}
 
 		/*
 			Sets a session variable with the given arguments.
@@ -45,7 +45,7 @@ var app = app || {};
 
 			model.save();
 
-		};
+		}
 
 		/*
 			Auto-loads the session data.

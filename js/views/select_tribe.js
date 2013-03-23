@@ -12,6 +12,8 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+
+			this.civs = app.Config.get('civs');
 			
 			var html = app.Template.get('select_tribe');
 
@@ -20,8 +22,9 @@ $(function ($) {
 			this.render();
 			this.define_elements();
 			this.observe();
-
 			this.resize();
+
+			this.setLastSelected();
 
 		},
 
@@ -49,7 +52,9 @@ $(function ($) {
 
 		render: function() {
 		
-			this.$el.html(this.selectTribeTemplate());
+			this.$el.html(this.selectTribeTemplate({
+				civs: this.civs
+			}));
 		
 		},
 
@@ -78,7 +83,19 @@ $(function ($) {
 
 		sendBackToSelectGenderView: function() {
 
+			// Show the Select Gender view.
 			new app.SelectGenderView();
+
+		},
+
+		setLastSelected: function() {
+
+			var last_selected = app.NewGame.getLastSelected('tribe');
+
+			if (last_selected !== null)
+				this.$fields
+						.filter('[value="' + last_selected + '"]')
+							.prop('checked', true);
 
 		},
 
@@ -86,17 +103,16 @@ $(function ($) {
 
 			var tribe = this.getSelectedTribe();
 
-			switch (tribe)
+			if (this.civs[tribe] !== undefined)
 			{
-				case '':
+				app.NewGame.saveSetting('tribe', tribe);
 
-				break;
-				
-				default:
-
-					console.log('invalid selection!');
-
-				break;
+				// Show the Enter Your Name view.
+				new app.EnterYourNameView();
+			}
+			else
+			{
+				console.log('invalid selection!');
 			}
 
 		},

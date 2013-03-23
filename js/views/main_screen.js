@@ -72,14 +72,17 @@ $(function ($) {
 			{
 				case 'new_game':
 
-					// Send them to the Select World Size view.
+					app.NewGame = new newGame();
+
+					// Show the Select World Size view.
 					new app.SelectWorldSizeView();
 
 				break;
 
 				case 'load_game':
 
-					console.log('load game!');
+					// Show the Load Game view.
+					// !!!
 
 				break;
 				
@@ -102,5 +105,80 @@ $(function ($) {
 
 
 	});
+
+	/*
+		For storing the settings for a new game.
+
+		Uses the Session library to store previous setting choices.
+	*/
+	var newGame =  function() {
+
+		/*
+			Stores all the settings for this new game.
+		*/
+		var settings = {};
+
+		function initialize() {
+
+			prepareSessionVariables();
+
+		}
+
+		function prepareSessionVariables() {
+
+			if (app.Session.get('lastSelected') === null)
+				app.Session.set('lastSelected', {});
+
+		}
+
+		function getAllSettings() {
+
+			return settings;
+
+		}
+
+		function getSetting(name) {
+
+			return settings[name] !== undefined ? settings[name] : null;
+			
+		}
+
+		function saveSetting(name, value) {
+
+			settings[name] = value;
+
+			saveLastSelected(name, value);
+
+		}
+
+		function getLastSelected(name) {
+
+			var lastSelected = app.Session.get('lastSelected');
+
+			return lastSelected[name] !== undefined ? lastSelected[name] : null;
+			
+		}
+
+		function saveLastSelected(name, value) {
+
+			var lastSelected = app.Session.get('lastSelected');
+
+			lastSelected[name] = value;
+
+			app.Session.set('lastSelected', lastSelected);
+
+		}
+
+		initialize();
+
+		// "Public" methods.
+		this.getAllSettings 	= getAllSettings;
+		this.getSetting 		= getSetting;
+		this.saveSetting 		= saveSetting;
+		this.getLastSelected 	= getLastSelected;
+
+		return this;
+
+	}
 
 });

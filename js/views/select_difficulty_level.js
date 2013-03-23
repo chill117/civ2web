@@ -20,8 +20,9 @@ $(function ($) {
 			this.render();
 			this.define_elements();
 			this.observe();
-
 			this.resize();
+
+			this.setLastSelected();
 
 		},
 
@@ -68,7 +69,19 @@ $(function ($) {
 
 		sendBackToMainScreen: function() {
 
+			// Show the Main Screen view.
 			new app.MainScreenView();
+
+		},
+
+		setLastSelected: function() {
+
+			var last_selected = app.NewGame.getLastSelected('difficulty_level');
+
+			if (last_selected !== null)
+				this.$fields
+						.filter('[value="' + last_selected + '"]')
+							.prop('checked', true);
 
 		},
 
@@ -85,7 +98,9 @@ $(function ($) {
 				case 'emperor':
 				case 'deity':
 
-					// Send them to the Select Number of Civs view.
+					app.NewGame.saveSetting('difficulty_level', difficultyLevel);
+
+					// Show the Select Number of Civs view.
 					new app.SelectNumberOfCivsView();
 
 				break;

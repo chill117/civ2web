@@ -1,0 +1,62 @@
+
+	<div class="view select_city_style">
+
+		<div class="window image">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<div class="content">
+									<img class="image" width="584" height="258" src="/images/misc/chinese_pagoda.png" alt="Chinese pagoda" />
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="window form">
+			<div class="border-1">
+				<div class="border-2">
+					<div class="border-3">
+						<div class="border-4">
+							<div class="inner">
+
+								<h3 class="title">Select Your City Style</h3>
+
+								<div class="content">
+									<div class="row">
+										<input id="city_style-bronze" type="radio" name="city_style" value="bronze" />
+										<label for="city_style-bronze">Bronze Age Monolith</label>
+									</div>
+									<div class="row">
+										<input id="city_style-classical" type="radio" name="city_style" value="classical" />
+										<label for="city_style-classical">Classical Forum</label>
+									</div>
+									<div class="row">
+										<input id="city_style-far_east" type="radio" name="city_style" value="far_east" />
+										<label for="city_style-far_east">Far East Pavilion</label>
+									</div>
+									<div class="row">
+										<input id="city_style-medieval" type="radio" name="city_style" value="medieval" />
+										<label for="city_style-medieval">Medieval Castle</label>
+									</div>
+								</div>
+
+								<div class="buttons">
+									<input class="button submit" type="submit" value="OK" />
+									<input class="button cancel" type="submit" value="Cancel" />
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>

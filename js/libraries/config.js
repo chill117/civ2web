@@ -11,7 +11,9 @@ var app = app || {};
 			List of configuration files that will be automatically loaded at run-time.
 		*/
 		var auto_load = [
+			'cities',
 			'civs',
+			'leaders',
 			'seed_rules',
 			'sprites'
 		];
@@ -58,12 +60,12 @@ var app = app || {};
 					{
 						case 200:
 
-							var html = data;
+							var json = $.parseJSON(data);
 
-							config_objects[file] = html;
+							config_objects[file] = json;
 
 							if (callbacks !== undefined && callbacks.success !== undefined)
-								callbacks.success(html);
+								callbacks.success(json);
 
 						break;
 
@@ -144,7 +146,8 @@ var app = app || {};
 		app.Event.on('app:load', autoLoad);
 
 		// "Public" methods.
-		this.load = load;
+		this.load 	= load;
+		this.get 	= get;
 
 		return this;
 

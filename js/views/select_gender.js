@@ -20,8 +20,9 @@ $(function ($) {
 			this.render();
 			this.define_elements();
 			this.observe();
-
 			this.resize();
+
+			this.setLastSelected();
 
 		},
 
@@ -77,7 +78,19 @@ $(function ($) {
 
 		sendBackToSelectDifficultyLevelView: function() {
 
+			// Show the Select Difficult view.
 			new app.SelectDifficultyLevelView();
+
+		},
+
+		setLastSelected: function() {
+
+			var last_selected = app.NewGame.getLastSelected('gender');
+
+			if (last_selected !== null)
+				this.$fields
+						.filter('[value="' + last_selected + '"]')
+							.prop('checked', true);
 
 		},
 
@@ -90,6 +103,9 @@ $(function ($) {
 				case 'male':
 				case 'female':
 
+					app.NewGame.saveSetting('gender', gender);
+
+					// Show the Select Tribe view.
 					new app.SelectTribeView();
 
 				break;

@@ -11,9 +11,11 @@ var app = app || {};
 			List of templates that will be automatically loaded at run-time.
 		*/
 		var auto_load = [
+			'enter_your_name',
 			'game',
 			'main_screen',
 			'select_barbarian_level',
+			'select_city_style',
 			'select_difficulty_level',
 			'select_gender',
 			'select_number_of_civs',
