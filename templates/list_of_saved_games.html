@@ -1,0 +1,17 @@
+
+		<table class="list">
+			<thead>
+				<tr>
+					<th class="cell">Name</th>
+					<th class="cell">Last Saved</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% _.each(games, function(game) { %>
+				<tr data-id="<%= game.id %>">
+					<td class="cell"><%= game.name %></td>
+					<td class="cell">Thu March 21st, 2013 12:14:32 AM</td>
+				</tr>
+				<% }); %>
+			</tbody>
+		</table>

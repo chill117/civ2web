@@ -24,7 +24,14 @@ $(function ($) {
 		define_elements: function() {
 
 			this.$top_level_items = this.$('.top-level-item');
+			this.$sub_menu_items = this.$('.sub-menu-item');
 
+		},
+
+		render: function() {
+		
+			this.$el.html(this.gameMenuTemplate());
+		
 		},
 
 		observe: function() {
@@ -41,6 +48,14 @@ $(function ($) {
 
 			anchors.on('click', this.clickedTopLevelAnchor);
 
+			this.$sub_menu_items.on('click', this.clickedSubMenuItem);
+
+		},
+
+		hideAllSubMenus: function() {
+
+			this.$top_level_items.removeClass('active');
+
 		},
 
 		clickedDocument: function(e) {
@@ -49,7 +64,7 @@ $(function ($) {
 
 			// Is this an active, top-level list item?
 			if (_this.parents('.top-level-item.active').length === 0)
-				this.$top_level_items.removeClass('active');
+				this.hideAllSubMenus();
 
 		},
 
@@ -72,10 +87,75 @@ $(function ($) {
 
 		},
 
-		render: function() {
-		
-			this.$el.html(this.gameMenuTemplate());
-		
+		clickedSubMenuItem: function(e) {
+
+			var _this = $(e.target);
+
+			var action = _this.data('action');
+
+			this.hideAllSubMenus();
+
+			switch (action)
+			{
+				case 'game_options':
+				break;
+
+				case 'city_report_options':
+				break;
+
+				case 'save_game':
+				break;
+
+				case 'load_game':
+
+					// Show the Load Game view.
+					new app.LoadGameView();
+
+				break;
+
+				case 'retire':
+				break;
+
+				case 'quit':
+				break;
+
+				case 'tax_rate':
+				break;
+
+				case 'find_city':
+				break;
+
+				case 'revolution':
+				break;
+
+				case 'move_pieces':
+				break;
+
+				case 'view_pieces':
+				break;
+
+				case 'civilopedia_advances':
+				break;
+
+				case 'civilopedia_improvements':
+				break;
+
+				case 'civilopedia_wonders':
+				break;
+
+				case 'civilopedia_units':
+				break;
+
+				case 'civilopedia_governments':
+				break;
+
+				case 'civilopedia_terrain':
+				break;
+
+				case 'civilopedia_game_concepts':
+				break;
+			}
+
 		}
 
 

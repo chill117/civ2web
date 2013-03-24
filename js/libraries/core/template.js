@@ -12,6 +12,8 @@ var app = app || {};
 		*/
 		var auto_load = [
 			'main_screen',
+			'load_game',
+			'list_of_saved_games',
 			'pre_game/enter_your_name',
 			'pre_game/select_barbarian_level',
 			'pre_game/select_city_style',

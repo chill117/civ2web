@@ -23,6 +23,14 @@ img {
 }
 
 
+#modal {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 400;
+}
+
+
 
 /*  Windows  */
 .window {
@@ -562,3 +570,55 @@ img {
 	/*  Status  */
 
 /*  Game  */
+
+
+
+/*  Load Game  */
+.view.load_game .window.saves_viewer .content {
+	height: 160px;
+	overflow-y: scroll;
+	background: transparent url('../images/window-inner-bg2.png') 0 0 repeat;
+	padding: 0;
+}
+.view.load_game .window.saves_viewer .list {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.view.load_game .window.saves_viewer .list .cell {
+	font-size: 0.6em;
+	padding: 4px 8px;
+}
+.view.load_game .window.saves_viewer .list th.cell {
+	font-size: 0.7em;
+	font-weight: bold;
+}
+.view.load_game .window.saves_viewer th.cell.sort_by:after {
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	content: url('../images/icons/bullet_arrow_up.png');
+	margin-left: 2px;
+}
+.view.load_game .window.saves_viewer th.cell.sort_by.desc:after {
+	content: url('../images/icons/bullet_arrow_down.png');
+}
+.view.load_game .window.saves_viewer .list td.cell {
+	cursor: pointer;
+}
+.view.load_game .window.saves_viewer .list tr.selected .cell {
+	color: #fff;
+	text-shadow: none;
+	background: rgba(21, 37, 80, 0.6);
+	border-top: 1px solid rgba(21, 37, 80, 0.7);
+	border-bottom: 1px solid rgba(21, 37, 80, 0.7);
+}
+.view.load_game .window.saves_viewer .list .cell:first-child {
+	text-align: left;
+}
+.view.load_game .window.saves_viewer .list .cell:last-child {
+	text-align: right;
+}
+/*  Load Game  */
