@@ -5,7 +5,7 @@ var app = app || {};
 
 	'use strict';
 
-	app.Save = Backbone.Model.extend({
+	app.GameModel = Backbone.Model.extend({
 
 		
 

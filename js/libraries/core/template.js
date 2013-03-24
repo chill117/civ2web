@@ -42,14 +42,16 @@ var app = app || {};
 				Stop here if the template has already been loaded.
 			*/
 			if (isLoaded(file))
+			{
 				if (callbacks !== undefined && callbacks.success !== undefined)
 				{
 					var html = get(file);
 
 					callbacks.success(html);
-
-					return;
 				}
+
+				return;
+			}
 
 			var url = path + '/' + file + '.template';
 

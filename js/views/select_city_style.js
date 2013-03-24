@@ -100,8 +100,7 @@ $(function ($) {
 
 					app.NewGame.saveSetting('city_style', cityStyle);
 
-					// Start the game.
-					new app.GameView();
+					app.NewGame.start();
 
 				break;
 				

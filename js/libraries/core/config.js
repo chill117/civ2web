@@ -37,14 +37,17 @@ var app = app || {};
 				Stop here if the configuration file has already been loaded.
 			*/
 			if (isLoaded(file))
+			{
 				if (callbacks !== undefined && callbacks.success !== undefined)
 				{
 					var config_object = get(file);
 
 					callbacks.success(config_object);
 
-					return;
 				}
+				
+				return;
+			}
 
 			var url = path + '/' + file + '.json';
 

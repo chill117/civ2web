@@ -14,7 +14,7 @@ var app = app || {};
 		*/
 		function hasGameInProgess() {
 
-			return this.get('gameInProgess') !== null;
+			return this.get('gameInProgress') !== null;
 
 		}
 

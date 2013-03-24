@@ -460,9 +460,13 @@ img {
 /*  Game  */
 
 	/*  Map  */
+	.view.game {
+		margin: 0;
+	}
 	.view.game .window.map {
-		display: block;
-		float: left;
+		position: absolute;
+		left: 0;
+		top: 0;
 	}
 	.view.game .window.map #map {
 		display: block;
@@ -473,16 +477,22 @@ img {
 
 	/*  Mini-Map  */
 	.view.game .window.mini-map {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.view.game .window.mini-map #mini-map {
 		display: block;
-		float: left;
+		background: #000;
 	}
 	/*  Mini-Map  */
 
 
 	/*  Status  */
 	.view.game .window.status {
-		display: block;
-		float: left;
+		position: absolute;
+		right: 0;
+		bottom: 0;
 	}
 	/*  Status  */
 

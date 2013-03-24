@@ -169,6 +169,44 @@ $(function ($) {
 
 		}
 
+		function start() {
+
+			var game = {};
+
+			game.settings = app.NewGame.getAllSettings();
+
+			var dimensions = game.settings.world_size.split('x');
+
+			var options = {
+				'width' 		: parseInt(dimensions[0]),
+				'height' 		: parseInt(dimensions[1]),
+				'land_mass' 	: 'normal',
+				'land_form' 	: 'continents',
+				'climate' 		: 'temperate',
+				'temperature' 	: 'normal',
+				'age' 			: '4b',
+				'flat' 			: false,
+				'num_civs' 		: game.settings.num_civs
+			};
+
+			game.settings.width = options.width;
+			game.settings.height = options.height;
+
+			var MapGenerator = new app.MapGenerator(options);
+
+			var tiles = MapGenerator.seed();
+
+			game.tiles = tiles;
+
+			var game_id = app.Games.create(game);
+
+			app.Session.set('gameInProgress', game_id);
+
+			// Show the Game view.
+			new app.GameView();
+
+		}
+
 		initialize();
 
 		// "Public" methods.
@@ -176,6 +214,7 @@ $(function ($) {
 		this.getSetting 		= getSetting;
 		this.saveSetting 		= saveSetting;
 		this.getLastSelected 	= getLastSelected;
+		this.start 				= start;
 
 		return this;
 

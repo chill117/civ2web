@@ -41,12 +41,12 @@ var app = app || {};
 				Stop here if the language file has already been loaded.
 			*/
 			if (isLoaded(file))
+			{
 				if (callbacks !== undefined && callbacks.success !== undefined)
-				{
 					callbacks.success();
 
-					return;
-				}
+				return;
+			}
 
 			var url = path + '/' + lang_locale + '/' + file + '.json';
 

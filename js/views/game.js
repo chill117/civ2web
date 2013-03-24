@@ -22,11 +22,21 @@ $(function ($) {
 			this.observe();
 			this.resize();
 
+			var game_id = app.Session.get('gameInProgress');
+
+			this.game = app.Games.get(game_id);
+
+			this.drawMap();
+			this.drawMiniMap();
+
 		},
 
 		define_elements: function() {
 
 			this.$view = this.$('.view');
+
+			this.$map = this.$('#map');
+			this.$mini_map = this.$('#mini-map');
 
 		},
 
@@ -47,7 +57,26 @@ $(function ($) {
 		resize: function() {
 
 			this.setViewHeight();
-			this.positionElements();
+
+			var map_window = new app.Window('map', this.$view);
+			var status_window = new app.Window('status', this.$view);
+			var mini_map_window = new app.Window('mini-map', this.$view);
+
+			map_window.setWidth('80%').setHeight('100%');
+			status_window.setWidth('20%').setHeight('80%');
+			mini_map_window.setWidth('20%').setHeight('20%');
+
+			this.$map.
+				attr({
+					'width' 	: this.$map.parent().width(),
+					'height' 	: this.$map.parent().height()
+				});
+
+			this.$mini_map.
+				attr({
+					'width' 	: this.$mini_map.parent().width(),
+					'height' 	: this.$mini_map.parent().height()
+				});
 
 		},
 
@@ -60,10 +89,19 @@ $(function ($) {
 
 		},
 
-		positionElements: function() {
+		drawMap: function() {
 
+			var options = {};
 
+			options.width = this.game.settings.width;
+			options.height = this.game.settings.height;
 
+			app.MapDraw(this.$map, this.game.tiles, options).draw();
+
+		},
+
+		drawMiniMap: function() {
+			
 		}
 
 

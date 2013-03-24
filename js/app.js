@@ -12,7 +12,8 @@ $(function () {
 					templates: false,
 					lang: false,
 					config: false,
-					session: false
+					session: false,
+					sprites: false
 				};
 
 	/*
@@ -61,6 +62,14 @@ $(function () {
 		app.Event.on('session:ready', function() {
 
 			ready.session = true;
+
+			check_if_ready();
+
+		});
+
+		app.Event.on('sprites:ready', function() {
+
+			ready.sprites = true;
 
 			check_if_ready();
 
