@@ -17,9 +17,6 @@ var app = app || {};
 
 		function define_elements() {
 
-			// Default to the body tag as the parent container.
-			container || (container = $('body'));
-
 			elm.window = container.find('.window.' + type);
 			elm.inner = elm.window.find('.inner');
 			elm.title = elm.inner.find('.title');
@@ -35,7 +32,7 @@ var app = app || {};
 			{
 				var percent = parseFloat(String(width).substr(0, String(width).length - 1));
 
-				width = $(window).width() * (percent / 100);
+				width = container.width() * (percent / 100);
 			}
 
 			elm.window.
@@ -73,7 +70,7 @@ var app = app || {};
 			{
 				var percent = parseFloat(String(height).substr(0, String(height).length - 1));
 
-				height = $(window).height() * (percent / 100);
+				height = container.height() * (percent / 100);
 			}
 
 			elm.window.

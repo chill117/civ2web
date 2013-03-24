@@ -63,8 +63,8 @@ $(function ($) {
 			var mini_map_window = new app.Window('mini-map', this.$view);
 
 			map_window.setWidth('80%').setHeight('100%');
-			status_window.setWidth('20%').setHeight('80%');
-			mini_map_window.setWidth('20%').setHeight('20%');
+			status_window.setWidth('20%').setHeight('70%');
+			mini_map_window.setWidth('20%').setHeight('30%');
 
 			this.$map.
 				attr({
