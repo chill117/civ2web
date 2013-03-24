@@ -53,7 +53,7 @@ var app = app || {};
 				return;
 			}
 
-			var url = path + '/' + file + '.template';
+			var url = path + '/' + file + '.html';
 
 			$.ajax({
 				type: 'GET',
