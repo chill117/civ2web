@@ -26,7 +26,8 @@ $(function ($) {
 			this.observe();
 
 			this.GameMenuView = new app.GameMenuView({el: '#game-menu'});
-
+			
+			// Must go after GameMenuView, but before the Window views.
 			this.resize();
 
 			this.MapWindowView = new app.MapWindowView({el: '#map-window', windows: this.$windows});
