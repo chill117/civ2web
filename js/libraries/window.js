@@ -51,12 +51,15 @@ var app = app || {};
 
 			var content_width = elm.window.width();
 
+			// Subtract the horizontal padding + margin + border-width.
+			content_width -= (elm.content.outerWidth(true) - elm.content.width());
+
 			$.each(elm.content.parents(), function(i, parent) {
 
 				if ($(parent)[0] == elm.window[0])
 					return;
 
-				// Subtract the vertical padding + margin + border-width.
+				// Subtract the horizontal padding + margin + border-width.
 				content_width -= ($(parent).outerWidth(true) - $(parent).width());
 
 			});
@@ -91,6 +94,9 @@ var app = app || {};
 
 			// Subtract the title element's height.
 			content_height -= elm.title.outerHeight(true);
+
+			// Subtract the vertical padding + margin + border-width.
+			content_height -= (elm.content.outerHeight(true) - elm.content.height());
 
 			$.each(elm.content.parents(), function(i, parent) {
 
