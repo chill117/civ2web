@@ -15,12 +15,10 @@ img {
 	border: none;
 }
 
-.wrap {
-	display: inline-block;
-	width: 100%;
-}
 .view {
 	position: relative;
+	display: inline-block;
+	width: 100%;
 	margin: 36px 108px;
 }
 
@@ -485,6 +483,11 @@ img {
 
 
 /*  Game  */
+
+	.view.game .windows {
+		position: relative;
+		width: 100%;
+	}
 
 
 	/*  Map  */

@@ -72,6 +72,10 @@ class Custom
 			'views/pre_game/select_gender.js',
 			'views/pre_game/select_city_style.js',
 			'views/pre_game/enter_your_name.js',
+			'views/game/map.js',
+			'views/game/menu.js',
+			'views/game/mini_map.js',
+			'views/game/status.js',
 			'views/game.js'
 		);
 

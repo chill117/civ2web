@@ -11,7 +11,6 @@ var app = app || {};
 			List of templates that will be automatically loaded at run-time.
 		*/
 		var auto_load = [
-			'game',
 			'main_screen',
 			'pre_game/enter_your_name',
 			'pre_game/select_barbarian_level',
@@ -20,7 +19,12 @@ var app = app || {};
 			'pre_game/select_gender',
 			'pre_game/select_number_of_civs',
 			'pre_game/select_tribe',
-			'pre_game/select_world_size'
+			'pre_game/select_world_size',
+			'game',
+			'game/map',
+			'game/menu',
+			'game/mini_map',
+			'game/status'
 		];
 
 		/*

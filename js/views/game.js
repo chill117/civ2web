@@ -12,6 +12,10 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+
+			var game_id = app.Session.get('gameInProgress');
+
+			app.Game = app.Games.get(game_id);
 			
 			var html = app.Template.get('game');
 
@@ -20,25 +24,21 @@ $(function ($) {
 			this.render();
 			this.define_elements();
 			this.observe();
+
+			this.GameMenuView = new app.GameMenuView({el: '#game-menu'});
+
 			this.resize();
 
-			var game_id = app.Session.get('gameInProgress');
-
-			this.game = app.Games.get(game_id);
-
-			this.drawMap();
-			this.drawMiniMap();
+			this.MapWindowView = new app.MapWindowView({el: '#map-window', windows: this.$windows});
+			this.MiniMapWindowView = new app.MiniMapWindowView({el: '#mini_map-window', windows: this.$windows});
+			this.StatusWindowView = new app.StatusWindowView({el: '#status-window', windows: this.$windows});
 
 		},
 
 		define_elements: function() {
 
-			this.$game_menu = this.$('#game-menu');
-
 			this.$view = this.$('.view');
-
-			this.$map = this.$('#map');
-			this.$mini_map = this.$('#mini-map');
+			this.$windows = this.$view.children('.windows');
 
 		},
 
@@ -49,82 +49,35 @@ $(function ($) {
 		},
 
 		render: function() {
-
-			var data = {};
 		
-			this.$el.html(this.gameTemplate(data));
+			this.$el.html(this.gameTemplate());
 		
 		},
 
 		resize: function() {
 
 			this.setViewHeight();
-
-			this.resizeMapWindow();
-			this.resizeMiniMapWindow();
-			this.resizeStatusWindow();
-
-		},
-
-		resizeMapWindow: function() {
-
-			var mapWindow = new app.Window('map', this.$view);
-
-			mapWindow.setWidth('80%').setHeight('100%');
-
-			this.$map.
-				attr({
-					'width' 	: this.$map.parent().width(),
-					'height' 	: this.$map.parent().height()
-				});
-
-		},
-
-		resizeMiniMapWindow: function() {
-
-			var miniMapWindow = new app.Window('mini-map', this.$view);
-
-			miniMapWindow.setWidth('20%').setHeight('30%');
-
-			this.$mini_map.
-				attr({
-					'width' 	: this.$mini_map.parent().width(),
-					'height' 	: this.$mini_map.parent().height()
-				});
-
-		},
-
-		resizeStatusWindow: function() {
-
-			var statusWindow = new app.Window('status', this.$view);
-
-			statusWindow.setWidth('20%').setHeight('70%');
+			this.setWindowsContainerHeight();
 
 		},
 
 		setViewHeight: function() {
 
 			var appHeight = app.AppView.getAppHeight();
-			var gameMenuHeight = this.$game_menu.outerHeight(true);
 			var viewPaddingMarginBorder = this.$view.borderPaddingMarginHeight();
 
-			this.$view.height(appHeight - (gameMenuHeight + viewPaddingMarginBorder));
+			this.$view.height(appHeight - viewPaddingMarginBorder);
 
 		},
 
-		drawMap: function() {
+		setWindowsContainerHeight: function() {
 
-			var options = {};
+			var viewHeight = this.$view.height();
+			var gameMenuHeight = this.GameMenuView.$el.height();
+			var windowsPaddingMarginBorder = this.$windows.borderPaddingMarginHeight();
 
-			options.width = this.game.settings.width;
-			options.height = this.game.settings.height;
+			this.$windows.height(viewHeight - (windowsPaddingMarginBorder + gameMenuHeight));
 
-			app.MapDraw(this.$map, this.game.tiles, options).draw();
-
-		},
-
-		drawMiniMap: function() {
-			
 		}
 
 
