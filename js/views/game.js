@@ -33,6 +33,8 @@ $(function ($) {
 
 		define_elements: function() {
 
+			this.$game_menu = this.$('#game-menu');
+
 			this.$view = this.$('.view');
 
 			this.$map = this.$('#map');
@@ -58,19 +60,31 @@ $(function ($) {
 
 			this.setViewHeight();
 
-			var map_window = new app.Window('map', this.$view);
-			var status_window = new app.Window('status', this.$view);
-			var mini_map_window = new app.Window('mini-map', this.$view);
+			this.resizeMapWindow();
+			this.resizeMiniMapWindow();
+			this.resizeStatusWindow();
 
-			map_window.setWidth('80%').setHeight('100%');
-			status_window.setWidth('20%').setHeight('70%');
-			mini_map_window.setWidth('20%').setHeight('30%');
+		},
+
+		resizeMapWindow: function() {
+
+			var mapWindow = new app.Window('map', this.$view);
+
+			mapWindow.setWidth('80%').setHeight('100%');
 
 			this.$map.
 				attr({
 					'width' 	: this.$map.parent().width(),
 					'height' 	: this.$map.parent().height()
 				});
+
+		},
+
+		resizeMiniMapWindow: function() {
+
+			var miniMapWindow = new app.Window('mini-map', this.$view);
+
+			miniMapWindow.setWidth('20%').setHeight('30%');
 
 			this.$mini_map.
 				attr({
@@ -80,12 +94,21 @@ $(function ($) {
 
 		},
 
+		resizeStatusWindow: function() {
+
+			var statusWindow = new app.Window('status', this.$view);
+
+			statusWindow.setWidth('20%').setHeight('70%');
+
+		},
+
 		setViewHeight: function() {
 
 			var appHeight = app.AppView.getAppHeight();
+			var gameMenuHeight = this.$game_menu.outerHeight(true);
 			var viewPaddingMarginBorder = this.$view.borderPaddingMarginHeight();
 
-			this.$view.height(appHeight - viewPaddingMarginBorder);
+			this.$view.height(appHeight - (gameMenuHeight + viewPaddingMarginBorder));
 
 		},
 

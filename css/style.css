@@ -192,6 +192,33 @@ img {
 
 
 
+
+/*  Game Menu  */
+#game-menu {
+	color: #000;
+	background: #d4d0c8;
+}
+#game-menu .top-level-list {
+	display: block;
+	width: 100%;
+	list-style: none;
+}
+#game-menu .top-level-item {
+	display: inline-block;
+	vertical-align: top;
+	padding: 1px 5px;
+}
+#game-menu .top-level-anchor {
+	font-size: 0.8em;
+}
+#game-menu .sub-menu {
+	display: none;
+}
+/*  Game Menu  */
+
+
+
+
 /*  Main Screen  */
 
 	.view.main_screen {
@@ -458,6 +485,7 @@ img {
 
 
 /*  Game  */
+
 
 	/*  Map  */
 	.view.game {
