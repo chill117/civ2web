@@ -5,26 +5,24 @@ $(function ($) {
 
 	'use strict';
 
-	app.SelectTribeView = Backbone.View.extend({
+	app.SelectCityStyleView = Backbone.View.extend({
 
 		el: '#app',
 
 		initialize: function() {
 
 			_.bindAll(this);
-
-			this.civs = app.Config.get('civs');
 			
-			var html = app.Template.get('select_tribe');
+			var html = app.Template.get('pre_game/select_city_style');
 
-			this.selectTribeTemplate = _.template(html);
+			this.selectCityStyleTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
 			this.observe();
 			this.resize();
 
-			this.setLastSelected();
+			this.setDefaultValue();
 
 		},
 
@@ -32,10 +30,8 @@ $(function ($) {
 
 			this.$view = this.$('.view');
 
-			this.$image = this.$('.window.image');
 			this.$form = this.$('.window.form');
-			this.$fields = this.$form.find('input[name="tribe"]');
-			this.$custom_button = this.$form.find('.button.custom');
+			this.$fields = this.$form.find('input[name="city_style"]');
 			this.$submit_button = this.$form.find('.button.submit');
 			this.$cancel_button = this.$form.find('.button.cancel');
 
@@ -52,16 +48,13 @@ $(function ($) {
 
 		render: function() {
 		
-			this.$el.html(this.selectTribeTemplate({
-				civs: this.civs
-			}));
+			this.$el.html(this.selectCityStyleTemplate());
 		
 		},
 
 		resize: function() {
 
 			this.setViewHeight();
-			this.positionElements();
 
 		},
 
@@ -74,13 +67,6 @@ $(function ($) {
 
 		},
 
-		positionElements: function() {
-
-			this.$image.center('x', this.$view);
-			this.$form.center('x', this.$view);
-
-		},
-
 		sendBackToSelectGenderView: function() {
 
 			// Show the Select Gender view.
@@ -88,36 +74,46 @@ $(function ($) {
 
 		},
 
-		setLastSelected: function() {
+		setDefaultValue: function() {
 
-			var last_selected = app.NewGame.getLastSelected('tribe');
+			var civs = app.Config.get('civs');
+			var tribe = app.NewGame.getSetting('tribe');
 
-			if (last_selected !== null)
-				this.$fields
-						.filter('[value="' + last_selected + '"]')
-							.prop('checked', true);
+			var default_value = civs[tribe].city_style;
+
+			this.$fields
+					.filter('[value="' + default_value + '"]')
+						.prop('checked', true);
 
 		},
 
 		formSubmitted: function() {
 
-			var tribe = this.getSelectedTribe();
+			var cityStyle = this.getSelectedCityStyle();
 
-			if (this.civs[tribe] !== undefined)
+			switch (cityStyle)
 			{
-				app.NewGame.saveSetting('tribe', tribe);
+				case 'bronze':
+				case 'classical':
+				case 'far_east':
+				case 'medieval':
 
-				// Show the Enter Your Name view.
-				new app.EnterYourNameView();
-			}
-			else
-			{
-				console.log('invalid selection!');
+					app.NewGame.saveSetting('city_style', cityStyle);
+
+					app.NewGame.start();
+
+				break;
+				
+				default:
+
+					console.log('invalid selection!');
+
+				break;
 			}
 
 		},
 
-		getSelectedTribe: function() {
+		getSelectedCityStyle: function() {
 
 			var checked = this.$fields.filter(':checked');
 

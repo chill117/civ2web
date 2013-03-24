@@ -5,17 +5,19 @@ $(function ($) {
 
 	'use strict';
 
-	app.SelectNumberOfCivsView = Backbone.View.extend({
+	app.SelectTribeView = Backbone.View.extend({
 
 		el: '#app',
 
 		initialize: function() {
 
 			_.bindAll(this);
-			
-			var html = app.Template.get('select_number_of_civs');
 
-			this.selectNumberOfCivsTemplate = _.template(html);
+			this.civs = app.Config.get('civs');
+			
+			var html = app.Template.get('pre_game/select_tribe');
+
+			this.selectTribeTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
@@ -30,9 +32,10 @@ $(function ($) {
 
 			this.$view = this.$('.view');
 
+			this.$image = this.$('.window.image');
 			this.$form = this.$('.window.form');
-			this.$fields = this.$form.find('input[name="num_civs"]');
-			this.$random_button = this.$form.find('.button.random');
+			this.$fields = this.$form.find('input[name="tribe"]');
+			this.$custom_button = this.$form.find('.button.custom');
 			this.$submit_button = this.$form.find('.button.submit');
 			this.$cancel_button = this.$form.find('.button.cancel');
 
@@ -40,9 +43,8 @@ $(function ($) {
 
 		observe: function() {
 
-			this.$random_button.on('click', this.pickRandom);
 			this.$submit_button.on('click', this.formSubmitted);
-			this.$cancel_button.on('click', this.sendBackToSelectDifficultyLevelView);
+			this.$cancel_button.on('click', this.sendBackToSelectGenderView);
 
 			$(window).on('resize.app', _.bind(this.resize, this));
 
@@ -50,13 +52,16 @@ $(function ($) {
 
 		render: function() {
 		
-			this.$el.html(this.selectNumberOfCivsTemplate());
+			this.$el.html(this.selectTribeTemplate({
+				civs: this.civs
+			}));
 		
 		},
 
 		resize: function() {
 
 			this.setViewHeight();
+			this.positionElements();
 
 		},
 
@@ -69,16 +74,23 @@ $(function ($) {
 
 		},
 
-		sendBackToSelectDifficultyLevelView: function() {
+		positionElements: function() {
 
-			// Show the Select Difficult view.
-			new app.SelectDifficultyLevelView();
+			this.$image.center('x', this.$view);
+			this.$form.center('x', this.$view);
+
+		},
+
+		sendBackToSelectGenderView: function() {
+
+			// Show the Select Gender view.
+			new app.SelectGenderView();
 
 		},
 
 		setLastSelected: function() {
 
-			var last_selected = app.NewGame.getLastSelected('num_civs');
+			var last_selected = app.NewGame.getLastSelected('tribe');
 
 			if (last_selected !== null)
 				this.$fields
@@ -87,43 +99,25 @@ $(function ($) {
 
 		},
 
-		pickRandom: function() {
-
-			this.$fields.filter(':random').prop('checked', true);
-
-			this.formSubmitted();
-
-		},
-
 		formSubmitted: function() {
 
-			var numCivs = this.getSelectedNumberOfCivs();
+			var tribe = this.getSelectedTribe();
 
-			switch (numCivs)
+			if (this.civs[tribe] !== undefined)
 			{
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
+				app.NewGame.saveSetting('tribe', tribe);
 
-					app.NewGame.saveSetting('num_civs', numCivs);
-
-					// Show the Select Level of Barbarian Activity view.
-					new app.SelectBarbarianLevel();
-
-				break;
-				
-				default:
-
-					console.log('invalid selection!');
-
-				break;
+				// Show the Enter Your Name view.
+				new app.EnterYourNameView();
+			}
+			else
+			{
+				console.log('invalid selection!');
 			}
 
 		},
 
-		getSelectedNumberOfCivs: function() {
+		getSelectedTribe: function() {
 
 			var checked = this.$fields.filter(':checked');
 

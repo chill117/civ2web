@@ -13,7 +13,7 @@ $(function ($) {
 
 			_.bindAll(this);
 			
-			var html = app.Template.get('enter_your_name');
+			var html = app.Template.get('pre_game/enter_your_name');
 
 			this.enterNameTemplate = _.template(html);
 

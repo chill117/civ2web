@@ -64,14 +64,14 @@ class Custom
 			'collections/session.js',
 			'views/app.js',
 			'views/main_screen.js',
-			'views/select_world_size.js',
-			'views/select_difficulty_level.js',
-			'views/select_number_of_civs.js',
-			'views/select_barbarian_level.js',
-			'views/select_tribe.js',
-			'views/select_gender.js',
-			'views/select_city_style.js',
-			'views/enter_your_name.js',
+			'views/pre_game/select_world_size.js',
+			'views/pre_game/select_difficulty_level.js',
+			'views/pre_game/select_number_of_civs.js',
+			'views/pre_game/select_barbarian_level.js',
+			'views/pre_game/select_tribe.js',
+			'views/pre_game/select_gender.js',
+			'views/pre_game/select_city_style.js',
+			'views/pre_game/enter_your_name.js',
 			'views/game.js'
 		);
 

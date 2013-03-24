@@ -5,7 +5,7 @@ $(function ($) {
 
 	'use strict';
 
-	app.SelectDifficultyLevelView = Backbone.View.extend({
+	app.SelectNumberOfCivsView = Backbone.View.extend({
 
 		el: '#app',
 
@@ -13,9 +13,9 @@ $(function ($) {
 
 			_.bindAll(this);
 			
-			var html = app.Template.get('select_difficulty_level');
+			var html = app.Template.get('pre_game/select_number_of_civs');
 
-			this.selectDifficultyLevelTemplate = _.template(html);
+			this.selectNumberOfCivsTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
@@ -31,7 +31,8 @@ $(function ($) {
 			this.$view = this.$('.view');
 
 			this.$form = this.$('.window.form');
-			this.$fields = this.$form.find('input[name="difficulty_level"]');
+			this.$fields = this.$form.find('input[name="num_civs"]');
+			this.$random_button = this.$form.find('.button.random');
 			this.$submit_button = this.$form.find('.button.submit');
 			this.$cancel_button = this.$form.find('.button.cancel');
 
@@ -39,8 +40,9 @@ $(function ($) {
 
 		observe: function() {
 
+			this.$random_button.on('click', this.pickRandom);
 			this.$submit_button.on('click', this.formSubmitted);
-			this.$cancel_button.on('click', this.sendBackToMainScreen);
+			this.$cancel_button.on('click', this.sendBackToSelectDifficultyLevelView);
 
 			$(window).on('resize.app', _.bind(this.resize, this));
 
@@ -48,7 +50,7 @@ $(function ($) {
 
 		render: function() {
 		
-			this.$el.html(this.selectDifficultyLevelTemplate());
+			this.$el.html(this.selectNumberOfCivsTemplate());
 		
 		},
 
@@ -67,16 +69,16 @@ $(function ($) {
 
 		},
 
-		sendBackToMainScreen: function() {
+		sendBackToSelectDifficultyLevelView: function() {
 
-			// Show the Main Screen view.
-			new app.MainScreenView();
+			// Show the Select Difficult view.
+			new app.SelectDifficultyLevelView();
 
 		},
 
 		setLastSelected: function() {
 
-			var last_selected = app.NewGame.getLastSelected('difficulty_level');
+			var last_selected = app.NewGame.getLastSelected('num_civs');
 
 			if (last_selected !== null)
 				this.$fields
@@ -85,23 +87,30 @@ $(function ($) {
 
 		},
 
+		pickRandom: function() {
+
+			this.$fields.filter(':random').prop('checked', true);
+
+			this.formSubmitted();
+
+		},
+
 		formSubmitted: function() {
 
-			var difficultyLevel = this.getSelectedDifficultyLevel();
+			var numCivs = this.getSelectedNumberOfCivs();
 
-			switch (difficultyLevel)
+			switch (numCivs)
 			{
-				case 'chieftain':
-				case 'warlord':
-				case 'prince':
-				case 'king':
-				case 'emperor':
-				case 'deity':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
 
-					app.NewGame.saveSetting('difficulty_level', difficultyLevel);
+					app.NewGame.saveSetting('num_civs', numCivs);
 
-					// Show the Select Number of Civs view.
-					new app.SelectNumberOfCivsView();
+					// Show the Select Level of Barbarian Activity view.
+					new app.SelectBarbarianLevel();
 
 				break;
 				
@@ -114,7 +123,7 @@ $(function ($) {
 
 		},
 
-		getSelectedDifficultyLevel: function() {
+		getSelectedNumberOfCivs: function() {
 
 			var checked = this.$fields.filter(':checked');
 

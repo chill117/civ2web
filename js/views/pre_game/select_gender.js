@@ -13,7 +13,7 @@ $(function ($) {
 
 			_.bindAll(this);
 			
-			var html = app.Template.get('select_gender');
+			var html = app.Template.get('pre_game/select_gender');
 
 			this.selectGenderTemplate = _.template(html);
 
