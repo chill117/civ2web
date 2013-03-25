@@ -8,11 +8,27 @@ var app = app || {};
 	var Games = function() {
 
 		/*
+			Loads the game that is currently in progress.
+		*/
+		function loadGameInProgess() {
+
+			var game_id = app.Session.get('gameInProgress');
+
+			app.Game = app.Games.get(game_id);
+
+			// Show the Game view.
+			new app.GameView();
+
+		}
+
+		/*
 			Loads a game.
 		*/
 		function load(game_id) {
 
-			app.Session.set('gameInProgess', game_id);
+			app.Session.set('gameInProgress', game_id);
+
+			app.Game = app.Games.get(game_id);
 
 			// Show the Game view.
 			new app.GameView();
@@ -71,11 +87,12 @@ var app = app || {};
 		}
 
 		// "Public" methods.
-		this.load 			= load;
-		this.getAll 		= getAll;
-		this.get 			= get;
-		this.create 		= create;
-		this.calculateYear 	= calculateYear;
+		this.loadGameInProgess 	= loadGameInProgess;
+		this.load 				= load;
+		this.getAll 			= getAll;
+		this.get 				= get;
+		this.create 			= create;
+		this.calculateYear 		= calculateYear;
 
 		return this;
 

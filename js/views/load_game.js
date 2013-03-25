@@ -45,7 +45,7 @@ $(function ($) {
 
 			this.$submit_button.on('click', this.loadSelectedGame);
 
-			this.$cancel_button.on('click', this.cancel);
+			this.$cancel_button.on('click', this.destroy);
 
 		},
 
@@ -55,7 +55,7 @@ $(function ($) {
 
 		},
 
-		cancel: function() {
+		destroy: function() {
 
 			this.modal.remove();
 
@@ -68,13 +68,21 @@ $(function ($) {
 			var selectedGame = this.getSelectedGame();
 
 			if (selectedGame !== false)
+			{
+				this.destroy();
+
 				app.Games.load(selectedGame);
+			}
 
 		},
 
 		getSelectedGame: function() {
 
-			return false;
+			var list = this.GameListView.$el.find('.list');
+
+			var selectedGame = list.find('[data-id].selected');
+
+			return selectedGame.length > 0 ? selectedGame.data('id') : false;
 
 		}
 

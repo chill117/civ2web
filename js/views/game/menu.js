@@ -117,6 +117,10 @@ $(function ($) {
 				break;
 
 				case 'quit':
+
+					// Show the Quit Game view.
+					new app.QuitGameView();
+
 				break;
 
 				case 'tax_rate':

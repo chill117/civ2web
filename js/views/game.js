@@ -12,10 +12,6 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
-
-			var game_id = app.Session.get('gameInProgress');
-
-			app.Game = app.Games.get(game_id);
 			
 			var html = app.Template.get('game');
 

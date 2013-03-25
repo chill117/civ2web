@@ -104,6 +104,9 @@ img {
 		letter-spacing: 0;
 		padding: 10px;
 	}
+	.window.form .instructions {
+		margin-bottom: 10px;
+	}
 	.window.form .row {
 		display: inline-block;
 		width: 100%;

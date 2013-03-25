@@ -82,7 +82,7 @@ $(function ($) {
 				case 'load_game':
 
 					// Show the Load Game view.
-					// !!!
+					new app.LoadGameView();
 
 				break;
 				
@@ -200,10 +200,7 @@ $(function ($) {
 
 			var game_id = app.Games.create(game);
 
-			app.Session.set('gameInProgress', game_id);
-
-			// Show the Game view.
-			new app.GameView();
+			app.Games.load(game_id);
 
 		}
 

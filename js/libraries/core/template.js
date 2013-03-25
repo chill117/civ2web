@@ -26,6 +26,7 @@ var app = app || {};
 			'game/map',
 			'game/menu',
 			'game/mini_map',
+			'game/quit',
 			'game/status'
 		];
 

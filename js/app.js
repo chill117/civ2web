@@ -26,8 +26,7 @@ $(function () {
 	function start()
 	{
 		if (app.Session.hasGameInProgess())
-			// Continue their game.
-			new app.GameView();
+			app.Games.loadGameInProgess();
 		else
 			// Otherwise, fire up the Main Screen.
 			new app.MainScreenView();
