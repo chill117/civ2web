@@ -27,7 +27,7 @@ img {
 .view {
 	position: relative;
 	display: block;
-	width: 100%;
+	width: auto;
 	margin: 36px 108px;
 }
 
