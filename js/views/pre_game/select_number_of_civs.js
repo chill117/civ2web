@@ -89,7 +89,7 @@ $(function ($) {
 
 		pickRandom: function() {
 
-			this.$fields.filter(':random').prop('checked', true);
+			this.$fields.random().prop('checked', true);
 
 			this.formSubmitted();
 
