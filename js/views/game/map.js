@@ -55,20 +55,23 @@ $(function ($) {
 
 			mapWindow.setWidth('80%').setHeight('100%');
 
-			this.$map.
-				attr({
-					'width' 	: this.$map.parent().width(),
-					'height' 	: this.$map.parent().height()
-				});
-
 		},
 
 		drawMap: function() {
 
+			var width = app.Game.settings.width;
+			var height = app.Game.settings.height;
+
 			var options = {};
 
-			options.width = app.Game.settings.width;
-			options.height = app.Game.settings.height;
+			options.width = width;
+			options.height = height;
+
+			this.$map.
+					attr({
+						'width' 	: (width + 1) * 32,
+						'height' 	: (height + 1) * 16
+					});
 
 			app.MapDraw(this.$map, app.Game.tiles, options).draw();
 
