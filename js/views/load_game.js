@@ -65,13 +65,15 @@ $(function ($) {
 
 		loadSelectedGame: function() {
 
-			var selectedGame = this.getSelectedGame();
+			var game_id = this.getSelectedGame();
 
-			if (selectedGame !== false)
+			if (game_id !== false)
 			{
 				this.destroy();
 
-				app.Games.load(selectedGame);
+				app.Games.load(game_id);
+
+				app.Session.set('gameInProgress', game_id);
 			}
 
 		},

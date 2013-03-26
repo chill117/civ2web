@@ -26,10 +26,16 @@ $(function () {
 	function start()
 	{
 		if (app.Session.hasGameInProgess())
-			app.Games.loadGameInProgess();
+		{
+			var game_id = app.Session.get('gameInProgress');
+
+			app.Games.load(game_id);
+		}
 		else
+		{
 			// Otherwise, fire up the Main Screen.
 			new app.MainScreenView();
+		}
 	}
 
 	function add_ready_listeners()

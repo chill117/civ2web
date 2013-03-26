@@ -59,21 +59,20 @@ $(function ($) {
 
 		drawMap: function() {
 
-			var width = app.Game.settings.width;
-			var height = app.Game.settings.height;
+			var settings = app.Game.get('settings');
 
 			var options = {};
 
-			options.width = width;
-			options.height = height;
+			options.width = settings.width;
+			options.height = settings.height;
 
 			this.$map.
 					attr({
-						'width' 	: (width + 1) * 32,
-						'height' 	: (height + 1) * 16
+						'width' 	: (settings.width + 1) * 32,
+						'height' 	: (settings.height + 1) * 16
 					});
 
-			app.MapDraw(this.$map, app.Game.tiles, options).draw();
+			app.MapDraw(this.$map, app.Game.get('tiles'), options).draw();
 
 		}
 

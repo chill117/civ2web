@@ -136,23 +136,26 @@ img {
 	}
 	.window.form:not(#foo) input[type="radio"] + label:before,
 	.window.form:not(#foo) input[type="checkbox"] + label:before {
+		position: relative;
+		top: 2px;
 		display: inline-block;
 		content: ' ';
 		background: transparent url('../images/forms/ui.png') 0 0 no-repeat;
-		margin-right: 10px;
 	}
 	.window.form:not(#foo) input[type="checkbox"] + label:before {
 		width: 24px;
-		height: 19px;
-		background-position: 0 -18px;
+		height: 18px;
+		margin-right: 6px;
 	}
 	.window.form:not(#foo) input[type="checkbox"]:checked + label:before {
+		height: 19px;
 		background-position: 0 -18px;
 	}
 	.window.form:not(#foo) input[type="radio"] + label:before {
 		width: 18px;
 		height: 18px;
 		background-position: 0 -37px;
+		margin-right: 10px;
 	}
 	.window.form:not(#foo) input[type="radio"]:checked + label:before {
 		background-position: 0 -55px;
@@ -557,13 +560,14 @@ img {
 	.view.game .window.map .content {
 		position: relative;
 		overflow: hidden;
+		background: #000;
 	}
 	.view.game .window.map .content #map {
 		position: absolute;
 		left: 0;
 		top: 0;
 		display: block;
-		background: #000;
+		background: transparent;
 	}
 	/*  Map  */
 

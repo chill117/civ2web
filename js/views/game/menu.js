@@ -98,9 +98,17 @@ $(function ($) {
 			switch (action)
 			{
 				case 'game_options':
+
+					// Show the Game Options view.
+					new app.GameOptionsView();
+
 				break;
 
 				case 'city_report_options':
+
+					// Show the City Report Options view.
+					new app.CityReportOptionsView();
+
 				break;
 
 				case 'save_game':

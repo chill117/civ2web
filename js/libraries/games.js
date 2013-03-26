@@ -8,27 +8,11 @@ var app = app || {};
 	var Games = function() {
 
 		/*
-			Loads the game that is currently in progress.
-		*/
-		function loadGameInProgess() {
-
-			var game_id = app.Session.get('gameInProgress');
-
-			app.Game = app.Games.get(game_id);
-
-			// Show the Game view.
-			new app.GameView();
-
-		}
-
-		/*
 			Loads a game.
 		*/
 		function load(game_id) {
 
-			app.Session.set('gameInProgress', game_id);
-
-			app.Game = app.Games.get(game_id);
+			app.Game = get(game_id);
 
 			// Show the Game view.
 			new app.GameView();
@@ -51,7 +35,7 @@ var app = app || {};
 
 			var data = app.GamesCollection.localStorage.find({id: game_id});
 
-			return data !== null ? data : null;
+			return data !== null ? new Game(data) : null;
 
 		}
 
@@ -87,12 +71,45 @@ var app = app || {};
 		}
 
 		// "Public" methods.
-		this.loadGameInProgess 	= loadGameInProgess;
 		this.load 				= load;
 		this.getAll 			= getAll;
 		this.get 				= get;
 		this.create 			= create;
 		this.calculateYear 		= calculateYear;
+
+		return this;
+
+	}
+
+	var Game = function(data) {
+
+		/*
+			Get the value of the given attribute.
+		*/
+		function get(attribute) {
+
+			return data[attribute] !== undefined ? data[attribute] : null;
+
+		}
+
+		/*
+			Set the value for the given attribute.
+		*/
+		function set(attribute, value) {
+
+			data[attribute] = value;
+
+			var model = new app.GameModel(data);
+
+			app.GamesCollection.update([model]);
+
+			model.save();
+
+		}
+
+		// "Public" methods.
+		this.get = get;
+		this.set = set;
 
 		return this;
 

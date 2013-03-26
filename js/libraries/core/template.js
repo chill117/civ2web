@@ -23,6 +23,8 @@ var app = app || {};
 			'pre_game/select_tribe',
 			'pre_game/select_world_size',
 			'game',
+			'game/city_report_options',
+			'game/game_options',
 			'game/map',
 			'game/menu',
 			'game/mini_map',

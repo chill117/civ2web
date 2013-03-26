@@ -202,6 +202,8 @@ $(function ($) {
 
 			app.Games.load(game_id);
 
+			app.Session.set('gameInProgress', game_id);
+
 		}
 
 		initialize();
