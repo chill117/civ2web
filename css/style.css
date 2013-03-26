@@ -134,23 +134,28 @@ img {
 	.window.form:not(#foo) input[type="checkbox"] {
 		display: none;
 	}
-	.window.form:not(#foo) input[type="radio"] + label:before {
-		content: url('../images/forms/radio_unchecked.png');
-		width: 18px;
-		height: 18px;
+	.window.form:not(#foo) input[type="radio"] + label:before,
+	.window.form:not(#foo) input[type="checkbox"] + label:before {
+		display: inline-block;
+		content: ' ';
+		background: transparent url('../images/forms/ui.png') 0 0 no-repeat;
 		margin-right: 10px;
 	}
 	.window.form:not(#foo) input[type="checkbox"] + label:before {
-		content: url('../images/forms/checkbox_unchecked.png');
 		width: 24px;
 		height: 19px;
-		margin-right: 10px;
-	}
-	.window.form:not(#foo) input[type="radio"]:checked + label:before {
-		content: url('../images/forms/radio_checked.png');
+		background-position: 0 -18px;
 	}
 	.window.form:not(#foo) input[type="checkbox"]:checked + label:before {
-		content: url('../images/forms/checkbox_checked.png');
+		background-position: 0 -18px;
+	}
+	.window.form:not(#foo) input[type="radio"] + label:before {
+		width: 18px;
+		height: 18px;
+		background-position: 0 -37px;
+	}
+	.window.form:not(#foo) input[type="radio"]:checked + label:before {
+		background-position: 0 -55px;
 	}
 	/*  Forms  */
 
@@ -509,18 +514,22 @@ img {
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="bronze"] + label:before,
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="bronze"]:checked + label:before {
 		content: url('../images/forms/city_style_bronze.png');
+		background: transparent;
 	}
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="classical"] + label:before,
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="classical"]:checked + label:before {
 		content: url('../images/forms/city_style_classical.png');
+		background: transparent;
 	}
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="far_east"] + label:before,
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="far_east"]:checked + label:before {
 		content: url('../images/forms/city_style_far_east.png');
+		background: transparent;
 	}
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="medieval"] + label:before,
 	.view.select_city_style .window.form:not(#foo) input[type="radio"][value="medieval"]:checked + label:before {
 		content: url('../images/forms/city_style_medieval.png');
+		background: transparent;
 	}
 	/*  Form  */
 
