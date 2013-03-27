@@ -18,19 +18,8 @@ $(function ($) {
 			this.statusWindowTemplate = _.template(html);
 
 			this.render();
-			this.define_elements();
 			this.observe();
 			this.resize();
-
-		},
-
-		define_elements: function() {
-
-		},
-
-		observe: function() {
-
-			$(window).on('resize.app', _.bind(this.resize, this));
 
 		},
 
@@ -38,6 +27,12 @@ $(function ($) {
 		
 			this.$el.html(this.statusWindowTemplate());
 		
+		},
+
+		observe: function() {
+
+			$(window).on('resize.app', _.bind(this.resize, this));
+
 		},
 
 		resize: function() {

@@ -10,6 +10,10 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+			
+			var html = app.Template.get('game/city_report_options');
+
+			this.cityReportOptionsTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
@@ -20,22 +24,18 @@ $(function ($) {
 
 		},
 
+		render: function() {
+
+			this.modal = new app.Modal(this.cityReportOptionsTemplate());
+
+		},
+
 		define_elements: function() {
 
 			this.$fields = this.modal.find(':input');
 
 			this.$submit_button = this.modal.find('.submit.button');
 			this.$cancel_button = this.modal.find('.cancel.button');
-
-		},
-
-		render: function() {
-			
-			var html = app.Template.get('game/city_report_options');
-
-			this.cityReportOptionsTemplate = _.template(html);
-
-			this.modal = new app.Modal(this.cityReportOptionsTemplate());
 
 		},
 

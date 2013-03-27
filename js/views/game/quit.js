@@ -10,6 +10,10 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+			
+			var html = app.Template.get('game/quit');
+
+			this.quitGameTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
@@ -19,10 +23,6 @@ $(function ($) {
 		},
 
 		render: function() {
-			
-			var html = app.Template.get('game/quit');
-
-			this.quitGameTemplate = _.template(html);
 
 			this.modal = new app.Modal(this.quitGameTemplate());
 

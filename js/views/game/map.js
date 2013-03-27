@@ -26,6 +26,17 @@ $(function ($) {
 
 		},
 
+		render: function() {
+
+			var data = {};
+
+			data.tribe = {};
+			data.tribe.label = 'Vikings';
+		
+			this.$el.html(this.mapWindowTemplate(data));
+		
+		},
+
 		define_elements: function() {
 
 			this.$map = this.$('#map');
@@ -36,17 +47,6 @@ $(function ($) {
 
 			$(window).on('resize.app', _.bind(this.resize, this));
 
-		},
-
-		render: function() {
-
-			var data = {};
-
-			data.tribe = {};
-			data.tribe.label = 'Vikings';
-		
-			this.$el.html(this.mapWindowTemplate(data));
-		
 		},
 
 		resize: function() {

@@ -5,37 +5,36 @@ $(function ($) {
 
 	'use strict';
 
-	app.GameOptionsView = Backbone.View.extend({
+	app.TaxRateView = Backbone.View.extend({
 
 		initialize: function() {
 
 			_.bindAll(this);
 			
-			var html = app.Template.get('game/game_options');
+			var html = app.Template.get('game/tax_rate');
 
-			this.gameOptionsTemplate = _.template(html);
+			this.taxRateTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
 			this.observe();
 			this.resize();
 
-			this.setSelected();
+			this.setCurrentValues();
 
 		},
 
 		render: function() {
 
-			this.modal = new app.Modal(this.gameOptionsTemplate());
+			this.modal = new app.Modal(this.taxRateTemplate());
 
 		},
 
 		define_elements: function() {
 
-			this.$fields = this.modal.find(':input');
+			this.$sliders = this.modal.find('.sliders');
 
 			this.$submit_button = this.modal.find('.submit.button');
-			this.$cancel_button = this.modal.find('.cancel.button');
 
 		},
 
@@ -44,7 +43,6 @@ $(function ($) {
 			$(window).on('resize.app', _.bind(this.resize, this));
 
 			this.$submit_button.on('click', this.saveOptions);
-			this.$cancel_button.on('click', this.destroy);
 
 		},
 
@@ -62,7 +60,7 @@ $(function ($) {
 
 		},
 
-		setSelected: function() {
+		setCurrentValues: function() {
 
 			var options = app.Game.get('gameOptions');
 

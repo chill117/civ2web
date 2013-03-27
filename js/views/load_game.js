@@ -10,6 +10,10 @@ $(function ($) {
 		initialize: function() {
 
 			_.bindAll(this);
+			
+			var html = app.Template.get('load_game');
+
+			this.loadGameTemplate = _.template(html);
 
 			this.render();
 			this.define_elements();
@@ -21,21 +25,17 @@ $(function ($) {
 
 		},
 
+		render: function() {
+
+			this.modal = new app.Modal(this.loadGameTemplate());
+
+		},
+
 		define_elements: function() {
 
 			this.$content = this.modal.find('.content');
 			this.$submit_button = this.modal.find('.submit.button');
 			this.$cancel_button = this.modal.find('.cancel.button');
-
-		},
-
-		render: function() {
-			
-			var html = app.Template.get('load_game');
-
-			this.loadGameTemplate = _.template(html);
-
-			this.modal = new app.Modal(this.loadGameTemplate());
 
 		},
 

@@ -25,6 +25,12 @@ $(function ($) {
 
 		},
 
+		render: function() {
+		
+			this.$el.html(this.mainScreenTemplate());
+		
+		},
+
 		define_elements: function() {
 
 			this.$view = this.$('.view');
@@ -41,12 +47,6 @@ $(function ($) {
 
 			$(window).on('resize.app', _.bind(this.resize, this));
 
-		},
-
-		render: function() {
-		
-			this.$el.html(this.mainScreenTemplate());
-		
 		},
 
 		resize: function() {

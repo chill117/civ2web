@@ -26,6 +26,12 @@ $(function ($) {
 
 		},
 
+		render: function() {
+		
+			this.$el.html(this.miniMapTemplate());
+		
+		},
+
 		define_elements: function() {
 			
 			this.$mini_map = this.$('#mini-map');
@@ -50,12 +56,6 @@ $(function ($) {
 					'height' 	: this.$mini_map.parent().height()
 				});
 
-		},
-
-		render: function() {
-		
-			this.$el.html(this.miniMapTemplate());
-		
 		},
 
 		drawMiniMap: function() {
