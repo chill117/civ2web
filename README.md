@@ -5,5 +5,5 @@ This was my attempt at reverse engineering the epic turn-based strategy game, Ci
 
 
 TODO
-=======
+-------------
 * Remove PHP Server-Side dependency.
