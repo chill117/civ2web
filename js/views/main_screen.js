@@ -72,7 +72,7 @@ $(function ($) {
 			{
 				case 'new_game':
 
-					app.NewGame = new newGame();
+					app.NewGame = app.Games.prepareNewGame();
 
 					// Show the Select World Size view.
 					new app.SelectWorldSizeView();
@@ -105,118 +105,5 @@ $(function ($) {
 
 
 	});
-
-	/*
-		For storing the settings for a new game.
-
-		Uses the Session library to store previous setting choices.
-	*/
-	var newGame =  function() {
-
-		/*
-			Stores all the settings for this new game.
-		*/
-		var settings = {};
-
-		function initialize() {
-
-			prepareSessionVariables();
-
-		}
-
-		function prepareSessionVariables() {
-
-			if (app.Session.get('lastSelected') === null)
-				app.Session.set('lastSelected', {});
-
-		}
-
-		function getAllSettings() {
-
-			return settings;
-
-		}
-
-		function getSetting(name) {
-
-			return settings[name] !== undefined ? settings[name] : null;
-			
-		}
-
-		function saveSetting(name, value) {
-
-			settings[name] = value;
-
-			saveLastSelected(name, value);
-
-		}
-
-		function getLastSelected(name) {
-
-			var lastSelected = app.Session.get('lastSelected');
-
-			return lastSelected[name] !== undefined ? lastSelected[name] : null;
-			
-		}
-
-		function saveLastSelected(name, value) {
-
-			var lastSelected = app.Session.get('lastSelected');
-
-			lastSelected[name] = value;
-
-			app.Session.set('lastSelected', lastSelected);
-
-		}
-
-		function start() {
-
-			var game = {};
-
-			game.settings = app.NewGame.getAllSettings();
-
-			var dimensions = game.settings.world_size.split('x');
-
-			var options = {
-				'width' 		: parseInt(dimensions[0]),
-				'height' 		: parseInt(dimensions[1]),
-				'land_mass' 	: 'normal',
-				'land_form' 	: 'continents',
-				'climate' 		: 'temperate',
-				'temperature' 	: 'normal',
-				'age' 			: '4b',
-				'flat' 			: false,
-				'num_civs' 		: game.settings.num_civs
-			};
-
-			game.settings.width = options.width;
-			game.settings.height = options.height;
-
-			var MapGenerator = new app.MapGenerator(options);
-
-			var tiles = MapGenerator.seed();
-
-			game.tiles = tiles;
-
-			var game_id = app.Games.create(game);
-
-			app.Games.load(game_id);
-
-			app.Session.set('gameInProgress', game_id);
-
-		}
-
-		initialize();
-
-		// "Public" methods.
-		this.getAllSettings 	= getAllSettings;
-		this.getSetting 		= getSetting;
-		this.saveSetting 		= saveSetting;
-		this.getLastSelected 	= getLastSelected;
-		this.start 				= start;
-
-		return this;
-
-	}
 
 });

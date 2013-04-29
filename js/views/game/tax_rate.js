@@ -62,7 +62,7 @@ $(function ($) {
 
 		setCurrentValues: function() {
 
-			var options = app.Game.get('gameOptions');
+			var options = app.Game.get('tax_rate');
 
 			var _this = this;
 
@@ -76,18 +76,18 @@ $(function ($) {
 
 		},
 
-		saveOptions: function() {
+		saveValues: function() {
 
-			var options = this.getOptions();
+			var values = this.getValues();
 
-			app.Game.set('gameOptions', options);
+			app.Game.set('tax_rate', values);
 
 			// Don't need this view anymore.
 			this.destroy();
 
 		},
 
-		getOptions: function() {
+		getValues: function() {
 
 			var options = {};
 
