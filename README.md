@@ -9,4 +9,3 @@ I have not been able to figure out the copyright holder(s) for the original artw
 
 
 ## TODO
-* Remove PHP Server-Side dependency.
